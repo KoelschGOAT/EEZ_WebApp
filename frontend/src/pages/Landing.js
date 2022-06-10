@@ -1,63 +1,42 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AppContext from "../utils/AppContext";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
 import axios from "axios";
-
+import Cards from "./Card";
+import { useNavigate } from "react-router-dom";
+import { Grid } from "@material-ui/core";
 function Landing() {
-  const {videos,setVideos}= useContext(AppContext);
-const [vids,setVids] = useState([])
-    const getVideos = async()=>{await axios.get('http://127.0.0.1:8000/api/videos').then(resp => {
+    let navigate = useNavigate();
+    const { videos, setVideos } = useContext(AppContext);
+    const [vids, setVids] = useState([])
+    const getVideos = async () => {
+        await axios.get('http://127.0.0.1:8000/api/videos').then(resp => {
 
-        console.log(resp.data);
-        setVids(resp.data);
+            setVids(resp.data);
 
-    });}
-    let link =
-    useEffect(()=>{
+        });
+    }
+
+
+    window.title = "Übersicht"
+    useEffect(() => {
         getVideos()
-    },[videos]);
-  return (
-    <div>Landing
+    }, [videos]);
+    return (
+        <div><h1>Übersicht</h1>
 
-        <div>
-      {vids.map((video)=>(
-          <Card sx={{ maxWidth: 345 }} key={video.id}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="140"
-              image={`http://127.0.0.1:8000${video.screenshot}`}
-              alt="green iguana"
-              />
-              <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                      {video.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                      {video.subtitle}
-                  </Typography>
-              </CardContent>
-          </CardActionArea>
-      </Card>
+            <Grid container spacing={3}>
 
-      ))}
-            {vids.map((video)=>(
-            <video width="320" height="240" controls>
-                <source src={`http://127.0.0.1:8000${video.video}`} type="video/mp4"/>
+                {vids.map((video) => (
+                    <Grid item xs={2}> <Cards video={video} /></Grid>
+                ))}
 
-                Your browser does not support the video tag.
-            </video>))}
+            </Grid>
+
+
         </div>
 
 
-    </div>
-
-
-  )
+    )
 }
 
 
