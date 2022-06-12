@@ -9,6 +9,7 @@ import SingleVideo from "../pages/SingleVideo"
 import AppContext,{AppProvider} from "./AppContext";
 import Landing from '../pages/Landing'
 import Navbar from "../components/Navbar";
+import AddVideo from "../components/AddVideo"
 function Routing() {
     return (
         <Router>
@@ -17,6 +18,7 @@ function Routing() {
                 <Routes>
                     <Route exact path="/" element={<Landing />}></Route>
                     <Route path="/SingleVideo" element={<SingleVideo/>}></Route>
+                    <Route path="/AddVideo" element={<AddVideo />}></Route>
                 </Routes>
             </AppProvider>
         </Router>

@@ -7,6 +7,12 @@ export default AppContext;
 export const AppProvider = ({ children }) => {
 
     const [videos,setVideos]  = useState();
+    const [language,setLanguage] = useState(() =>
+    localStorage.getItem("language")
+      ? JSON.parse(localStorage.getItem("language"))
+      : "german"
+  );
+    
 
 
 
