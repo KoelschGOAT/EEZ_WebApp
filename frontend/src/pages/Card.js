@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
-import AppContext from "../utils/AppContext";
+import React from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {Grid} from "@material-ui/core";
 const Cards = ({video}) => {
     let navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }} key={video.id} onClick={()=>{navigate("/SingleVideo", { replace: false, state: { video } })}}>
+    <Card sx={{ maxWidth: 345 }}  onClick={()=>{navigate("/SingleVideo", { replace: false, state: { video } })}}>
     <CardActionArea>
         <CardMedia
             component="img"
