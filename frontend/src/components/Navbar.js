@@ -21,7 +21,7 @@ const Navbar = () => {
     <div>
       <nav className="navbar non-printable">
         <div>
-          <li className="brand-title gradient"><Link to="/"><img className="logo" src={enercon_logo}></img></Link></li>
+          <li className="brand-title gradient"><img className="logo" src={enercon_logo}></img></li>
         </div>
         <a href="#" className="toggle-button" onClick={() => handleOnClick()}>
           <span className="bar"></span>
@@ -58,14 +58,14 @@ const Navbar = () => {
             )}
             <li>
               <Link
-                to={videos ? "/login" : "/logout"}
+                to={videos ? "/logout" : "/login"}
                 onClick={() => { handleOnCheck() }}
               >
                 {videos ? "Logout" : "Login"}
               </Link>
 
             </li>
-            <li className="back" onClick={() => navigate(-1)}>
+            <li className="back" onClick={() => {navigate(-1);handleOnClick()}}>
               <span>Back</span>
             </li>
             {videos !== null && (
