@@ -5,6 +5,7 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import AppContext from "../utils/AppContext";
 import Router, { useNavigate, Link, useLocation } from "react-router-dom";
 const Navbar = () => {
+  const location = useLocation();
   const { videos } = useContext(AppContext);
   //toggle navigation button on mobile view
   const [isActive, setIsActive] = useState(false);
@@ -65,9 +66,9 @@ const Navbar = () => {
               </Link>
 
             </li>
-            <li className="back" onClick={() => {navigate(-1);handleOnClick()}}>
+            {location.pathname!=="/"&& (<li className="back" onClick={() => {navigate(-1);handleOnClick()}}>
               <span>Back</span>
-            </li>
+            </li>)}
             {videos !== null && (
               <li className="notClickable">
                 <Link to="/">{videos?.title}</Link>

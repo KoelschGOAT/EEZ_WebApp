@@ -1,0 +1,13 @@
+.title{
+    margin-left: 4rem;
+}
+.greenstripe{
+    
+    border-bottom:2px solid hsl(173, 100%, 17%);
+    
+    margin:0px 3px 0px 0px;
+}
+.redstripe{
+    border-bottom:2px solid hsl(341, 100%, 45%);
+    margin:0px 3px 0px 0px; 
+}

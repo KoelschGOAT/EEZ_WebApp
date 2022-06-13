@@ -24,8 +24,8 @@ def video_view(request):
         serializer = VideoSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
     elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = VideoSerializer(data=data)
+        
+        serializer = VideoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED )
