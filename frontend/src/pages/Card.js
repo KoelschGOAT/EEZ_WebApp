@@ -18,7 +18,7 @@ const Cards = ({ video }) => {
                 <CardMedia
                     component="img"
                     height="140"
-                    image={`http://127.0.0.1:8000${video.screenshot}`}
+                    image={`http://localhost:8000${video.screenshot}`}
                     alt={video.title}
                 />
                 <CardContent>

@@ -16,10 +16,12 @@ def video_view(request):
 
 
     """
-    Get all non defect Devices and add a Device
+    Get all Video Objects and add an Object
     """
+    
     if request.method == 'GET':
-
+        print(request.META)
+        print(request.headers)
         queryset = Video.objects.all()
         serializer = VideoSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)

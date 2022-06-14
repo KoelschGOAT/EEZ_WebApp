@@ -1,13 +1,11 @@
-.back{
-    margin-top:5px;
-    width: 145px;
-    height:45px;
-    border-radius:25px;
-    border:none;
-    background-color:hsl(341, 100%, 45%);
-    cursor:pointer;
-}
-.video{
+.wrapper{
     display:flex;
-    position:fixed;
+    flex-direction: row;
+
+}
+
+.video{
+    padding:2rem;
+    width:50%;
+    height:auto;
 }
