@@ -1,13 +1,40 @@
-.title{
-    margin-left: 4rem;
+.container .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 400px);
+    grid-template-rows: repeat(3);
+    justify-content: center;
+    grid-gap: 8%;
 }
-.greenstripe{
-    
-    border-bottom:2px solid hsl(173, 100%, 17%);
-    
-    margin:0px 3px 0px 0px;
+
+.container .title {
+    margin-left: 8%;
 }
-.redstripe{
-    border-bottom:2px solid hsl(341, 100%, 45%);
-    margin:0px 3px 0px 0px; 
+
+.container .greenstripe {
+
+    border-bottom: 2px solid hsl(173, 100%, 17%);
+
+    margin: 0px 3px 0px 0px;
+}
+
+.container .redstripe {
+    border-bottom: 2px solid hsl(341, 100%, 45%);
+    margin: 0px 3px 0px 0px;
+}
+
+@media only screen and (max-width: 640px) {
+    .container{
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        
+    }
+    .container .grid {
+        display: block;
+        justify-content: center;
+        
+    }
+    .container .title {
+        margin-left:0%;
+    }
 }

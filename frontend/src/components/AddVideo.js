@@ -30,7 +30,7 @@ const AddVideo = () => {
   }
   function handleSubmit(event) {
     event.preventDefault()
-    const url = 'http://localhost:8000/api/videos';
+    const url = 'http://192.168.178.21:8000/api/videos';
     const formData = new FormData();
     formData.append('video', videoFile);
     formData.append('screenshot', screenshotFile);

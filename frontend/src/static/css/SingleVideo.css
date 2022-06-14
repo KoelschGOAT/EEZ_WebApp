@@ -1,11 +1,25 @@
-.wrapper{
-    display:flex;
+.wrapper {
+    display: flex;
     flex-direction: row;
 
 }
 
-.video{
-    padding:2rem;
-    width:50%;
-    height:auto;
+.video {
+    padding: 2rem;
+    width: 50%;
+    height: auto;
+}
+
+@media only screen and (max-width: 640px) {
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video {
+        width: 100%;
+        padding: 1rem;
+        
+    }
 }

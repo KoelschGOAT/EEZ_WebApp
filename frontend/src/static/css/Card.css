@@ -1,0 +1,12 @@
+@media only screen and (max-width: 640px) {
+    .wrapper {
+       /* Place Cards on Center of the Screen */
+        align-items: center;
+    }
+    .Card {
+        width: 90%;
+        height: auto;
+        margin-top: 1rem;
+        
+    }
+}

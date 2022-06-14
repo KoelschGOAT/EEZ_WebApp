@@ -21,7 +21,7 @@ def video_view(request):
     
     if request.method == 'GET':
         print(request.META)
-        print(request.headers)
+        print(request.META["REMOTE_ADDR"])
         queryset = Video.objects.all()
         serializer = VideoSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)

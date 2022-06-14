@@ -22,7 +22,7 @@ const Navbar = () => {
     <div>
       <nav className="navbar non-printable">
         <div>
-          <li className="brand-title gradient"><img className="logo" src={enercon_logo}></img></li>
+          <li className="brand-title gradient"onClick={() => {navigate("/")}}><img className="logo" src={enercon_logo}></img></li>
         </div>
         <a href="#" className="toggle-button" onClick={() => handleOnClick()}>
           <span className="bar"></span>

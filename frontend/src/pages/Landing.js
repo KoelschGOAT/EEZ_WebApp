@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useCallback, useState } from 'react'
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import AppContext from "../utils/AppContext";
 import axios from "axios";
 import Cards from "./Card";
 import { Grid } from '@mui/material';
 import { spacing } from '@mui/system';
+import "../static/css/Landing.css";
 function Landing() {
-   console.log(window.location)
+    console.log(window.location)
     const { videos, setVideos } = useContext(AppContext);
     const getVideos = useCallback(async () => {
-        await axios.get('http://localhost:8000/api/videos').then(resp => {
+        await axios.get('http://192.168.178.21:8000/api/videos').then(resp => {
 
             setVideos(resp.data);
 
@@ -21,18 +22,23 @@ function Landing() {
         getVideos()
     }, [getVideos]);
     return (
-        <div>
-            <h1 className="title" ><span className="greenstripe">ENERCON</span><span className="redstripe">Filme</span></h1>
+        <div className="container">
+            <h1 className="title" >
+                <span className="greenstripe">ENERCON</span>
+                <span className="redstripe">Filme</span>
+            </h1>
 
-            <Grid container sx={{ ml: "1.5rem", mr: "1.5rem" }} spacing={4.5}>
 
-                {videos?.map((video) => (
-                    <Grid key={video?.id} item xs={2} sm={4} md={4}>
-                        <Cards video={video} />
-                    </Grid>
-                ))}
+            <div className="grid">
+                {
+                videos?.map((video) => (
 
-            </Grid>
+                    <Cards key={video?.id} video={video} />
+
+                ))}</div>
+
+
+
 
 
         </div>
