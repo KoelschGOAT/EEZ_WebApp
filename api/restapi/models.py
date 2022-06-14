@@ -12,6 +12,10 @@ class Video(models.Model):
     subtitle = models.CharField(max_length=200)
     published = models.DateTimeField(default=timezone.now)
 """ class PC(models.Model):
-    ip_address=models.CharField(max_length=15)
-    is_active=models.BooleanField(default=True)
+        ip_address=models.CharField(max_length=15)
+        is_active=models.BooleanField(default=True)
+        Videos = models.ManyToManyField(Video)
+        class Meta:
+            ordering=["ip_address"]
+
      """
