@@ -1,3 +1,4 @@
+from ipaddress import ip_address
 from django.db import models
 from datetime import datetime
 from django.utils import timezone
@@ -10,3 +11,7 @@ class Video(models.Model):
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=200)
     published = models.DateTimeField(default=timezone.now)
+""" class PC(models.Model):
+    ip_address=models.CharField(max_length=15)
+    is_active=models.BooleanField(default=True)
+     """
