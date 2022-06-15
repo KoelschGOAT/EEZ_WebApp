@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from .serializers import VideoSerializer
-from .models import Video
+from .models import Video,PC
 from rest_framework import status
 
 from django.http import HttpResponse, JsonResponse
@@ -13,17 +13,18 @@ def index(request):
 
 @api_view(['GET', 'POST'])
 def video_view(request):    
-    client_ip_address="REMOTE_ADDR"    
-
+    REMOTE_ADDR="REMOTE_ADDR"    
+    client_ip_address=request.META[REMOTE_ADDR]
     """
     Get all Video Objects and add an Object
     """
     
     if request.method == 'GET':
-        print(request.META)
-        print(request.META[client_ip_address])
-        queryset = Video.objects.all()
-        serializer = VideoSerializer(queryset, many=True)
+        
+        requested_pc = PC.objects.get(ip_address=client_ip_address)
+        query=requested_pc.Videos.all()
+        #queryset = Video.objects.all()
+        serializer = VideoSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
     elif request.method == 'POST':
         

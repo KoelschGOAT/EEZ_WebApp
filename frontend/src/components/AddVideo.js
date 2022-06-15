@@ -1,25 +1,29 @@
 import React, { useState } from 'react'
-import {FaCheckCircle} from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import "../static/css/AddVideo.css";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+//TODO: video state update after video add, now: redirect after upload to landing page with old data
+
 const AddVideo = () => {
-  const notification = ( message ) => toast.success(message);
-  const navigate = useNavigate();
+
+
   const [screenshotFile, setScreenshotFile] = useState()
   const [videoFile, setVideoFile] = useState()
   const [title, setTitle] = useState();
   const [subTitle, setSubTitle] = useState();
-
+  const notification = (message) => toast.success(message);
+  const navigate = useNavigate();
   function handleOnChangeVideo(event) {
 
     setVideoFile(event.target.files[0])
-    notification( "Video ausgewält" )
+    notification("Video ausgewält")
   }
   function handleOnChangeScreenshot(event) {
-    notification( "Screenshot ausgewält" )
+    notification("Screenshot ausgewält")
     setScreenshotFile(event.target.files[0])
   }
   function handleTitle(event) {
@@ -32,7 +36,7 @@ const AddVideo = () => {
   }
   function handleSubmit(event) {
     event.preventDefault()
-    const url = 'http://172.16.81.73:8000/api/videos';
+    const url = 'http://192.168.178.21:8000/api/videos';
     const formData = new FormData();
     formData.append('video', videoFile);
     formData.append('screenshot', screenshotFile);
@@ -47,52 +51,52 @@ const AddVideo = () => {
 
   return (
     <div className="container">
-    <div className="flexContainer">
-      <div className="AddVideo">
-        <form onSubmit={handleSubmit}>
+      <div className="flexContainer">
+        <div className="AddVideo">
+          <form onSubmit={handleSubmit}>
 
-          <h1 className="title">Neues Video Hinzufügen
-          </h1>
-          <div className="fileWrapper">
+            <h1 className="title">Neues Video Hinzufügen
+            </h1>
+            <div className="fileWrapper">
 
-            <label className="uploadLabel">
-              <input className="fileUpload" type="file" placeholder="Video" onChange={handleOnChangeVideo} />
-              
-              {videoFile? <FaCheckCircle/>:"Upload Video"}
+              <label className="uploadLabel">
+                <input className="fileUpload" type="file" placeholder="Video" onChange={handleOnChangeVideo} />
 
-            </label>
-            <label class="uploadLabel">
-              <input className="fileUpload" type="file" onChange={handleOnChangeScreenshot} />
-              {screenshotFile? <FaCheckCircle/>:"Upload Foto"}
-            </label>
+                {videoFile ? <FaCheckCircle /> : "Upload Video"}
+
+              </label>
+              <label class="uploadLabel">
+                <input className="fileUpload" type="file" onChange={handleOnChangeScreenshot} />
+                {screenshotFile ? <FaCheckCircle /> : "Upload Foto"}
+              </label>
 
 
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
-            {/* Same as */}
-            <ToastContainer />
-          </div>
-          <div className="textWrapper">
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
+              {/* Same as */}
+              <ToastContainer />
+            </div>
+            <div className="textWrapper">
 
-            <input className="titleUpload" name="title" onChange={handleTitle} placeholder="Titel" type="text" />
+              <input className="titleUpload" name="title" onChange={handleTitle} placeholder="Titel" type="text" />
 
-            <input placeholder="Untertitel" className="subtitleUpload" name="subtitle" onChange={handleSubTitle} type="text" />
-          </div>
-          <div className="btn">
-            <button className={videoFile&&screenshotFile&&title&&subTitle?" submitButton Clickable ":"submitButton notClickable"} type="submit">Upload
-            </button>
-          </div>
-        </form>
-      </div></div></div>
+              <input placeholder="Untertitel" className="subtitleUpload" name="subtitle" onChange={handleSubTitle} type="text" />
+            </div>
+            <div className="btn">
+              <button className={videoFile && screenshotFile && title && subTitle ? " submitButton Clickable " : "submitButton notClickable"} type="submit">Upload
+              </button>
+            </div>
+          </form>
+        </div></div></div>
   );
 }
 export default AddVideo;
