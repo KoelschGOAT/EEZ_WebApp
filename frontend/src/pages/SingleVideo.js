@@ -1,30 +1,30 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import "../static/css/SingleVideo.css"
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import "../static/css/SingleVideo.css";
+import { useLocation } from "react-router-dom";
 
 const SingleVideo = () => {
-    const location = useLocation();
-    const [video, setVideo] = useState(location.state?.video);
+	const location = useLocation();
+	const [video, setVideo] = useState(location.state?.video);
     
 
-    return (
-        <div >
+	return (
+		<div >
 
-            <div className="wrapper">
-                <video className="video"  autoPlay   >
-                    <source src={`http://192.168.178.21:8000${video.video}`} type="video/webm" />
-
-
-                </video>
-                <div className="textWrapper">
-                    <h1>{video.title}</h1>
-                    <h2>{video.subtitle}</h2>
-                </div>
-            </div>
+			<div className="wrapper">
+				<video className="video"  autoPlay   >
+					<source src={`http://192.168.178.21:8000${video.video}`} type="video/webm" />
 
 
-        </div>
-    )
-}
+				</video>
+				<div className="textWrapper">
+					<h1>{video.title}</h1>
+					<h2>{video.subtitle}</h2>
+				</div>
+			</div>
 
-export default SingleVideo
+
+		</div>
+	);
+};
+
+export default SingleVideo;

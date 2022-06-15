@@ -1,15 +1,18 @@
 
 .flexContainer {
-   
+    margin-top:10rem; 
+    display: flex;
     justify-content: center;
+    align-items: center;
     
 }
 
 .AddVideo {
     width: 400px;
     height: 445px;
-    margin: 20px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+   
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);    
+
 }
 .title{
     color:hsl(173, 100%, 20%);
@@ -101,6 +104,6 @@
     background-color: rgb(139, 138, 138);
 }
 .AddVideo .Clickable{
-    background-color: hsl(173, 100%, 17%); 
+    background-color: hsl(173, 100%, 20%); 
     pointer-events: visible;
 }
