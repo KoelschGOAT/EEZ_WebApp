@@ -19,7 +19,7 @@ const Cards = ({ video }) => {
                 <CardMedia
                     component="img"
                    
-                    image={`http://192.168.178.21:8000${video.screenshot}`}
+                    image={`http://172.16.81.73:8000${video.screenshot}`}
                     alt={video.title}
                 />
                 <CardContent>

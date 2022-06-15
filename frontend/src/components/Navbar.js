@@ -22,9 +22,10 @@ const Navbar = () => {
     <div>
       <nav className="navbar non-printable">
         <div>
-          <li className="brand-title gradient"onClick={() => {navigate("/")}}><img className="logo" src={enercon_logo}></img></li>
+          <li className="brand-title gradient" onClick={() => { navigate("/") }}>
+            <img className="logo" src={enercon_logo}></img></li>
         </div>
-        <a href="#" className="toggle-button" onClick={() => handleOnClick()}>
+        <a href={location.path} className="toggle-button" onClick={() => handleOnClick()}>
           <span className="bar"></span>
           <span className="bar"></span>
           <span className="bar"></span>
@@ -57,18 +58,25 @@ const Navbar = () => {
                 )}
               </>
             )}
-            <li>
+            {/* <li>
               <Link
-                to={videos ? "/logout" : "/login"}
+                to={}
                 onClick={() => { handleOnCheck() }}
               >
                 {videos ? "Logout" : "Login"}
               </Link>
 
-            </li>
-            {location.pathname!=="/"&& (<li className="back" onClick={() => {navigate(-1);handleOnClick()}}>
-              <span>Back</span>
-            </li>)}
+            </li> */}
+            {location.pathname !== "/" && (
+              <li className="back" onClick={() => { navigate(-1); handleOnClick() }}>
+                <span>Back</span>
+              </li>
+              )}
+
+            {location.pathname === "/" && (
+              <li onClick={() => { handleOnClick() }}>
+                <Link to="/AddVideo">Neues Video</Link>
+              </li>)}
             {videos !== null && (
               <li className="notClickable">
                 <Link to="/">{videos?.title}</Link>

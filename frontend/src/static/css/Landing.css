@@ -1,27 +1,37 @@
+.container{
+    display:flex;
+    flex-direction:column;
+
+}
 .container .grid {
     display: grid;
     grid-template-columns: repeat(3, 400px);
     grid-template-rows: repeat(3);
     justify-content: center;
-    grid-gap: 8%;
+    grid-gap: 3vmin;
+    margin-top:2rem;
 }
 
-.container .title {
-    margin-left: 8%;
+.title{
+    text-align: center;
+    margin-top:2rem;
+    margin-bottom:.5rem;
 }
 
 .container .greenstripe {
 
     border-bottom: 2px solid hsl(173, 100%, 17%);
 
-    margin: 0px 3px 0px 0px;
+    margin: 0px .3rem 0px 0px;
 }
 
 .container .redstripe {
     border-bottom: 2px solid hsl(341, 100%, 45%);
-    margin: 0px 3px 0px 0px;
 }
-
+@media only screen and (max-width: 1366px) {
+    .container .grid {
+         grid-template-columns: repeat(3, 310px); 
+}}
 @media only screen and (max-width: 640px) {
     .container{
         justify-content: center;

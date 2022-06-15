@@ -1,65 +1,106 @@
 
-.file__upload {
+.flexContainer {
+   
+    justify-content: center;
+    
+}
+
+.AddVideo {
     width: 400px;
     height: 445px;
     margin: 20px;
-    box-shadow: 0 0 5px rgba(0,0,0,.3);
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 }
-
-.file__upload .header {
-    width: 100%;
-    height: 145px;
-    background: #4db6ac;
-    padding: 20px;
+.title{
+    color:hsl(173, 100%, 20%);
+}
+.fileWrapper {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px 5px 0 0;
-}
-
-.file__upload .header p {
-    color: #FFF;
-}
-
-.file__upload .header p i.fa {
-    margin-right: 10px;
-}
-
-.file__upload .header p span {
-    font-size: 2rem;
-    font-weight: 100;
-
-}
-
-.file__upload .header p span span {
-    font-weight: 600;
-}
-
-.file__upload .body {
-    background: #FFF;
-    width: 100%;
-    height: calc(100% - 145px);
-    border-radius: 0 0 5px 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   
     flex-direction: column;
-    text-align: center;
+    align-items:center;
+    justify-content:center;
+    
 }
 
-.file__upload .body input[type="file"] {
+.fileWrapper input[type="file"] {
     display: none;
 }
 
-.file__upload .body i.fa {
-    color: #d3d3d3;
-    margin-bottom: 20px;
+.fileWrapper .uploadLabel {
+    border: 1px solid #ccc;
+    margin-top:1rem;
+    width: 20rem;
+    height: 46px;
+    text-align:center;
+    cursor: pointer;
+    justify-content: center;
+    background-color: hsl(341, 100%, 45%);
+    color: #ffffff;
+    vertical-align: middle;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    line-height:50px;
 }
 
-.file__upload .body p strong {
-    color: hsl(174, 42%, 51%);
+.textWrapper {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+}
+
+.textWrapper input {
+    text-align: center;
+    margin-top: 1rem;
+    width: 19.5rem;
+    height: 46px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+
+
+}
+
+
+.textWrapper input::placeholder {
+
+    font-size: 18px;
+    font-weight: bold;
+    color: rgba(33, 75, 93, 0.5);
+
+    transition: 0.4s ease-in-out;
+    margin-top: 2px;
+}
+
+
+
+
+
+
+.AddVideo .btn {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.AddVideo .submitButton {
+    width: 20rem;
+    height: 46px;
+    border-style: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
     cursor: pointer;
 }
-.file__upload .body p strong:hover {
-   color :hsl(174, 42%, 40%); 
+.AddVideo .notClickable{
+    pointer-events: none;
+    background-color: rgb(139, 138, 138);
+}
+.AddVideo .Clickable{
+    background-color: hsl(173, 100%, 17%); 
+    pointer-events: visible;
 }

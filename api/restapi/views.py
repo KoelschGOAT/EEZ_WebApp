@@ -12,8 +12,8 @@ def index(request):
     return HttpResponse("hello world")
 
 @api_view(['GET', 'POST'])
-def video_view(request):
-
+def video_view(request):    
+    client_ip_address="REMOTE_ADDR"    
 
     """
     Get all Video Objects and add an Object
@@ -21,7 +21,7 @@ def video_view(request):
     
     if request.method == 'GET':
         print(request.META)
-        print(request.META["REMOTE_ADDR"])
+        print(request.META[client_ip_address])
         queryset = Video.objects.all()
         serializer = VideoSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
