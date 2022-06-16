@@ -48,7 +48,7 @@ const AddVideo = () => {
 	}
 
 	return (
-
+		<div className="AddVideoContainer">
 		<div className="flexContainer">
 			<div className="AddVideo">
 				<form onSubmit={handleSubmit}>
@@ -94,7 +94,7 @@ const AddVideo = () => {
 						</button>
 					</div>
 				</form>
-			</div></div>
+			</div></div></div>
 	);
 };
 export default AddVideo;

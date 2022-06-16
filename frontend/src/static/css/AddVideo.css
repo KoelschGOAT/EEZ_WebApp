@@ -1,9 +1,12 @@
 
+.AddVideoContainer {
+margin-left: 35%;
+}
 .flexContainer {
-    margin-top:10rem; 
+    
     display: flex;
-    justify-content: center;
-    align-items: center;
+   
+   
     
 }
 

@@ -73,10 +73,7 @@ const Navbar = () => {
 							</li>
 						)}
 
-						{location.pathname === "/" && (
-							<li className="admin"onClick={() => { handleOnClick(); }}>
-								<Link to="/AddVideo">Neues Video</Link>
-							</li>)}
+						
 						{location.pathname === "/" && (
 							<li className="admin" onClick={() => { handleOnClick(); }}>
 								<Link to="/adminPage">Admin Area</Link>

@@ -1,32 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../static/css/Sidebar.css";
+import { FcFilmReel } from "react-icons/fc";
+import { MdSmartDisplay } from "react-icons/md";
+import { BiEdit } from "react-icons/bi";
+
 const Sidebar = () => {
-	return (
-		<section className="sidebarContainer">
-			<aside className="sidebar">
+    return (
+        <>
+            <div className="icon-bar">
+                <Link className="color"to="Selection">{<MdSmartDisplay />}</Link>
+                <Link className="icon-element"to="AddVideo">{<FcFilmReel />}</Link>
+                <Link className="icon-element"to="EditVideo">{<BiEdit />}</Link>
 
-				<nav classNameName="sidebar-nav">
+            </div>
+        </>
 
-					<ul>
-						<li>
-							<a href="#"><i className="ion-bag"></i> <span>Shop</span></a>
-							<ul classNameName="nav-flyout">
-
-							</ul>
-						</li>
-						<li>
-							<a href="#"><i className="ion-ios-settings"></i> <span className="">Controls</span></a>
-							<ul className="nav-flyout">
-
-							</ul>
-						</li>
-
-					</ul>
-				</nav>
-			</aside>
-		</section>
-
-	);
+    );
 };
 
 export default Sidebar;
