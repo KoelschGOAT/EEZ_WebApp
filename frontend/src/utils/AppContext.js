@@ -1,4 +1,4 @@
-import React,{createContext,useState} from "react";
+import React, { createContext, useState } from "react";
 import PropTypes from "prop-types";
 const AppContext = createContext(null);
 
@@ -6,23 +6,24 @@ export default AppContext;
 
 export const AppProvider = ({ children }) => {
 
-	const [videos,setVideos]  = useState();
-	const [language,setLanguage] = useState(() =>
+	const [videos, setVideos] = useState();
+	const [pcs, setPcs] = useState();
+	const [language, setLanguage] = useState(() =>
 		localStorage.getItem("language")
 			? JSON.parse(localStorage.getItem("language"))
 			: "german"
 	);
-    
 
 
 
 
 
-	let contextData = {videos:videos,setVideos:setVideos};
+
+	let contextData = { videos: videos, setVideos: setVideos, pcs: pcs, setPcs: setPcs };
 	return (
 		<AppContext.Provider value={contextData}>{children}</AppContext.Provider>
 	);
 };
-AppProvider.propTypes={
+AppProvider.propTypes = {
 	children: PropTypes.array.isRequired
 };

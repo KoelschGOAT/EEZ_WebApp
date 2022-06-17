@@ -1,15 +1,19 @@
+import re
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
-from .serializers import VideoSerializer
+from .serializers import VideoSerializer, PCSerializer
 from .models import Video,PC
 from rest_framework import status
 
 from django.http import HttpResponse, JsonResponse
 # Create your views here.
-def index(request):
-
-    return HttpResponse("hello world")
+@api_view(["GET","POST"])
+def pc_view(request):
+    if request.method == "GET":
+        query = PC.objects.all()
+        serializer = PCSerializer(query, many=True)
+        return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
 def video_view(request):    
@@ -20,12 +24,17 @@ def video_view(request):
     """
     
     if request.method == 'GET':
+        #receiving pc wich did the request
         try:
             requested_pc = PC.objects.get(ip_address=client_ip_address)
-            query=requested_pc.Videos.all()
+           
         except:
             return JsonResponse({"message":"PC not found"},status=status.HTTP_404_NOT_FOUND)
-        #queryset = Video.objects.all()
+        #check if PC is active and receiving all videos wich are linked to the PC, otherwise it returns HTTP_404_NOT_FOUND
+        if requested_pc.is_active ==True:
+            query=requested_pc.Videos.all()
+        else:
+            return JsonResponse({"message":"PC not active"},status=status.HTTP_404_NOT_FOUND)
         serializer = VideoSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
 

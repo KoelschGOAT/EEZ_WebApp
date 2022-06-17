@@ -7,12 +7,14 @@ function Landing() {
 	const [error, setError] = useState(false);
 	const { videos, setVideos } = useContext(AppContext);
 	const getVideos = useCallback(async () => {
-		await axios.get("http://172.16.81.73:8000/api/videos").then(resp => {
+		await axios.get("http://192.168.178.21:8000/api/videos").then(resp => {
 
 			setVideos(resp.data);
 
-		}).catch(err => { console.log(err); setError(true) });
-	}, [setVideos]);
+		}).catch(function(error)  { 
+			
+			setError(true) });
+	}, [setVideos,error.response]);
 
 	document.title = "Übersicht";
 	useEffect(() => {

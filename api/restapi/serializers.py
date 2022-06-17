@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Video
+from .models import PC, Video
 
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,3 +11,12 @@ class VideoSerializer(serializers.ModelSerializer):
                   "subtitle",
                   "published"
                   )
+class PCSerializer(serializers.ModelSerializer):
+    Videos = VideoSerializer(many=True)
+    class Meta:
+        model = PC
+        fields = ("id",
+        "pc_name",
+        "ip_address",
+        "is_active",
+        "Videos")
