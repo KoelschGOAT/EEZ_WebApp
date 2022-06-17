@@ -2,7 +2,7 @@ import React from "react";
 
 const DisplaySelection= () => {
   return (
-    <div>DisplaySelection</div>
+    <div>DisplaySelectionawd</div>
   )
 }
 
