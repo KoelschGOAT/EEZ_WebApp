@@ -1,3 +1,4 @@
+
 .AdminAreaWrapper {
   display: flex;
   flex-wrap: column;
@@ -10,7 +11,7 @@ body {
 .icon-bar {
   width: 90px;
   background-color: hsl(0, 100%, 100%);
-  box-shadow: 5px 0px 5px -5px rgb(71, 71, 71);
+  box-shadow: 5px 0px 5px -5px rgb(187, 182, 182);
   height: 100vmax;
 }
 
@@ -27,20 +28,22 @@ body {
   border-radius: 5px;
   cursor: pointer;
   justify-content:center;
+  box-shadow: 10px 15px 10px -5px rgb(196, 191, 191);
 
 }
 
 .icon-element {
-  box-shadow: 10px 15px 10px -5px #111;
   margin-top: .4rem;
   background-color: hsla(171, 28%, 82%, 0.507)
 }
 
 .icon-element:hover {
-  background-color: hsl(173, 30%, 40%);
+  background-color: hsl(173, 30%, 50%);
 }
 
 .color {
+  margin-top: .4rem;
+
   background-color: hsl(341, 100%, 45%);
   ;
 }

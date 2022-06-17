@@ -20,12 +20,15 @@ def video_view(request):
     """
     
     if request.method == 'GET':
-        
-        requested_pc = PC.objects.get(ip_address=client_ip_address)
-        query=requested_pc.Videos.all()
+        try:
+            requested_pc = PC.objects.get(ip_address=client_ip_address)
+            query=requested_pc.Videos.all()
+        except:
+            return JsonResponse({"message":"PC not found"},status=status.HTTP_404_NOT_FOUND)
         #queryset = Video.objects.all()
         serializer = VideoSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
+
     elif request.method == 'POST':
         
         serializer = VideoSerializer(data=request.data)

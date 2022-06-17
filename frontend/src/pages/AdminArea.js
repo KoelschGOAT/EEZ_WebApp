@@ -1,7 +1,6 @@
 import React,{ useState} from "react";
-import Sidebar from "../components/Sidebar";
 import "../static/css/AdminArea.css";
-
+//TODO: Shadow Area
 
 import DisplaySelection from "../components/DisplaySelection";
 import AddVideo from "../components/AddVideo";

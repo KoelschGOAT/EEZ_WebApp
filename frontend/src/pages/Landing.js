@@ -1,16 +1,17 @@
-import React, { useContext, useEffect, useCallback } from "react";
+import React, { useContext, useEffect, useCallback,useState } from "react";
 import AppContext from "../utils/AppContext";
 import axios from "axios";
 import Cards from "./Card";
 import "../static/css/Landing.css";
 function Landing() {
+	const [error, setError] = useState(false);
 	const { videos, setVideos } = useContext(AppContext);
 	const getVideos = useCallback(async () => {
-		await axios.get("http://192.168.178.21:8000/api/videos").then(resp => {
+		await axios.get("http://172.16.81.73:8000/api/videos").then(resp => {
 
 			setVideos(resp.data);
 
-		});
+		}).catch(err => { console.log(err); setError(true) });
 	}, [setVideos]);
 
 	document.title = "Übersicht";
@@ -24,14 +25,14 @@ function Landing() {
 				<span className="redstripe">Filme</span>
 			</h1>
 
-
-			<div className="grid">
+			{error && (<h1>PC nicht freigegeben</h1>)}
+			{!error && (<div className="grid">
 				{
 					videos?.map((video) => (
 
 						<Cards key={video?.id} video={video} />
 
-					))}</div>
+					))}</div>)}
 
 
 
