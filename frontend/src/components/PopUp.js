@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "../static/css/PopUp.css"
+import axios from "axios";
 const PopUp = ({ pc }) => {
     const [pcName, setPcName] = useState("");
     const [ipAddress, setIpAddress] = useState("");
@@ -9,12 +10,24 @@ const PopUp = ({ pc }) => {
     const onChangeHandlerIP = (e) => {
         setIpAddress(e.target.value)
     }
+    const handleSubmit=(event)=> {
+        event.preventDefault();
+		const url = "http://192.168.178.21:8000/api/pc";
+		const formData = new FormData();
+		formData.append("pc_name", pcName);
+		formData.append("ip_address", ipAddress);
+		axios.post(url, formData).then((response) => {
+			console.log(response.data);
+		});
+		
+	
+    }
     return (
         <div><h2>{pc.pc_name}</h2>
             <p>Einstellungen für {pc.pc_name}</p>
 
             <div className="container">
-                <form >
+                <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-25">
                             <label htmlFor="pc_name">PC Name</label>
