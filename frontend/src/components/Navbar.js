@@ -6,6 +6,7 @@ import AppContext from "../utils/AppContext";
 import Button from '@mui/material/Button';
 import {BiArrowBack} from "react-icons/bi";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 const Navbar = () => {
 	const location = useLocation();
 	const { videos } = useContext(AppContext);
@@ -71,7 +72,7 @@ const Navbar = () => {
             </li> */}
 						{location.pathname !== "/" && (
 							<li  onClick={() => { navigate(-1); handleOnClick(); }}>
-								<Button className="back"startIcon={<BiArrowBack />}variant="contained">Zurück</Button>
+								<Button className="back"startIcon={<ArrowBackOutlinedIcon />}variant="contained">Zurück</Button>
 							</li>
 						)}
 
