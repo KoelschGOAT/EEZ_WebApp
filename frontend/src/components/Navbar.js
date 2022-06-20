@@ -3,6 +3,8 @@ import ".././static/css/Navbar.css";
 import enercon_logo from "../static/img/enercon_logo.png";
 import React, { useState, useContext } from "react";
 import AppContext from "../utils/AppContext";
+import Button from '@mui/material/Button';
+import {BiArrowBack} from "react-icons/bi";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 const Navbar = () => {
 	const location = useLocation();
@@ -68,8 +70,8 @@ const Navbar = () => {
 
             </li> */}
 						{location.pathname !== "/" && (
-							<li className="back" onClick={() => { navigate(-1); handleOnClick(); }}>
-								<span>Back</span>
+							<li  onClick={() => { navigate(-1); handleOnClick(); }}>
+								<Button className="back"startIcon={<BiArrowBack />}variant="contained">Zurück</Button>
 							</li>
 						)}
 

@@ -63,7 +63,9 @@ height:30px;
     vertical-align: middle;
      line-height:250%;
 }
-
+.navbar-links .back:hover{
+  background-color:hsl(341, 100%, 45%);
+}
 .notClickable {
   pointer-events: none;
 }
