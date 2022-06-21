@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 const Cards = ({ video }) => {
 	
 	let navigate = useNavigate();
-
 	return (
 		<div className="wrapper">
 			<Card className="Card"
@@ -21,8 +20,9 @@ const Cards = ({ video }) => {
 					<CardMedia
 						component="img"
                    
-						image={`http://192.168.178.21:8000${video.screenshot}`}
+						image={`http://172.16.81.73:8000${video.screenshot}`}
 						alt={video.title}
+						width
 					/>
 					<CardContent>
 						<Typography  gutterBottom variant="h6" component="div">
@@ -39,10 +39,8 @@ const Cards = ({ video }) => {
 	);
 };
 Cards.propTypes={
-	video: PropTypes.string.isRequired,
-	screenshot: PropTypes.string.isRequired,
-	title: PropTypes.string.isRequired,
-	subtitle: PropTypes.string.isRequired
+	video: PropTypes.object.isRequired,
+	
 
 };
 

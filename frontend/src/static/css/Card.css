@@ -1,3 +1,8 @@
+/*Controll Image height to adjust images evenly*/
+.css-o69gx8-MuiCardMedia-root {
+    height:210px;
+}
+
 @media only screen and (max-width: 640px) {
     .wrapper {
        /* Place Cards on Center of the Screen */
@@ -9,4 +14,5 @@
         margin-top: 1rem;
         
     }
+    
 }
