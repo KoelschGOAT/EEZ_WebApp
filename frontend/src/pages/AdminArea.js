@@ -9,6 +9,7 @@ import { FcFilmReel } from "react-icons/fc";
 import {CgAdd} from "react-icons/cg";
 import { FaEdit  } from "react-icons/fa";
 const AdminArea = () => {
+	document.title="Admin Übersicht"
 	const [component,setComponent]=useState(1);
 	return (
 

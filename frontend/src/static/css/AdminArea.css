@@ -9,6 +9,7 @@ body {
 }
 
 .icon-bar {
+  position:relative;
   width: 90px;
   background-color: hsl(0, 100%, 100%);
   box-shadow: 5px 0px 5px -5px rgb(187, 182, 182);
