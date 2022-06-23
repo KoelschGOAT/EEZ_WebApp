@@ -1,99 +1,106 @@
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import ReactDom from "react-dom";
-import { AiOutlineClose } from "react-icons/ai"
-import "../static/css/PopUp.css"
+import { AiOutlineClose } from "react-icons/ai";
+import "../static/css/PopUp.css";
 import axios from "axios";
 const PopUp = ({ pc, open, onClose }) => {
-    const [pcName, setPcName] = useState(() => pc?.ip_address);
-    const [ipAddress, setIpAddress] = useState(pc?.pc_name);
-    const onChangeHandlerName = (e) => {
-        e.preventDefault();
-        setPcName(e.target.value)
-    }
-    const onChangeHandlerIP = (e) => {
-        e.preventDefault();
-        setIpAddress(e.target.value)
-    }
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const url = "http://172.16.81.73:8000/api/pc/" + pc.id;
-        const formData = new FormData();
-        formData.append("pc_name", pcName === "" ? pc.pc_name : pcName);
-        formData.append("ip_address", ipAddress === "" ? pc.ip_address : ipAddress);
-        formData.append("is_active", pc.is_active);
+  const [pcName, setPcName] = useState(pc.pc_name);
+  const [ipAddress, setIpAddress] = useState(pc.ip_address);
+  const onChangeHandlerName = (e) => {
+    e.preventDefault();
+    setPcName(e.target.value);
+  };
+  const onChangeHandlerIP = (e) => {
+    e.preventDefault();
+    setIpAddress(e.target.value);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const url = "http://192.168.178.21:8000/api/pc/" + pc.id;
+    const formData = new FormData();
+    formData.append("pc_name", pcName === "" ? pc.pc_name : pcName);
+    formData.append("ip_address", ipAddress === "" ? pc.ip_address : ipAddress);
+    formData.append("is_active", pc.is_active);
 
+    axios.put(url, formData).then((response) => {
+      console.log(response.data);
+    });
+  };
 
-        axios.put(url, formData).then((response) => {
-            console.log(response.data);
-        });
+ 
+  //returns portal to render a popUp on the parent div DisplaySelectionPopUp
+  return ReactDom.createPortal(
+    <div className="OverflowContainer">
+      <h1></h1>
+      <div className="PopUpModal">
+        {" "}
+        <span className="close" onClick={onClose}>
+          {<AiOutlineClose />}
+        </span>
+        <div className="PopUpHeader">
+          <h2>{pcName}</h2>
+          <p>Einstellungen für {pcName}</p>
+        </div>
+        <div className="container">
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="col-25">
+                <label className="inputLabel" htmlFor="pc_name">
+                  PC Name
+                </label>
+              </div>
+              <div className="col-75">
+                <input
+                  className="PopUpInput"
+                  type="text"
+                  name="pc_name"
+                  onChange={(e) => onChangeHandlerName(e)}
+                  value={pcName}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-25">
+                <label className="inputLabel" htmlFor="">
+                  IP Adresse
+                </label>
+              </div>
+              <div className="col-75">
+                <input
+                  className="PopUpInput"
+                  type="text"
+                  name="ip_address"
+                  onChange={(e) => onChangeHandlerIP(e)}
+                  value={ipAddress}
+                  pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-25">
+                <label className="inputLabel" htmlFor="country">
+                  Videos
+                </label>
+              </div>
+              <div className="col-75">
+                <select id="country" name="country">
+                  {pc.Videos?.map((video) => (
+                    <option key={video.id} value={video.id}>
+                      {video.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="row"></div>
+            </div>
+            <br />{" "}
+            <input className="submitButton" type="submit" value="Submit" />
+          </form>
+        </div>
+      </div>
+    </div>,
+    document.getElementById("DisplaySelectionPopUp")
+  );
+};
 
-
-
-    }
-
-
-
-
-
-    if (!open) return null;
-    //returns portal to render a popUp on the parent div DisplaySelectionPopUp
-    return ReactDom.createPortal(
-        <div className="OverflowContainer">
-
-
-            <div className="PopUpModal">
-                <div className="PopUpHeader">
-                    <span className="close"onClick={onClose}>{<AiOutlineClose />}</span>
-                    <h2>{pc.pc_name}</h2>
-                    <p>Einstellungen für {pc.pc_name}</p>
-                </div>
-
-
-                <div className="container">
-                    <form onSubmit={handleSubmit}>
-                        <div className="row">
-                            <div className="col-25">
-                                <label className="inputLabel" htmlFor="pc_name">PC Name</label>
-                            </div>
-                            <div className="col-75">
-                                <input className="PopUpInput" type="text" name="pc_name" onChange={(e) => onChangeHandlerName(e)} placeholder={pc.pc_name} />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-25">
-                                <label className="inputLabel" htmlFor="">IP Adresse</label>
-                            </div>
-                            <div className="col-75">
-                                <input className="PopUpInput" type="text" name="ip_address" onChange={(e) => onChangeHandlerIP(e)} placeholder={pc.ip_address} pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-25">
-                                <label className="inputLabel" htmlFor="country">Videos</label>
-                            </div>
-                            <div className="col-75">
-                                <select id="country" name="country">
-                                    {pc.Videos?.map((video) => (
-
-                                        <option key={video.id} value={video.id}>{video.title}</option>
-
-                                    ))}
-
-                                </select>
-                            </div>
-                            <div className="row">
-
-                            </div>
-                        </div>
-
-                        <br /> <input className="submitButton" type="submit" value="Submit" />
-
-                    </form >
-                </div >
-            </div >
-        </div>, document.getElementById("DisplaySelectionPopUp")
-    )
-}
-
-export default PopUp
+export default PopUp;
