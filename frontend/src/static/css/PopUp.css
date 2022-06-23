@@ -1,24 +1,20 @@
 * {
   box-sizing: border-box;
 }
-.OverflowContainer{
-  position:fixed;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
-  background-color:rgba(0,0,0, 0.7);
+.OverflowContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1000;
-  
 }
-
 
 .PopUpModal {
   top: 50%;
   left: 50%;
-
-  position:fixed;
-
+  position: fixed;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
@@ -27,16 +23,17 @@
   z-index: 1000;
 }
 
+.PopUpModal .PopUpHeader {
+  text-align: center;
+}
+.PopUpModal .close {
 
-.PopUpModal .PopUpHeader{
-  text-align:center;
+  border-radius: 50%;
+  cursor: pointer;
 }
-.PopUpModal .PopUpHeader .close{
-  background-color: hsl(351,11%,88%);
-  border-radius:50%;
-  cursor:pointer;
-}
-.submitButton, select ,.PopUpInput{
+.submitButton,
+select,
+.PopUpInput {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -50,7 +47,7 @@
 }
 
 .submitButton {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -62,8 +59,6 @@
 .submitButton:hover {
   background-color: #45a049;
 }
-
-
 
 .col-25 {
   float: left;
@@ -86,7 +81,9 @@
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .col-25, .col-75, input[type=submit] {
+  .col-25,
+  .col-75,
+  input[type="submit"] {
     width: 100%;
     margin-top: 0;
   }

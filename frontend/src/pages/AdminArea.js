@@ -1,5 +1,5 @@
 import React,{ useState} from "react";
-import "../static/css/AdminArea.css";
+
 //TODO: Shadow Area
 
 import DisplaySelection from "../components/DisplaySelection";

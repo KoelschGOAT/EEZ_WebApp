@@ -20,17 +20,17 @@ const Cards = ({ video }) => {
 					<CardMedia
 						component="img"
                    
-						image={`http://172.16.81.73:8000${video.screenshot}`}
+						image={`http://192.168.178.21:8000${video.screenshot}`}
 						alt={video.title}
-						width
+						
 					/>
 					<CardContent>
 						<Typography  gutterBottom variant="h6" component="div">
-							{video.title}
+							{"Titel Deutsch: "+video.title_de}
                         
 						</Typography>
 						<Typography variant="body2" color="text.secondary">
-							{video.subtitle}
+							{"Titel Englisch: "+video.title_en}
 						</Typography>
 					</CardContent>
 				</CardActionArea>

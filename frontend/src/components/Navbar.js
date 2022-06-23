@@ -2,13 +2,13 @@
 import ".././static/css/Navbar.css";
 import enercon_logo from "../static/img/enercon_logo.png";
 import React, { useState, useContext } from "react";
-import AppContext from "../utils/AppContext";
+import AppContext from "../utils/Context/AppContext";
 import Button from '@mui/material/Button';
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link, useLocation,NavLink } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 const Navbar = () => {
 	const location = useLocation();
-	const { videos } = useContext(AppContext);
+	const { videos,pcs } = useContext(AppContext);
 	//toggle navigation button on mobile view
 	const [isActive, setIsActive] = useState(false);
 	const handleOnClick = () => {
@@ -78,11 +78,11 @@ const Navbar = () => {
 						
 						{location.pathname === "/" && (
 							<li className="admin" onClick={() => { handleOnClick(); }}>
-								<Link to="/adminPage">Admin Area</Link>
+								<NavLink to="/adminPage">Admin Area</NavLink>
 							</li>)}
 						{videos !== null && (
 							<li className="notClickable">
-								<Link to="/">{videos?.title}</Link>
+								<NavLink to="/">{videos?.title}</NavLink>
 							</li>
 						)}
 					</ul>

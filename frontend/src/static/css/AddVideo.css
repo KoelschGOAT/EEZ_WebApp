@@ -36,6 +36,7 @@
 }
 
 .fileWrapper .uploadLabel {
+    display:flex;
     border: 1px solid #ccc;
     margin-top:1rem;
     width: 20rem;
@@ -45,11 +46,15 @@
     justify-content: center;
     background-color: hsl(341, 100%, 45%);
     color: #ffffff;
-    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
     box-shadow: 0 0 5px rgba(0, 0, 0, .3);
-    line-height:50px;
+  
 }
-
+.fileWrapper .uploadLabel span{
+    text-align: center; 
+    margin: auto; /* Important */ 
+}
 .textWrapper {
 
     display: flex;

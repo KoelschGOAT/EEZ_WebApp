@@ -1,9 +1,15 @@
 import React from "react";
 import "./App.css";
-import Routing from "./utils/Routing";
+import Routing from "./utils/Router/Routing";
+import { QueryClient, QueryClientProvider } from "react-query";
+
 function App() {
+	const client = new QueryClient();
+
 	return (
-		<Routing/>
+		 <QueryClientProvider client={client}>
+			<Routing/>
+		</QueryClientProvider>
 	);
 }
 

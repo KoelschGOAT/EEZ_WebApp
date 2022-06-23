@@ -13,7 +13,7 @@ from django.http import HttpResponse, JsonResponse
 @api_view(["GET","POST"])
 def pc_view(request):
     if request.method == "GET":
-        query = PC.objects.all()
+        query = PC.objects.filter(is_exhibition=True,is_active=True)
         serializer = PCSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
     elif request.method == 'POST':

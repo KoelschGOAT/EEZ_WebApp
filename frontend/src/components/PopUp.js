@@ -38,8 +38,8 @@ const PopUp = ({ pc, open, onClose }) => {
           {<AiOutlineClose />}
         </span>
         <div className="PopUpHeader">
-          <h2>{pcName}</h2>
-          <p>Einstellungen für {pcName}</p>
+          <h2>{pc.pc_name}</h2>
+          <p>Einstellungen für {pc.pc_name}</p>
         </div>
         <div className="container">
           <form onSubmit={handleSubmit}>

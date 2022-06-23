@@ -8,23 +8,23 @@ const SingleVideo = () => {
     
 
 	return (
-		<div >
-
-			<div className="wrapper">
-				<video className="video"  autoPlay loop  >
-					<source src={`http://172.16.81.73:8000${video.video}`} type="video/webm" />
-
-
-				</video>
-				<div className="textWrapper">
-					<h1>{video.title}</h1>
-					<h2>{video.subtitle}</h2>
-				</div>
-			</div>
-
-
-		</div>
-	);
+    <div>
+      <div className="wrapper">
+        <video className="video" autoPlay loop>
+          <source
+            src={`http://192.168.178.21:8000${video.video}`}
+            type="video/webm"
+          />
+        </video>
+        <div className="textWrapper">
+          <h1>{video.title_de}</h1>
+          <h1>{video.title_en}</h1>
+          <p>{video.text_de}</p>
+          <p>{video.text_en}</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default SingleVideo;

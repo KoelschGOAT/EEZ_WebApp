@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useContext, useEffect } from "react";
 
-import { MdMonitor } from "react-icons/md";
-import AppContext from "../utils/AppContext";
-import { IconContext } from "react-icons";
+import AppContext from "../utils/Context/AppContext";
 import screen from "../static/img/screen.svg"
 import axios from "axios";
 import Card from "@mui/material/Card";
@@ -13,13 +11,15 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import PopUp from "./PopUp";
 const DisplaySelection = () => {
+	const { videos, setVideos, pcs, setPcs } = useContext(AppContext);
+	
 	const [selectedPC, setSelectedPC] = useState();
 	const [popUp, setPopUp] = useState(false);
 	let navigate = useNavigate();
-	const { videos, setVideos, pcs, setPcs } = useContext(AppContext);
+	
 	const [error, setError] = useState(false);
 	const getPCs = useCallback(async () => {
-		await axios.get("http://172.16.81.73:8000/api/all-pcs").then(resp => {
+		await axios.get("http://192.168.178.21:8000/api/all-pcs").then(resp => {
 
 			setPcs(resp.data);
 
@@ -30,51 +30,52 @@ const DisplaySelection = () => {
 		});
 	}, [setPcs]);
 	const STYLE_WRAPPER = {
-		width: "100vmax",
+		width: "100vmax",	
+		height:"100px",
 		display: "grid",
-		gridTemplateColumns: "repeat(3, 400px)",
+		gridTemplateColumns: "repeat(3, 200px)",
 		gridTemplateRows: "repeat(3)",
 		justifyContent: "center",
-		gridGap: "3vmin",
+		gridGap: "10vmin",
 		marginTop: "2rem",
 	}
 	useEffect(() => {
 		getPCs();
 	}, [getPCs]);
 	return (
-		<div>
-			{!error && (
-				<div className="grid" style={STYLE_WRAPPER}>
-					{
-						pcs?.map((pc) => (
+    <>
+      {!error && (
+        <div className="grid" style={STYLE_WRAPPER}>
+          {pcs?.map((pc) => (
+            <div key={pc.id} className="wrapper">
+              <Card
+                sx={{ minWidth: "150px" }}
+                onClick={() => {
+					setSelectedPC(pc);
+                  setPopUp(true);
+                }}
+                className="Card"
+              >
+                <CardActionArea>
+                  <CardContent sx={{ textAlign: "center" }}>
+                    <img src={screen} alt="PC Logo" width="50px" />
 
-							<div key={pc.id} className="wrapper">
-								<Card sx={{ minWidth: "200px" }} onClick={() => { setPopUp(true); setSelectedPC(pc) }} className="Card">
-
-									<CardActionArea>
-
-										<CardContent sx={{ textAlign: "center" }}>
-											<img src={screen} alt="PC Logo" />
-
-											<Typography variant="body2" color="text.secondary">
-												{pc.pc_name}
-
-
-											</Typography>
-											<Typography variant="body2" color="text.secondary">
-												{pc.ip_address}
-											</Typography>
-										</CardContent>
-									</CardActionArea>
-								</Card>
-							</div>
-
-						))}
-				</div>)
-			}
-			<PopUp open={popUp} pc={selectedPC} onClose={() => setPopUp(false)} />
-		</div>
-	)
+                    <Typography variant="body2" color="text.secondary">
+                      {pc.pc_name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {pc.ip_address}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </div>
+          ))}
+        </div>
+      )}
+      {popUp?<PopUp pc={selectedPC} open={popUp}  onClose={() => setPopUp(false)} />:null}
+    </>
+  );
 }
 
 export default DisplaySelection
