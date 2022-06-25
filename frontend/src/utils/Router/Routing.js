@@ -4,12 +4,8 @@ import SingleVideo from "../../pages/SingleVideo";
 import { AppProvider } from "../Context/AppContext";
 import Landing from "../../pages/Landing";
 import Navbar from "../../components/Navbar";
-import DisplaySelection from "../../components/DisplaySelection";
-import AddVideo from "../../components/AddVideo";
-import EditVideo from "../../components/EditVideo";
-import AdminArea from "../../pages/AdminArea";
 import Sidebar from "../../components/Sidebar";
-import GQL from "../../components/GQL";
+import Slider from "../../components/Slider";
 function Routing() {
   return (
     <Router>
@@ -19,7 +15,7 @@ function Routing() {
           <Route index element={<Landing />}></Route>
           <Route path="SingleVideo" element={<SingleVideo />}></Route>
           <Route path="AdminPage" element={<Sidebar />}></Route>
-		  <Route path="GQL" element={<GQL />}></Route>
+		  <Route path="GQL" element={<Slider/>}></Route>
         </Routes>
       </AppProvider>
     </Router>

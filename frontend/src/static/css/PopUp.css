@@ -31,6 +31,17 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
+
+.Form-Checklist-Wrapper{
+  Display: flex;
+  flex-direction: row;
+}
+.input-Wrapper{
+  width: 40rem;
+
+}
+
 .submitButton,
 select,
 .PopUpInput {

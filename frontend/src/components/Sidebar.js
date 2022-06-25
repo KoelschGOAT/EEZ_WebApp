@@ -1,13 +1,11 @@
 import React,{useState} from "react";
-import { Link } from "react-router-dom";
 import "../static/css/Sidebar.css";
 import { FcFilmReel } from "react-icons/fc";
 import {CgAdd} from "react-icons/cg";
-import DisplaySelection from "../components/DisplaySelection";
+import DisplaySelection from "../components/DisplaySelection/DisplaySelection";
 import AddVideo from "../components/AddVideo";
 import EditVideo from "../components/EditVideo";
 import { FaEdit } from "react-icons/fa";
-import {MdOutlineModeEditOutline } from "react-icons/md";
 
 const Sidebar = () => {
     document.title="Admin Übersicht"

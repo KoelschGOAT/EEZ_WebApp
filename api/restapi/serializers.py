@@ -19,3 +19,7 @@ class PCSerializer( serializers.ModelSerializer):
                   "ip_address",
                   "is_active", "is_exhibition",
                   "Videos")
+class VideoSelectionSerializer( serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = ("id")

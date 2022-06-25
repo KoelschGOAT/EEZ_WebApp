@@ -2,7 +2,7 @@ import React,{ useState} from "react";
 
 //TODO: Shadow Area
 
-import DisplaySelection from "../components/DisplaySelection";
+import DisplaySelection from "../components/DisplaySelection/DisplaySelection";
 import AddVideo from "../components/AddVideo";
 import EditVideo from "../components/EditVideo";
 import { FcFilmReel } from "react-icons/fc";
