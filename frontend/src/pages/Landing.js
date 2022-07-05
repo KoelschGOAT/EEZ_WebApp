@@ -8,7 +8,7 @@ import Slider from "../components/Slider";
 import { Slide } from "react-slideshow-image";
 function Landing() {
   const [error, setError] = useState(false);
-  const [overview, setoverview] = useState(false);
+  const [overview, setoverview] = useState(true);
   const { videos, setVideos } = useContext(AppContext);
   const [vid,setVideo] = useState([]);
 
@@ -16,6 +16,7 @@ function Landing() {
     await axios
       .get("http://192.168.178.21:8000/api/current-pc-videos")
       .then((resp) => {
+		
         setVideos(resp.data);
 		setVideo(resp.data);
       })
@@ -44,7 +45,8 @@ function Landing() {
           ))}
         </div>
       )}
-    <Slider Videos={vid}/>
+	  {!error && !overview && (
+    <Slider Videos={vid}/>)}
     </div>
   );
 }

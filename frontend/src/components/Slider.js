@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const zoomOutProperties = {
   duration: 5000,
-  transitionDuration: 500,
+  transitionDuration:300,
   infinite: true,
   indicators: true,
   scale: 0.4,
@@ -18,9 +18,8 @@ const Slider = ({ Videos }) => {
     marginTop: "5px",
     width: "145px",
     height: "45px",
-    borderRadius: "25px",
     border: "none",
-    backgroundColor: "hsl(341, 100%, 45%)",
+    backgroundColor: "hsl(173, 100%, 17%)",
     cursor: "pointer",
     margin: "auto" /* Important */,
     textAlign: "center",
@@ -31,7 +30,7 @@ const Slider = ({ Videos }) => {
   };
   let navigate = useNavigate();
   return (
-    <div className="slide-container">
+    <div style={{}}className="slide-container">
       <Slide {...zoomOutProperties}>
         {Videos.map((video, index) => (
           <>

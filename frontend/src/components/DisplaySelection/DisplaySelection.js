@@ -83,7 +83,15 @@ const DisplaySelection = () => {
         </div>
       )}
       {popUp ? (
-        <PopUp pc={selectedPC} allVideos={allVideos} open={popUp} onClose={() => setPopUp(false)} />
+        <PopUp
+          pc={selectedPC}
+          allVideos={allVideos}
+          open={popUp}
+          getPCs={()=>getPCs()}
+          onClose={() => {
+            setPopUp(false);
+          }}
+        />
       ) : null}
     </>
   );

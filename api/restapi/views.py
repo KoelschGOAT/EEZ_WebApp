@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
+from rest_framework.response import Response
 # Create your views here.
 @csrf_exempt
 @api_view(["GET","POST"])
@@ -107,12 +108,13 @@ def PcEditView(request, pk):
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = PCSerializer(pc_entry, data=data)
+        print(request.data)
+        serializer = PCSerializer(pc_entry, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     elif request.method == 'DELETE':
         pc_entry.delete()

@@ -10,16 +10,18 @@ class VideoSerializer( serializers.ModelSerializer):
 
 
 class PCSerializer( serializers.ModelSerializer):
-    Videos = VideoSerializer(many=True)
-
+    Videos = VideoSerializer(many=True, read_only=True)
+    
     class Meta:
         model = PC
         fields = ("id",
                   "pc_name",
                   "ip_address",
-                  "is_active", "is_exhibition",
+                  "is_active", 
+                  "is_exhibition",
                   "Videos")
-class VideoSelectionSerializer( serializers.ModelSerializer):
-    class Meta:
-        model = Video
-        fields = ("id")
+    
+    class VideoSelectionSerializer( serializers.ModelSerializer):
+        class Meta:
+            model = Video
+            fields = ("id")

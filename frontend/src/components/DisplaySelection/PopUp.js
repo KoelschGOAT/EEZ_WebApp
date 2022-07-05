@@ -13,14 +13,14 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useForm } from "react-hook-form";
 import {useQuery} from "react-query";
-const PopUp = ({ pc, onClose, allVideos }) => {
+const PopUp = ({ pc, onClose, allVideos ,getPCs}) => {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-
+  
   const [pcName, setPcName] = useState(pc.pc_name);
   const [ipAddress, setIpAddress] = useState(pc.ip_address);
   const [pcVideos, setPcVideos] = useState(pc.Videos);
@@ -43,11 +43,12 @@ const PopUp = ({ pc, onClose, allVideos }) => {
     formData["ip_address"] = ipAddress;
     formData["is_exhibition"] = isExhibition;
     formData["is_active"] = pcIsActive;
-    
+    formData["Videos"] = pcVideos;
     console.log(formData);
     
     axios.put(`http://192.168.178.21:8000/api/pc/${pc.id}`,formData).then((response) => {
-      console.log(response);
+      pc=response.data;
+      getPCs();
       onClose();
     })
   }
