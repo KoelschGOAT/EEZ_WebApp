@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useContext, useEffect } from "react";
-
+import BarLoader from "react-spinners/BarLoader";
+import "../../static/css/DisplaySelection.css";
 import AppContext from "../../utils/Context/AppContext";
 import screen from "../../static/img/screen.svg";
 import axios from "axios";
@@ -7,36 +8,26 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea } from "@mui/material";
 import Typography from "@mui/material/Typography";
-
+import { useQuery, useQueryClient } from "react-query";
 import PopUp from "./PopUp";
 const DisplaySelection = () => {
+  const queryClient = useQueryClient();
   const { pcs, setPcs } = useContext(AppContext);
   const [allVideos, setAllVideos] = useState();
   const [selectedPC, setSelectedPC] = useState();
   const [popUp, setPopUp] = useState(false);
-
+  const fetchData = async (url) => {
+    const response = await axios.get(url);
+    return response.data;
+  };
+  const allPCs = useQuery(
+    "all-pcs",
+    ()=>fetchData(`http://192.168.178.21:8000/api/all-pcs`)
+  );
+  const allVids = useQuery("all-videos",()=>fetchData(`http://192.168.178.21:8000/api/all-videos`));
   const [error, setError] = useState(false);
-  const getPCs = useCallback(async () => {
-    await axios
-      .get("http://192.168.178.21:8000/api/all-pcs")
-      .then((resp) => {
-        setPcs(resp.data);
-      })
-      .catch(function (error) {
-        setError(true);
-      });
-  }, [setPcs]);
-  const getAllVideos = useCallback(async () => {
-    await axios
-      .get("http://192.168.178.21:8000/api/all-videos")
-      .then((resp) => {
-       
-        setAllVideos(resp.data);
-      })
-      .catch(function (error) {
-        setError(true);
-      });
-  }, [setAllVideos]);
+    const isError = allPCs.isError || allVids.isError;
+    const isLoading = allPCs.isLoading || allVids.isLoading;
   const STYLE_WRAPPER = {
     width: "100vmax",
     height: "100px",
@@ -47,15 +38,16 @@ const DisplaySelection = () => {
     gridGap: "10vmin",
     marginTop: "2rem",
   };
-  useEffect(() => {
-    getPCs();
-    getAllVideos();
-  }, [getPCs,getAllVideos]);
+
   return (
     <>
-      {!error && (
+      {isLoading ? (
+        <div className="loading"><BarLoader loading={isLoading} color={"#00665a"} size={150} /></div>
+      ) : null}
+      {isError ? <div className="error">Err</div> : null}
+      {allPCs && allVids && (
         <div className="grid" style={STYLE_WRAPPER}>
-          {pcs?.map((pc) => (
+          {allPCs.data?.map((pc) => (
             <div key={pc.id} className="wrapper">
               <Card
                 sx={{ minWidth: "150px" }}
@@ -85,9 +77,8 @@ const DisplaySelection = () => {
       {popUp ? (
         <PopUp
           pc={selectedPC}
-          allVideos={allVideos}
+          allVideos={allVids.data}
           open={popUp}
-          getPCs={()=>getPCs()}
           onClose={() => {
             setPopUp(false);
           }}

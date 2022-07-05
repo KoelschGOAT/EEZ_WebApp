@@ -1,34 +1,29 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
 import "react-slideshow-image/dist/styles.css";
 import AppContext from "../utils/Context/AppContext";
+import BarLoader from "react-spinners/BarLoader";
 import axios from "axios";
 import Cards from "./Card";
 import "../static/css/Landing.css";
 import Slider from "../components/Slider";
 import { Slide } from "react-slideshow-image";
+import { useQuery, useQueryClient } from "react-query";
 function Landing() {
   const [error, setError] = useState(false);
   const [overview, setoverview] = useState(true);
   const { videos, setVideos } = useContext(AppContext);
   const [vid,setVideo] = useState([]);
-
-  const getVideos = useCallback(async () => {
-    await axios
-      .get("http://192.168.178.21:8000/api/current-pc-videos")
-      .then((resp) => {
-		
-        setVideos(resp.data);
-		setVideo(resp.data);
-      })
-      .catch(function (error) {
-        setError(true);
-      });
-  }, [setVideos]);
+const fetchData = async (url) => {
+    const response = await axios.get(url);
+    return response.data;
+  };
+  const { data, isError, isLoading } = useQuery("current-pc-videos", () =>
+    fetchData(`http://192.168.178.21:8000/api/current-pc-videos`)
+  );
+  
 
   document.title = "Übersicht";
-  useEffect(() => {
-    getVideos();
-  }, [getVideos]);
+  
 
   return (
     <div className="container">
@@ -36,17 +31,20 @@ function Landing() {
         <span className="greenstripe">ENERCON</span>
         <span className="redstripe">Filme</span>
       </h1>
-
-      {error && <h1>PC nicht freigegeben</h1>}
-      {!error && overview && (
+      {isLoading ? (
+        <div className="loading">
+          <BarLoader loading={isLoading} color={"#00665a"} size={150} />
+        </div>
+      ) : null}
+      {isError && <h1>PC nicht freigegeben</h1>}
+      {data && overview && (
         <div className="grid">
-          {videos?.map((video) => (
+          {data?.map((video) => (
             <Cards key={video?.id} video={video} />
           ))}
         </div>
       )}
-	  {!error && !overview && (
-    <Slider Videos={vid}/>)}
+      {!error && !overview && <Slider Videos={vid} />}
     </div>
   );
 }

@@ -14,7 +14,7 @@ class Video(models.Model):
 
 
     def __str__(self):
-        return '%d: %s' % (self.title_de, self.title_en)
+        return '%s: %s' % (self.title_de, self.title_en)
     
 
 
@@ -29,4 +29,4 @@ class PC(models.Model):
         ordering = ["ip_address"]
 
     def __str__(self):
-        return '%d: %s' % (self.pc_name, self.ip_address)
+        return '%s: %s' % (self.pc_name, self.ip_address)

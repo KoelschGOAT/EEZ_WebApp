@@ -12,15 +12,30 @@ import Favorite from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useForm } from "react-hook-form";
-import {useQuery} from "react-query";
-const PopUp = ({ pc, onClose, allVideos ,getPCs}) => {
+
+import { useQuery, useMutation, useQueryClient } from "react-query";
+const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
+     const queryClient = useQueryClient();
+
+
+  const putPC = useMutation(
+    (formData) =>
+      axios.put(`http://192.168.178.21:8000/api/pc/${pc.id}`, formData),
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries("all-pcs");
+        onClose();
+      },
+    }
+  );
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  
+
   const [pcName, setPcName] = useState(pc.pc_name);
   const [ipAddress, setIpAddress] = useState(pc.ip_address);
   const [pcVideos, setPcVideos] = useState(pc.Videos);
@@ -37,21 +52,16 @@ const PopUp = ({ pc, onClose, allVideos ,getPCs}) => {
   };
   const onSubmit = (event) => {
     event.preventDefault();
-    const formData ={};
-    
+    const formData = {};
+
     formData["pc_name"] = pcName;
     formData["ip_address"] = ipAddress;
     formData["is_exhibition"] = isExhibition;
     formData["is_active"] = pcIsActive;
     formData["Videos"] = pcVideos;
-    console.log(formData);
-    
-    axios.put(`http://192.168.178.21:8000/api/pc/${pc.id}`,formData).then((response) => {
-      pc=response.data;
-      getPCs();
-      onClose();
-    })
-  }
+
+    putPC.mutate(formData);
+  };
 
   //returns portal to render a popUp on the parent div DisplaySelectionPopUp
   return ReactDom.createPortal(
@@ -78,7 +88,10 @@ const PopUp = ({ pc, onClose, allVideos ,getPCs}) => {
                     </div>
                     <div className="col-75">
                       <input
-                        {...register("pcName", { required: true,maxLength:40 })}
+                        {...register("pcName", {
+                          required: true,
+                          maxLength: 40,
+                        })}
                         className="PopUpInput"
                         type="text"
                         name="pc_name"
@@ -124,7 +137,6 @@ const PopUp = ({ pc, onClose, allVideos ,getPCs}) => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                             
                               defaultChecked={isExhibition ? true : false}
                             />
                           }
