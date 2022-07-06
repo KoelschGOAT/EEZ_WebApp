@@ -13,8 +13,7 @@ const zoomOutProperties = {
   arrows: true,
 };
 const Slider = ({ Videos }) => {
-  console.log(Videos);
-  const BUTTON_STYLES = {
+   const BUTTON_STYLES = {
     marginTop: "5px",
     width: "145px",
     height: "45px",
@@ -37,7 +36,7 @@ const Slider = ({ Videos }) => {
             <img
               key={video.id}
               style={{ width: "100%", height: "80%" }}
-              src={`http://192.168.178.21:8000${video.screenshot}`}
+              src={`http://192.168.5.182:8000${video.screenshot}`}
               alt={video.title_de}
             />
             <button

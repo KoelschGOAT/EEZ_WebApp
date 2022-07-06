@@ -58,7 +58,7 @@ select,
 }
 
 .submitButton {
-  background-color: #04aa6d;
+  background-color: hsl(158, 95%, 34%);
   color: white;
   padding: 12px 20px;
   border: none;
@@ -68,7 +68,7 @@ select,
 }
 
 .submitButton:hover {
-  background-color: #45a049;
+  background-color: hsl(123, 40%, 30%);
 }
 
 .col-25 {

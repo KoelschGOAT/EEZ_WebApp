@@ -12,7 +12,7 @@ const SingleVideo = () => {
       <div className="wrapper">
         <video className="video" autoPlay loop>
           <source
-            src={`http://192.168.178.21:8000${video.video}`}
+            src={`http://192.168.5.182:8000${video.video}`}
             type="video/webm"
           />
         </video>

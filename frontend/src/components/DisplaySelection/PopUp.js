@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDom from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import "../../static/css/PopUp.css";
@@ -20,7 +20,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
 
   const putPC = useMutation(
     (formData) =>
-      axios.put(`http://192.168.178.21:8000/api/pc/${pc.id}`, formData),
+      axios.put(`http://192.168.5.182:8000/api/pc/${pc.id}`, formData),
     {
       onSuccess: () => {
         // Invalidate and refetch
@@ -39,7 +39,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
   const [pcName, setPcName] = useState(pc.pc_name);
   const [ipAddress, setIpAddress] = useState(pc.ip_address);
   const [pcVideos, setPcVideos] = useState(pc.Videos);
-  const [pcIsActive, setIsActive] = useState(pc.is_active);
+  const [pcIsActive, setPCIsActive] = useState(pc.is_active);
   const [isExhibition, setIsExhibition] = useState(pc.is_exhibition);
 
   const onChangeHandlerName = (e) => {
@@ -62,6 +62,9 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
 
     putPC.mutate(formData);
   };
+useEffect(() => {
+  console.log(pcIsActive, isExhibition);
+}, [pcIsActive, isExhibition]);
 
   //returns portal to render a popUp on the parent div DisplaySelectionPopUp
   return ReactDom.createPortal(
@@ -128,7 +131,8 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                           control={
                             <Checkbox
                               {...register("is_active")}
-                              defaultChecked={pcIsActive ? true : false}
+                              checked={pcIsActive ? true : false}
+                              onChange={() => {setPCIsActive(!pcIsActive)}}
                             />
                           }
                           label="Aktiv:"
@@ -137,7 +141,8 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              defaultChecked={isExhibition ? true : false}
+                              checked={isExhibition ? true : false}
+                              onChange={() => setIsExhibition(!isExhibition)}
                             />
                           }
                           label="EEZ:"

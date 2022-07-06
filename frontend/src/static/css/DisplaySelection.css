@@ -1,10 +1,12 @@
-.loading{
-   
-   display:flex;
-   width:100%;
-   justify-content:center;
-   align-items: center;
-
-  
+.DisplayWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 }
+.Card:hover{
+    background-color:hsl(100,100%,80%);
+}
+
 
