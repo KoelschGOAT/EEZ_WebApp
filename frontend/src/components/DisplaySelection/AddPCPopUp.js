@@ -38,7 +38,6 @@ const AddPCPopUp = ({  onClose, allVideos }) => {
   const [pcName, setPcName] = useState();
   const [ipAddress, setIpAddress] = useState();
   const [pcVideos, setPcVideos] = useState([]);
-  const [pcIsActive, setPCIsActive] = useState();
 
 
   const onChangeHandler = (e, setState) => {
@@ -53,7 +52,6 @@ const AddPCPopUp = ({  onClose, allVideos }) => {
     formData["pc_name"] = pcName;
     formData["ip_address"] = ipAddress;
    
-    formData["is_active"] = pcIsActive;
 
     let videoArray = [];
     pcVideos.forEach((video) => {
@@ -126,26 +124,7 @@ const AddPCPopUp = ({  onClose, allVideos }) => {
                       />
                     </div>
                   </div>
-                  <div className="row">
-                    <div className="col-75">
-                      <FormGroup sx={{ float: "left", marginLeft: "-1rem" }}>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              {...register("is_active")}
-                              checked={pcIsActive ? true : false}
-                              onChange={() => {
-                                setPCIsActive(!pcIsActive);
-                              }}
-                            />
-                          }
-                          label="Aktiv:"
-                          labelPlacement="start"
-                        />
-                       
-                      </FormGroup>
-                    </div>
-                  </div>
+                 
                 </div>
 
                 <CheckboxList
