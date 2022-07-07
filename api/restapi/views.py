@@ -14,7 +14,7 @@ from rest_framework.response import Response
 @api_view(["GET","POST"])
 def pc_view(request):
     if request.method == "GET":
-        query = PC.objects.filter(is_active=True)
+        query = PC.objects.all()
         serializer = PCSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
     elif request.method == 'POST':
@@ -41,10 +41,9 @@ def video_view(request):
         except:
             return JsonResponse({"message":"PC not found"},status=status.HTTP_404_NOT_FOUND)
         #check if PC is active and receiving all videos wich are linked to the PC, otherwise it returns HTTP_404_NOT_FOUND
-        if requested_pc.is_active ==True:
-            query=requested_pc.Videos.all()
-        else:
-            return JsonResponse({"message":"PC not active"},status=status.HTTP_404_NOT_FOUND)
+        
+        query=requested_pc.Videos.all()
+        
         serializer = VideoSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
 
@@ -137,10 +136,10 @@ def VideoSelectView(request):
         except:
             return JsonResponse({"message": "PC not found"}, status=status.HTTP_404_NOT_FOUND)
         #check if PC is active and receiving all videos wich are linked to the PC, otherwise it returns HTTP_404_NOT_FOUND
-        if requested_pc.is_active == True:
-            query = requested_pc.Videos.all()
-        else:
-            return JsonResponse({"message": "PC not active"}, status=status.HTTP_404_NOT_FOUND)
+       
+        query = requested_pc.Videos.all()
+       
+            
         serializer = VideoSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
 

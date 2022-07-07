@@ -17,7 +17,7 @@ class PCSerializer( serializers.ModelSerializer):
         fields = ("id",
                   "pc_name",
                   "ip_address",
-                  "is_active", 
+                 
                   "Videos")
     
     class VideoSelectionSerializer( serializers.ModelSerializer):

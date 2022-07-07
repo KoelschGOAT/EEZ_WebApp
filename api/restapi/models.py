@@ -22,7 +22,7 @@ class PC(models.Model):
     pc_name= models.CharField(max_length=50, unique=True)
     ip_address = models.CharField(
         max_length=15, unique=True)
-    is_active = models.BooleanField(default=True)
+    
     Videos = models.ManyToManyField(Video)
    
     class Meta:

@@ -39,7 +39,6 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
   const [pcName, setPcName] = useState(pc.pc_name);
   const [ipAddress, setIpAddress] = useState(pc.ip_address);
   const [pcVideos, setPcVideos] = useState(pc.Videos);
-  const [pcIsActive, setPCIsActive] = useState(pc.is_active);
 
   const onChangeHandler = (e, setState) => {
     e.preventDefault();
@@ -53,7 +52,6 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
     formData["pc_name"] = pcName;
     formData["ip_address"] = ipAddress;
 
-    formData["is_active"] = pcIsActive;
 
     let videoArray = [];
     pcVideos.forEach((video) => {
@@ -124,25 +122,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                       />
                     </div>
                   </div>
-                  <div className="row">
-                    <div className="col-75">
-                      <FormGroup sx={{ float: "left", marginLeft: "-1rem" }}>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              {...register("is_active")}
-                              checked={pcIsActive ? true : false}
-                              onChange={() => {
-                                setPCIsActive(!pcIsActive);
-                              }}
-                            />
-                          }
-                          label="Aktiv:"
-                          labelPlacement="start"
-                        />
-                      </FormGroup>
-                    </div>
-                  </div>
+                  
                 </div>
 
                 <CheckboxList
@@ -153,17 +133,13 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
               </div>
               <div className="ButtonBox">
                 <Button
-                 
                   sx={[
                     {
-                      backgroundColor:"#04a96d",
+                      backgroundColor: "#04a96d",
                       "&:hover": {
-                      
-                      
                         backgroundColor: "#2e6b31",
                       },
                     },
-                   
                   ]}
                   className="submitButton"
                   type="submit"
@@ -173,21 +149,17 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                   Absenden
                 </Button>
                 <Button
-                 sx={[
+                  sx={[
                     {
-                    color:"red",
-                     borderColor:"white",
+                      color: "red",
+                      borderColor: "white",
                       "&:hover": {
-                      
-                      
                         borderColor: "red",
                       },
                     },
-                   
                   ]}
                   variant="outlined"
                   className="DeleteButton"
-                  
                 >
                   Löschen
                 </Button>
