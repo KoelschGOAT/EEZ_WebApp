@@ -14,12 +14,12 @@ from rest_framework.response import Response
 @api_view(["GET","POST"])
 def pc_view(request):
     if request.method == "GET":
-        query = PC.objects.filter(is_exhibition=True,is_active=True)
+        query = PC.objects.filter(is_active=True)
         serializer = PCSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
     elif request.method == 'POST':
-        
-        serializer = VideoSerializer(data=request.data)
+        print(request.data)
+        serializer = PCSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED )

@@ -24,7 +24,7 @@ class PC(models.Model):
         max_length=15, unique=True)
     is_active = models.BooleanField(default=True)
     Videos = models.ManyToManyField(Video)
-    is_exhibition = models.BooleanField(default=False)
+   
     class Meta:
         ordering = ["ip_address"]
 

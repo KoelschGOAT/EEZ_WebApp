@@ -7,20 +7,19 @@ import axios from "axios";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useForm } from "react-hook-form";
-
+import Button from "@mui/material/Button";       
 import { useQuery, useMutation, useQueryClient } from "react-query";
-const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
+const AddPCPopUp = ({  onClose, allVideos }) => {
   const queryClient = useQueryClient();
 
-  const putPC = useMutation(
+  const postPC = useMutation(
     (formData) =>
-      axios.put(`http://192.168.178.21:8000/api/pc/${pc.id}`, formData),
+      axios.post(`http://192.168.178.21:8000/api/all-pcs`, formData),
     {
       onSuccess: () => {
         // Invalidate and refetch
@@ -36,10 +35,11 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
     formState: { errors },
   } = useForm();
 
-  const [pcName, setPcName] = useState(pc.pc_name);
-  const [ipAddress, setIpAddress] = useState(pc.ip_address);
-  const [pcVideos, setPcVideos] = useState(pc.Videos);
-  const [pcIsActive, setPCIsActive] = useState(pc.is_active);
+  const [pcName, setPcName] = useState();
+  const [ipAddress, setIpAddress] = useState();
+  const [pcVideos, setPcVideos] = useState([]);
+  const [pcIsActive, setPCIsActive] = useState();
+
 
   const onChangeHandler = (e, setState) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
 
     formData["pc_name"] = pcName;
     formData["ip_address"] = ipAddress;
-
+   
     formData["is_active"] = pcIsActive;
 
     let videoArray = [];
@@ -63,7 +63,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
     });
     formData["Videos"] = videoArray;
 
-    putPC.mutate(formData);
+    postPC.mutate(formData);
   };
 
   //returns portal to render a popUp on the parent div DisplaySelectionPopUp
@@ -76,8 +76,8 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
             {<AiOutlineClose />}
           </span>
           <div className="PopUpHeader">
-            <h2>{pc.pc_name}</h2>
-            <p>Einstellungen für {pc.pc_name}</p>
+            <h2>Neuen PC hinzufügen</h2>
+          
           </div>
           <div className="container">
             <form onSubmit={onSubmit}>
@@ -100,6 +100,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                         name="pc_name"
                         onChange={(e) => onChangeHandler(e, setPcName)}
                         value={pcName}
+                        placeholder="PC Name"
                       />
                     </div>
                   </div>
@@ -121,6 +122,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                         name="ip_address"
                         onChange={(e) => onChangeHandler(e, setIpAddress)}
                         value={ipAddress}
+                        placeholder="IP-Adresse"
                       />
                     </div>
                   </div>
@@ -140,6 +142,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                           label="Aktiv:"
                           labelPlacement="start"
                         />
+                       
                       </FormGroup>
                     </div>
                   </div>
@@ -151,8 +154,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                   allVideos={allVideos}
                 />
               </div>
-              <div className="ButtonBox">
-                <Button
+             <Button
                  
                   sx={[
                     {
@@ -172,26 +174,6 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                 >
                   Absenden
                 </Button>
-                <Button
-                 sx={[
-                    {
-                    color:"red",
-                     borderColor:"white",
-                      "&:hover": {
-                      
-                      
-                        borderColor: "red",
-                      },
-                    },
-                   
-                  ]}
-                  variant="outlined"
-                  className="DeleteButton"
-                  
-                >
-                  Löschen
-                </Button>
-              </div>
             </form>
           </div>
         </div>
@@ -201,4 +183,4 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
   );
 };
 
-export default PopUp;
+export default AddPCPopUp;

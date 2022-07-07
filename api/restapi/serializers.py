@@ -18,7 +18,6 @@ class PCSerializer( serializers.ModelSerializer):
                   "pc_name",
                   "ip_address",
                   "is_active", 
-                  "is_exhibition",
                   "Videos")
     
     class VideoSelectionSerializer( serializers.ModelSerializer):

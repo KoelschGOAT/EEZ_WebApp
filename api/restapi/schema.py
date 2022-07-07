@@ -16,7 +16,7 @@ class PCType(DjangoObjectType):
         fields = ("id",
                   "pc_name",
                   "ip_address",
-                  "is_active", "is_exhibition",
+                  "is_active", 
                   )
 
 

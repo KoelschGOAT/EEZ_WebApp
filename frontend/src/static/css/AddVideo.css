@@ -1,4 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+.OverflowContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
 
+.PopUpModal {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.PopUpModal .PopUpHeader {
+  text-align: center;
+}
+.PopUpModal .close {
+
+  border-radius: 50%;
+  cursor: pointer;
+}
 .AddVideoContainer {
     display:flex;
     justify-content:center;

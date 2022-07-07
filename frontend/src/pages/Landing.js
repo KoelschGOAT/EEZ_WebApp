@@ -21,7 +21,7 @@ function Landing() {
     return response.data;
   };
   const { data, isError, isLoading } = useQuery("current-pc-videos", () =>
-    fetchData(`http://192.168.5.182:8000/api/current-pc-videos`)
+    fetchData(`http://192.168.178.21:8000/api/current-pc-videos`)
   );
 
   document.title = "Übersicht";

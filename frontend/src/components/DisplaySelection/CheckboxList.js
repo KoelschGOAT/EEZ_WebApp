@@ -6,15 +6,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 
-export default function CheckboxList({ pcVideos,setPcVideos, allVideos,regestration }) {
+export default function CheckboxList({ pcVideos,setPcVideos, allVideos}) {
   
   const handleToggle = (value) => () => {
-    
     const currentIndex=pcVideos.findIndex((check) => check.id === value.id);
     const newChecked = [...pcVideos];
 /* If Entry == -1, so doesnt exist, push to State, otherwise splice */
     if (currentIndex === -1) {
-    
+      
+
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
@@ -33,12 +33,15 @@ export default function CheckboxList({ pcVideos,setPcVideos, allVideos,regestrat
           maxWidth: 360,
           bgcolor: "background.paper",
           padding: "0",
+          marginLeft:"-1rem",
+          minWidth:"100%",
         }}
       >
         {allVideos.map((video) => {
           const labelId = `${video.id}`;
 
           return (
+           
             <ListItem key={video.id} disablePadding>
               <ListItemButton
                 role={undefined}
@@ -47,6 +50,7 @@ export default function CheckboxList({ pcVideos,setPcVideos, allVideos,regestrat
               >
                 <ListItemIcon>
                   <Checkbox
+                 
                     edge="start"
                     /* Check if Video Item is in PCVideos, true= checked, false= not checked */
                     checked={
