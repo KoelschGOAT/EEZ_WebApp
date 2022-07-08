@@ -20,7 +20,18 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
 
   const putPC = useMutation(
     (formData) =>
-      axios.put(`http://192.168.178.21:8000/api/pc/${pc.id}`, formData),
+      axios.put(`http://192.168.3.23:8000/api/pc/${pc.id}`, formData),
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries("all-pcs");
+        onClose();
+      },
+    }
+  );
+  const deletePC = useMutation(
+    () =>
+      axios.delete(`http://192.168.3.23:8000/api/pc/${pc.id}`),
     {
       onSuccess: () => {
         // Invalidate and refetch
@@ -44,7 +55,9 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
     e.preventDefault();
     setState(e.target.value);
   };
-
+  const onDeleteHandler=(e)=>{
+    deletePC.mutate();
+  }
   const onSubmit = (event) => {
     event.preventDefault();
     const formData = {};
@@ -122,7 +135,6 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                       />
                     </div>
                   </div>
-                  
                 </div>
 
                 <CheckboxList
@@ -149,6 +161,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                   Absenden
                 </Button>
                 <Button
+                  onClick={() => onDeleteHandler}
                   sx={[
                     {
                       color: "red",

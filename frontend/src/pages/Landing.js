@@ -12,19 +12,34 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { useQuery, useQueryClient } from "react-query";
 function Landing() {
-  
   const [overview, setoverview] = useState(true);
   const { videos, setVideos } = useContext(AppContext);
-  
+
   const fetchData = async (url) => {
     const response = await axios.get(url);
     return response.data;
   };
-  const { data, isError, isLoading } = useQuery("current-pc-videos", () =>
-    fetchData(`http://192.168.178.21:8000/api/current-pc-videos`)
+  const { data, isError, isLoading, error } = useQuery(
+    "current-pc-videos",
+    () => fetchData(`http://192.168.3.23:8000/api/current-pc-videos`)
   );
 
   document.title = "Übersicht";
+  const responseReturn = () => {
+    if (isLoading) {
+      return (
+        <div className="loading">
+          <BarLoader loading={isLoading} color={"#00665a"} size={150} />
+        </div>
+      );
+    } else if (isError && error?.response.status === 401) {
+      return <h1 className="loading">PC nicht freigegeben</h1>;
+    } else if (isError) {
+      return (
+        <h1 className="loading">Ein unerwarteter Fehler ist aufgetreten</h1>
+      );
+    }
+  };
 
   return (
     <div className="container">
@@ -32,16 +47,7 @@ function Landing() {
         <span className="greenstripe">ENERCON</span>
         <span className="redstripe">Filme</span>
       </h1>
-      {isLoading ? (
-        <div className="loading">
-          <BarLoader loading={isLoading} color={"#00665a"} size={150} />
-        </div>
-      ) : null}
-      {isError && (
-        <h1 className="loading">
-          PC nicht freigegeben oder ein anderer Fehler
-        </h1>
-      )}
+      {responseReturn()}
       {data && overview && (
         <div className="grid">
           {data?.map((video) => (
@@ -50,7 +56,6 @@ function Landing() {
         </div>
       )}
       {data && <Slider Videos={data} />}
-     
     </div>
   );
 }

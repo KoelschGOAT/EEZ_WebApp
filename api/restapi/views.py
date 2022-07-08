@@ -1,3 +1,4 @@
+from email import message
 import re
 from django.shortcuts import render
 from rest_framework.decorators import api_view
@@ -18,7 +19,7 @@ def pc_view(request):
         serializer = PCSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
     elif request.method == 'POST':
-        print(request.data)
+        print("request.data",request.data)
         serializer = PCSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -39,7 +40,7 @@ def video_view(request):
             requested_pc = PC.objects.get(ip_address=client_ip_address)
            
         except:
-            return JsonResponse({"message":"PC not found"},status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({"message":"PC not found"},status=status.HTTP_401_UNAUTHORIZED)
         #check if PC is active and receiving all videos wich are linked to the PC, otherwise it returns HTTP_404_NOT_FOUND
         
         query=requested_pc.Videos.all()
@@ -100,7 +101,7 @@ def PcEditView(request, pk):
         pc_entry = PC.objects.get(pk=pk)
 
     except PC.DoesNotExist:
-        return HttpResponse(status=404)
+        return HttpResponse({message:"PC not found"},status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = PCSerializer(pc_entry)
@@ -117,7 +118,7 @@ def PcEditView(request, pk):
 
     elif request.method == 'DELETE':
         pc_entry.delete()
-        return HttpResponse(status=204)
+        return HttpResponse({message:"PC deleted"},status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET', 'POST'])

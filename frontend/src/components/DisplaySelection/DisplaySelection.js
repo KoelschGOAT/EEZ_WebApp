@@ -25,9 +25,9 @@ const DisplaySelection = () => {
     };
     const allPCs = useQuery(
         "all-pcs",
-        () => fetchData(`http://192.168.178.21:8000/api/all-pcs`)
+        () => fetchData(`http://192.168.3.23:8000/api/all-pcs`)
     );
-    const allVids = useQuery("all-videos", () => fetchData(`http://192.168.178.21:8000/api/all-videos`));
+    const allVids = useQuery("all-videos", () => fetchData(`http://192.168.3.23:8000/api/all-videos`));
     const isError = allPCs.isError || allVids.isError;
     const isLoading = allPCs.isLoading || allVids.isLoading;
     const data = allVids.data || allPCs.data;
