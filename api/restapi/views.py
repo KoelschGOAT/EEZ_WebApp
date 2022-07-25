@@ -22,7 +22,7 @@ def pc_view(request):
         print("request.data",request.data)
         serializer = PCSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(Videos=request.data["Videos"])
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED )
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @csrf_exempt
@@ -82,6 +82,7 @@ def VideoEditView(request, pk):
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
+        
         serializer = VideoSerializer(video_entry, data=data)
         if serializer.is_valid():
             serializer.save()
@@ -92,7 +93,7 @@ def VideoEditView(request, pk):
         video_entry.delete()
         return HttpResponse(status=204)
 @csrf_exempt
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PATCH', 'DELETE'])
 def PcEditView(request, pk):
 
     # Retrieve, update or delete a device.
@@ -107,11 +108,11 @@ def PcEditView(request, pk):
         serializer = PCSerializer(pc_entry)
         return JsonResponse(serializer.data)
 
-    elif request.method == 'PUT':
-        print(request.data)
-        serializer = PCSerializer(pc_entry, data=request.data)
+    elif request.method == 'PATCH':
+        data = JSONParser().parse(request)
+        serializer = PCSerializer(pc_entry, data=data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(Videos=data["Videos"])
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

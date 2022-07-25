@@ -20,7 +20,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
 
   const putPC = useMutation(
     (formData) =>
-      axios.put(`http://192.168.3.23:8000/api/pc/${pc.id}`, formData),
+      axios.patch(`http://192.168.178.155:8000/api/pc/${pc.id}`, formData),
     {
       onSuccess: () => {
         // Invalidate and refetch
@@ -30,8 +30,8 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
     }
   );
   const deletePC = useMutation(
-    () =>
-      axios.delete(`http://192.168.3.23:8000/api/pc/${pc.id}`),
+    () =>axios.delete(`http://192.168.178.155:8000/api/pc/${pc.id}`),
+     
     {
       onSuccess: () => {
         // Invalidate and refetch
@@ -55,7 +55,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
     e.preventDefault();
     setState(e.target.value);
   };
-  const onDeleteHandler=(e)=>{
+  const onDeleteHandler=()=>{
     deletePC.mutate();
   }
   const onSubmit = (event) => {
@@ -72,7 +72,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
         videoArray.push(video.id);
       }
     });
-    formData["Videos"] = videoArray;
+    formData["Videos"] = pcVideos;
 
     putPC.mutate(formData);
   };
@@ -161,7 +161,7 @@ const PopUp = ({ pc, onClose, allVideos, getPCs }) => {
                   Absenden
                 </Button>
                 <Button
-                  onClick={() => onDeleteHandler}
+                  onClick={() => onDeleteHandler()}
                   sx={[
                     {
                       color: "red",

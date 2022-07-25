@@ -19,7 +19,7 @@ const AddPCPopUp = ({  onClose, allVideos }) => {
 
   const postPC = useMutation(
     (formData) =>
-      axios.post(`http://192.168.3.23:8000/api/all-pcs`, formData),
+      axios.post(`http://192.168.178.155:8000/api/all-pcs`, formData),
     {
       onSuccess: () => {
         // Invalidate and refetch
@@ -59,7 +59,7 @@ const AddPCPopUp = ({  onClose, allVideos }) => {
         videoArray.push(video.id);
       }
     });
-    formData["Videos"] = videoArray;
+    formData["Videos"] = pcVideos;
 
     postPC.mutate(formData);
   };
