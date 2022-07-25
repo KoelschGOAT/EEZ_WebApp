@@ -16,11 +16,11 @@ const Cards = ({ video }) => {
 				onClick={() => {
 					navigate("/SingleVideo", { replace: false, state: { video } });
 				}}>
-				<CardActionArea>
+				
 					<CardMedia
 						component="img"
                    
-						image={`http://192.168.3.23:8000${video.screenshot}`}
+						image={`http://192.168.178.155:8000${video.screenshot}`}
 						alt={video.title}
 						
 					/>
@@ -33,7 +33,7 @@ const Cards = ({ video }) => {
 							{"Titel Englisch: "+video.title_en}
 						</Typography>
 					</CardContent>
-				</CardActionArea>
+				
 			</Card>
 		</div>
 	);

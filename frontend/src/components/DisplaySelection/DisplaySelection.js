@@ -25,9 +25,9 @@ const DisplaySelection = () => {
     };
     const allPCs = useQuery(
         "all-pcs",
-        () => fetchData(`http://192.168.3.23:8000/api/all-pcs`)
+        () => fetchData(`http://192.168.178.155:8000/api/all-pcs`)
     );
-    const allVids = useQuery("all-videos", () => fetchData(`http://192.168.3.23:8000/api/all-videos`));
+    const allVids = useQuery("all-videos", () => fetchData(`http://192.168.178.155:8000/api/all-videos`));
     const isError = allPCs.isError || allVids.isError;
     const isLoading = allPCs.isLoading || allVids.isLoading;
     const data = allVids.data || allPCs.data;
@@ -90,7 +90,7 @@ const DisplaySelection = () => {
                   }}
                   className="Card"
                 >
-                  <CardActionArea>
+                
                     <CardContent sx={{ textAlign: "center" }}>
                       <img src={screen} alt="PC Logo" width="50px" />
 
@@ -101,7 +101,7 @@ const DisplaySelection = () => {
                         {pc.ip_address}
                       </Typography>
                     </CardContent>
-                  </CardActionArea>
+                  
                 </Card>
               </div>
             ))}
