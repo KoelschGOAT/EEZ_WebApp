@@ -14,6 +14,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";       
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useStepContext } from "@mui/material";
 const AddPCPopUp = ({  onClose, allVideos }) => {
   const queryClient = useQueryClient();
 
@@ -34,13 +35,16 @@ const AddPCPopUp = ({  onClose, allVideos }) => {
     watch,
     formState: { errors },
   } = useForm();
-
+  const [inputError,setInputError] = useState(false)
+  const [inputErrorMessage,setInputErrorMessage]= useState("")
   const [pcName, setPcName] = useState();
   const [ipAddress, setIpAddress] = useState();
   const [pcVideos, setPcVideos] = useState([]);
 
 
   const onChangeHandler = (e, setState) => {
+    console.log(e.target)
+
     e.preventDefault();
     setState(e.target.value);
   };
@@ -60,8 +64,10 @@ const AddPCPopUp = ({  onClose, allVideos }) => {
       }
     });
     formData["Videos"] = pcVideos;
-
-    postPC.mutate(formData);
+    if (pcName.length<=4 || ipAddress.length<=6){
+      setInputError(true);
+      setInputErrorMessage("Eingabe Felder leer oder zu wenig Ziffern")
+    }else postPC.mutate(formData);
   };
 
   //returns portal to render a popUp on the parent div DisplaySelectionPopUp
@@ -77,6 +83,7 @@ const AddPCPopUp = ({  onClose, allVideos }) => {
             <h2>Neuen PC hinzufügen</h2>
           
           </div>
+          {inputError&&(<div className="inputError">{inputErrorMessage}</div>)}
           <div className="container">
             <form onSubmit={onSubmit}>
               <div className="Form-Checklist-Wrapper">
@@ -113,7 +120,7 @@ const AddPCPopUp = ({  onClose, allVideos }) => {
                         {...register("pcIpaddress", {
                           required: true,
                           pattern:
-                            /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
+                            "/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/",
                         })}
                         className="PopUpInput"
                         type="text"

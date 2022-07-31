@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
 import "react-slideshow-image/dist/styles.css";
-import AppContext from "../utils/Context/AppContext";
+import AppContext from "../../utils/Context/AppContext";
 import BarLoader from "react-spinners/BarLoader";
 import axios from "axios";
-import Cards from "../components/Card";
-import "../static/css/Landing.css";
-import Slider from "../components/Slider";
-import { Slide } from "react-slideshow-image";
+import Cards from "../../components/Card";
+import "../../static/css/Landing.css";
 import { useNavigate } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
 import { useQuery, useQueryClient } from "react-query";
-function Landing() {
+function VideoSelection() {
   let navigate = useNavigate();
   const [overview, setoverview] = useState(true);
   const { videos, setVideos } = useContext(AppContext);
@@ -22,10 +19,10 @@ function Landing() {
   };
   const { data, isError, isLoading, error } = useQuery(
     "current-pc-videos",
-    () => fetchData(`http://192.168.178.155:8000/api/current-pc-videos`)
+    () => fetchData(`http://192.168.178.155:8000/api/all-videos`)
   );
 
-  document.title = "Übersicht";
+  document.title = "Video Übersicht";
   const  responseReturn = () => {
     if (isLoading) {
       return (
@@ -33,8 +30,6 @@ function Landing() {
           <BarLoader loading={isLoading} color={"#00665a"} size={150} />
         </div>
       );
-    } else if (isError && error?.response.status === 401) {
-      return <h1 className="loading">PC nicht freigegeben</h1>;
     } else if (isError) {
       return (
         <h1 className="loading">Ein unerwarteter Fehler ist aufgetreten</h1>
@@ -43,7 +38,7 @@ function Landing() {
   };
 
   return (
-    <div className="container">
+    <div className="container" >
       <h1 className="title">
         <span className="greenstripe">ENERCON</span>
         <span className="redstripe">Filme</span>
@@ -52,15 +47,12 @@ function Landing() {
       {data && overview && (
         <div className="grid">
           {data?.map((video) => (
-            <Cards key={video?.id} video={video} onClick={() => {
-              navigate("/SingleVideo", { replace: false, state: { video } });
-            }}/>
+            <Cards key={video?.id} video={video} />
           ))}
         </div>
       )}
-      {data && <Slider Videos={data} />}
     </div>
   );
 }
 
-export default Landing;
+export default VideoSelection;

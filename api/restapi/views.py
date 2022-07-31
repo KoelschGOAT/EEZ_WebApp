@@ -62,7 +62,13 @@ def all_videos_view(request):
         query = Video.objects.all()
         serializer = VideoSerializer(query, many=True)
         return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK) 
-
+    elif request.method == 'POST':
+        
+        serializer = VideoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED )
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 @api_view(['GET', 'PUT', 'DELETE'])

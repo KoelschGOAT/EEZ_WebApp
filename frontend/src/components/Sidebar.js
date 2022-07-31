@@ -6,7 +6,7 @@ import DisplaySelection from "../components/DisplaySelection/DisplaySelection";
 import AddVideo from "../components/AddVideo";
 import EditVideo from "../components/EditVideo";
 import { FaEdit } from "react-icons/fa";
-
+import VideoView from "../components/VideoSelection/VideoSelection"
 const Sidebar = () => {
     document.title="Admin Übersicht"
 	const [component,setComponent]=useState(1);
@@ -35,7 +35,7 @@ const Sidebar = () => {
       </div>
       {component === 1 && <DisplaySelection />}
       {component === 2 && <AddVideo />}
-      {component === 3 && <EditVideo />}
+      {component === 3 && <VideoView />}
     </div>
   );
 };
