@@ -6,16 +6,14 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-const Cards = ({ video }) => {
+
+const Cards = ({ video ,onClick}) => {
 	
-	let navigate = useNavigate();
+	
 	return (
 		<div className="wrapper">
 			<Card className="Card"
-				onClick={() => {
-					navigate("/SingleVideo", { replace: false, state: { video } });
-				}}>
+				onClick={onClick}>
 				
 					<CardMedia
 						component="img"
