@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDom from "react-dom";
-
-import { AiOutlineClose } from "react-icons/ai";
+import Fab from "@mui/material/Fab";
+import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
 import BarLoader from "react-spinners/BarLoader";
 import { useForm } from "react-hook-form";
@@ -70,6 +70,21 @@ const AddVideoPopUp = ({ onClose, allVideos }) => {
     console.log(videoConfig.video.type, videoConfig.screenshot.type);
     event.preventDefault();
     if (
+      video === [] ||
+      screenshot === [] ||
+      title_de === "" ||
+      title_en === "" ||
+      text_de === "" ||
+      text_en === ""
+    ) {
+      setInputError({
+        ...inputError,
+        error: true,
+        message: "Eingabe Felder leer oder zu wenig Ziffern",
+      });
+      return;
+    }
+    if (
       video.type === "video/mp4" ||
       video.type === "video/webm" ||
       screenshot.type === "image/png" ||
@@ -106,14 +121,17 @@ const AddVideoPopUp = ({ onClose, allVideos }) => {
         ) : (
           <div className="PopUpModal">
             {" "}
-            <span className="close" onClick={onClose}>
-              {<AiOutlineClose />}
-            </span>
+            
+            <Fab onClick={onClose}className="close" size="medium" sx={{backgroundColor:"#ff0000", "&:hover": {
+                        backgroundColor: "#d71313",
+                      },}} aria-label="close">
+              <CloseIcon />
+            </Fab>
             <div className="PopUpHeader">
               <h2>Neues Video</h2>
               <p>Neues Video erstellen</p>
             </div>
-            {inputError && (
+            {inputError.error && (
               <Notification
                 width="50%"
                 severity="error"

@@ -3,7 +3,8 @@ import ReactDom from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import "../../static/css/PopUp.css";
 import BarLoader from "react-spinners/BarLoader";
-
+import Fab from "@mui/material/Fab";
+import CloseIcon from '@mui/icons-material/Close';
 import CheckboxList from "./CheckboxList";
 import axios from "axios";
 import FormGroup from "@mui/material/FormGroup";
@@ -50,7 +51,6 @@ const AddPCPopUp = ({ onClose, allVideos }) => {
   const [pcVideos, setPcVideos] = useState([]);
 
   const onChangeHandler = (e, setState) => {
-    console.log(e.target);
 
     e.preventDefault();
     setState(e.target.value);
@@ -79,9 +79,11 @@ const AddPCPopUp = ({ onClose, allVideos }) => {
         ) : (
           <div className="PopUpModal">
             {" "}
-            <span className="close" onClick={onClose}>
-              {<AiOutlineClose />}
-            </span>
+            <Fab onClick={onClose}className="close" size="medium" sx={{backgroundColor:"#ff0000", "&:hover": {
+                        backgroundColor: "#d71313",
+                      },}} aria-label="close">
+              <CloseIcon />
+            </Fab>
             <div className="PopUpHeader">
               <h2>Neuen PC hinzufügen</h2>
             </div>

@@ -15,7 +15,6 @@ class PCSerializer( serializers.ModelSerializer):
         model = PC
         fields = ("id","pc_name","ip_address","Videos") 
     def get_or_create_videos(self, videos):
-        print("videos: ",videos)
         video_ids = []
         for video in videos:
             video_instance, created = Video.objects.get_or_create(pk=video.get("id"), defaults=video)
@@ -33,16 +32,13 @@ class PCSerializer( serializers.ModelSerializer):
 
     def create(self, validated_data):
         video = validated_data.pop('Videos', [])
-        print("validated Data: ",validated_data)
         pc = PC.objects.create(**validated_data)
         pc.Videos.set(self.get_or_create_videos(video))
         return pc
 
     def update(self, instance, validated_data):
         
-        print("validated Data: ",validated_data)
         video = validated_data.pop('Videos', [])
-        print("instance: ",instance)
        
         instance.Videos.set(self.create_or_update_videos(video))
         fields = [  "id",

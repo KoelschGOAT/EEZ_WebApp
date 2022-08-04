@@ -3,7 +3,8 @@ import ReactDom from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import "../../static/css/PopUp.css";
 import BarLoader from "react-spinners/BarLoader";
-
+import Fab from "@mui/material/Fab";
+import CloseIcon from '@mui/icons-material/Close';
 import CheckboxList from "./CheckboxList";
 import axios from "axios";
 import SnackbarNoti from "../Feedback/SnackbarNoti";
@@ -106,9 +107,11 @@ const PopUp = ({ pc, onClose, allVideos, setNoti }) => {
         ) : (
           <div className="PopUpModal">
             {" "}
-            <span className="close" onClick={onClose}>
-              {<AiOutlineClose />}
-            </span>
+            <Fab onClick={onClose}className="close" size="medium" sx={{backgroundColor:"#ff0000", "&:hover": {
+                        backgroundColor: "#d71313",
+                      },}} aria-label="close">
+              <CloseIcon />
+            </Fab>
             <div className="PopUpHeader">
               <h2>{pc.pc_name}</h2>
               <p>Einstellungen für {pc.pc_name}</p>

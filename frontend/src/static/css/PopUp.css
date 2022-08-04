@@ -34,9 +34,7 @@
   z-index: 1000;
   background-color: white;
 }
-.blur {
-  display: none;
-}
+
 .PopUpModal .PopUpHeader {
   text-align: center;
   justify-content: center;

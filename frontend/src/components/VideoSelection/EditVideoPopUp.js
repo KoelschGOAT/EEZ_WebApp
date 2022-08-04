@@ -3,6 +3,8 @@ import ReactDom from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import "../../static/css/PopUp.css";
 import axios from "axios";
+import Fab from "@mui/material/Fab";
+import CloseIcon from '@mui/icons-material/Close';
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -15,7 +17,7 @@ import { useForm } from "react-hook-form";
 import Loader from "../Feedback/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Notification from "../Feedback/Notification";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 const EditVideoPopUp = ({ video, onClose, getPCs }) => {
   const [videoLink, setVideoLink] = useState(video.video);
@@ -101,19 +103,26 @@ const EditVideoPopUp = ({ video, onClose, getPCs }) => {
     <>
       <div className="OverflowContainer">
         {putVideo.isLoading ? (
-          <Loader />
+          <Loader loading={putVideo.isLoading}/>
         ) : (
           <div className="PopUpModal">
             {" "}
-            <span className="close" onClick={onClose}>
-              {<AiOutlineClose />}
-            </span>
+            <Fab onClick={onClose}className="close" size="medium" sx={{backgroundColor:"#ff0000", "&:hover": {
+                        backgroundColor: "#d71313",
+                      },}} aria-label="close">
+              <CloseIcon />
+            </Fab>
             <div className="PopUpHeader">
               <h2>{video.title_de}</h2>
               <p>Einstellungen für {video.title_de}</p>
             </div>
             {inputError && (
-              <div className="inputError">{inputErrorMessage}</div>
+              <Notification
+                width="50%"
+                severity="error"
+                Title="Fehler"
+                Message={inputErrorMessage}
+              />
             )}
             <div className="container">
               <form onSubmit={onSubmit}>
