@@ -48,20 +48,19 @@ height:30px;
 .navbar-links li {
   list-style: none;
 }
+.navbar-links .items:hover{
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+}
 .navbar-links .back{
-    margin-top:5px;
     width: 145px;
     height:45px;
-    border-radius:25px;
-    border:none;
     background-color:hsl(341, 100%, 45%);
     cursor:pointer;
     margin: auto; /* Important */ 
-    text-align:center;
+   
     color:white;
     font-weight: bold;
-    vertical-align: middle;
-     line-height:250%;
 }
 .navbar-links .back:hover{
   background-color:hsl(341, 100%, 45%);
@@ -75,6 +74,9 @@ height:30px;
   text-decoration: none;
   color: hsl(173, 30%, 40%);
   padding: 1rem;
+}
+.navbar-links .backLi{
+  margin: auto 1rem auto 1rem;
 }
 /* .navbar-links li a:hover {
 

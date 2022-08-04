@@ -1,20 +1,15 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
+
+import Notification from "../components/Feedback/Notification";
+import Loader from "../components/Feedback/Loader";
 import "react-slideshow-image/dist/styles.css";
-import AppContext from "../utils/Context/AppContext";
-import BarLoader from "react-spinners/BarLoader";
 import axios from "axios";
 import Cards from "../components/Card";
 import "../static/css/Landing.css";
-import Slider from "../components/Slider";
-import { Slide } from "react-slideshow-image";
 import { useNavigate } from "react-router-dom";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 function Landing() {
   let navigate = useNavigate();
-  const [overview, setoverview] = useState(true);
-  const { videos, setVideos } = useContext(AppContext);
 
   const fetchData = async (url) => {
     const response = await axios.get(url);
@@ -22,22 +17,28 @@ function Landing() {
   };
   const { data, isError, isLoading, error } = useQuery(
     "current-pc-videos",
-    () => fetchData(`http://192.168.178.155:8000/api/current-pc-videos`)
+    () => fetchData(`http://127.0.0.1:8000/api/current-pc-videos`)
   );
 
   document.title = "Übersicht";
-  const  responseReturn = () => {
-    if (isLoading) {
+  const responseReturn = () => {
+    <Loader loading={isLoading} />;
+
+    if (isError && error?.response.status === 401) {
       return (
-        <div className="loading">
-          <BarLoader loading={isLoading} color={"#00665a"} size={150} />
-        </div>
+        <Notification
+          severity="warning"
+          Title="Fehler"
+          Message="Dieser PC ist nicht im System"
+        />
       );
-    } else if (isError && error?.response.status === 401) {
-      return <h1 className="loading">PC nicht freigegeben</h1>;
     } else if (isError) {
       return (
-        <h1 className="loading">Ein unerwarteter Fehler ist aufgetreten</h1>
+        <Notification
+          severity="error"
+          Title="Fehler"
+          Message="Ein unerwarteter Fehler ist aufgetreten"
+        />
       );
     }
   };
@@ -48,17 +49,30 @@ function Landing() {
         <span className="greenstripe">ENERCON</span>
         <span className="redstripe">Filme</span>
       </h1>
-      {responseReturn()}
-      {data && overview && (
+
+     {responseReturn()}
+      {data && data.length === 0 &&(
+        <Notification
+          severity="warning"
+          Title="Warnung"
+          Message="Keine Videos für diesen PC eingetragen"
+        />
+      )}
+      {data &&  (
         <div className="grid">
           {data?.map((video) => (
-            <Cards key={video?.id} video={video} onClick={() => {
-              navigate("/SingleVideo", { replace: false, state: { video } });
-            }}/>
+            <Cards
+              key={video?.id}
+              video={video}
+              onClick={() => {
+                navigate("/SingleVideo", { replace: false, state: { video } });
+              }}
+            />
           ))}
         </div>
       )}
-      {data && <Slider Videos={data} />}
+
+      {/*data && <Slider Videos={data} />*/}
     </div>
   );
 }

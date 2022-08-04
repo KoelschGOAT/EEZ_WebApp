@@ -2,6 +2,14 @@
 .css-o69gx8-MuiCardMedia-root {
     height:210px;
 }
+.css-bhp9pd-MuiPaper-root-MuiCard-root {
+    width:-webkit-fill-available;
+}
+.Card:hover{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    cursor:pointer;
+}
 
 @media only screen and (max-width: 640px) {
     .wrapper {

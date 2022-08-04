@@ -5,7 +5,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
 
 const Cards = ({ video ,onClick}) => {
 	
@@ -18,7 +17,7 @@ const Cards = ({ video ,onClick}) => {
 					<CardMedia
 						component="img"
                    
-						image={`http://192.168.178.155:8000${video.screenshot}`}
+						image={`http://127.0.0.1:8000${video.screenshot}`}
 						alt={video.title}
 						
 					/>

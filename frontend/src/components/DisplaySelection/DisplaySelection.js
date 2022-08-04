@@ -6,20 +6,21 @@ import screen from "../../static/img/screen.svg";
 import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, Snackbar } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useQuery, useQueryClient } from "react-query";
 import { GrAdd } from "react-icons/gr";
 import PopUp from "./PopUp";
 import AddPCPopUp from "./AddPCPopUp";
 import { ToastContainer, toast } from "react-toastify";
+import Loader from "../Feedback/Loader";
+import Notification from "../Feedback/Notification";
+import SnackbarNoti from "../Feedback/SnackbarNoti";
+
 import "react-toastify/dist/ReactToastify.css";
 const DisplaySelection = () => {
-  const notification = (message) => toast.success(message);
 
   const queryClient = useQueryClient();
-  const { pcs, setPcs } = useContext(AppContext);
-  const [allVideos, setAllVideos] = useState();
   const [selectedPC, setSelectedPC] = useState();
   const [popUp, setPopUp] = useState(false);
   const [addPopUp, setAddPopUp] = useState(false);
@@ -29,9 +30,9 @@ const DisplaySelection = () => {
   };
   const allPCs = useQuery(
     "all-pcs",
-    () => fetchData(`http://192.168.178.155:8000/api/all-pcs`)
+    () => fetchData(`http://127.0.0.1:8000/api/all-pcs`)
   );
-  const allVids = useQuery("all-videos", () => fetchData(`http://192.168.178.155:8000/api/all-videos`));
+  const allVids = useQuery("all-videos",() => fetchData(`http://127.0.0.1:8000/api/all-videos`)) ;
   const isError = allPCs.isError || allVids.isError;
   const isLoading = allPCs.isLoading || allVids.isLoading;
   const data = allVids.data || allPCs.data;
@@ -47,34 +48,28 @@ const DisplaySelection = () => {
   };
 
 
-  if (isLoading) {
-    return (
-      <div className="DisplayWrapper">
-        <BarLoader loading={isLoading} color={"#00665a"} size={150} />
-      </div>);
-  }
 
-  if (isError) {
-    return (
-      <div className="DisplayWrapper">
-        <h1>Error</h1>
-      </div>);
-  }
+  const responseReturn = () => {
+    <Loader loading={isLoading} />;
 
+    if (isError) {
+      return (
+        <Notification
+          Title="Fehler"
+          Message="Ein unerwarteter Fehler ist aufgetreten"
+        />
+      );
+    }
+  };
   return (
-    <><ToastContainer
-      position="top-right"
-      autoClose={3000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-    />
-      {/* Same as */}
-      <ToastContainer />
+    <>
+    {responseReturn()}
+  
+    
+      <h1 className="title">
+          <span className="greenstripe">Einstellungen</span>
+          <span className="redstripe">Clients</span>
+        </h1>
       {data && !isLoading && !isError && (
         <div className="grid" style={STYLE_WRAPPER}>
 
@@ -133,6 +128,8 @@ const DisplaySelection = () => {
           onClose={() => {
             setPopUp(false);
           }}
+         
+   
         />
       ) : null}
       {addPopUp ? (
@@ -145,6 +142,7 @@ const DisplaySelection = () => {
 
         />
       ) : null}
+      
     </>
   );
 };

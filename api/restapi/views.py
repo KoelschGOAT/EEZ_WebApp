@@ -53,7 +53,9 @@ def video_view(request):
         serializer = VideoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED )
+        print(serializer.errors)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @csrf_exempt
 @api_view(['GET', 'POST'])
@@ -68,6 +70,7 @@ def all_videos_view(request):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED )
+        print(serializer.errors)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
@@ -87,14 +90,16 @@ def VideoEditView(request, pk):
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
-        data = JSONParser().parse(request)
         
-        serializer = VideoSerializer(video_entry, data=data)
+        
+        serializer = VideoSerializer(video_entry, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
+        print("error",serializer.errors)
         return JsonResponse(serializer.errors, status=400)
-
+   
+  
     elif request.method == 'DELETE':
         video_entry.delete()
         return HttpResponse(status=204)

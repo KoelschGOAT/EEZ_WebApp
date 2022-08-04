@@ -1,50 +1,36 @@
-
-.AdminAreaWrapper {
+.CardViewWrapper {
   display: flex;
-  flex-wrap: column;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
+.AdminCard {
+  width: 30%;
 
-body {
-  margin: 0
-}
-
-.icon-bar {
-  position:relative;
-  width: 90px;
-  background-color: hsl(0, 100%, 100%);
-  box-shadow: 5px 0px 5px -5px rgb(187, 182, 182);
-  height: 100vmax;
-}
-
-.icon-bar a {
-  display: block;
-  text-align: center;
-  padding: 9px 16px;
-
-  margin-left:.4rem;
-  margin-right:.4rem;
-  transition: all 0.3s ease;
-  color: black;
-  font-size: 36px;
-  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  justify-content:center;
-  box-shadow: 10px 15px 10px -5px rgb(196, 191, 191);
-
+}
+.title {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
 }
 
-.icon-element {
-  margin-top: .4rem;
-  background-color: hsla(171, 28%, 82%, 0.507)
+.greenstripe {
+  border-bottom: 3px solid #00665a;
+
+  margin: 0px 0.3rem 0px 0px;
 }
 
-.icon-element:hover {
-  background-color: hsl(173, 30%, 50%);
+.redstripe {
+  border-bottom: 3px solid hsl(341, 100%, 45%);
 }
 
-.color {
-  margin-top: .4rem;
-
-  background-color: hsl(341, 100%, 45%);
-  ;
+@media only screen and (max-width: 640px) {
+  .AdminCard {
+    width: 310px;
+  }
 }

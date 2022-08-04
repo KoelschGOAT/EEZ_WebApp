@@ -36,7 +36,7 @@ const Slider = ({ Videos }) => {
             <img
               key={video.id}
               style={{ width: "100%", height: "80%" }}
-              src={`http://192.168.178.155:8000${video.screenshot}`}
+              src={`http://127.0.0.1:8000${video.screenshot}`}
               alt={video.title_de}
             />
             <button
