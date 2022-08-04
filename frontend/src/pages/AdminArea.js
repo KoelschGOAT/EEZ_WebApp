@@ -15,7 +15,7 @@ const AdminArea = () => {
   document.title = "Admin Übersicht";
   return (
     <>
-      <IconContext.Provider value={{ color: "#000000" }}>
+      
         <h1 className="title">
           <span className="greenstripe">Geräte</span>
           <span className="redstripe">Einstellungen</span>
@@ -23,33 +23,32 @@ const AdminArea = () => {
         <div className="CardViewWrapper">
           <Card className="Card"sx={{width:"25%"}} onClick={() => navigate("/clients")}>
             <CardContent sx={{ textAlign: "center", justifyContent: "center" }}>
-              <FcTabletAndroid size={"3em"} />
+              <FcTabletAndroid size={"4em"} />
 
-              <Typography variant="body2" color="text.secondary">
-                <h1>
+              <Typography variant="h4" color="text.secondary">
+               
                   Client
                   <br />
                   Einstellungen
-                </h1>
+              
               </Typography>
             </CardContent>
           </Card>
 
           <Card className="Card" sx={{width:"25%"}}onClick={() => navigate("/videos")}>
             <CardContent sx={{ textAlign: "center", justifyContent: "center" }}>
-              <FcFilmReel size={"3em"} />
+              <FcFilmReel size={"4em"} />
 
-              <Typography variant="body2" color="text.secondary">
-                <h1>
+              <Typography variant="h4" color="text.secondary">
+                
                   Video
                   <br />
                   Einstellungen
-                </h1>
               </Typography>
             </CardContent>
           </Card>
         </div>
-      </IconContext.Provider>
+      
     </>
   );
 };
