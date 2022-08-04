@@ -11,7 +11,7 @@ const Cards = ({ video ,onClick}) => {
 	
 	return (
 		<div className="wrapper">
-			<Card variant="outlined" className="Card"
+			<Card variant="outlined" className="Card" sx={{ width: "100%" }}
 				onClick={onClick}>
 				
 					<CardMedia

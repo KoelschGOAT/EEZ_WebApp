@@ -17,10 +17,11 @@
 .container .grid {
     display: grid;
     grid-template-columns: repeat(3, 400px);
-    grid-template-rows: repeat(3);
     justify-content: center;
     grid-gap: 3vmin ;
-    margin-top:2rem;
+    margin-top: 2rem;
+    margin-bottom:2rem;
+
 }
 
 .title{

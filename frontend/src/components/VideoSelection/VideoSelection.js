@@ -28,7 +28,7 @@ function VideoSelection() {
   );
 
   const responseReturn = () => {
-   <Loader loading={isLoading}  />;
+    <Loader loading={isLoading} />;
     if (isError) {
       return (
         <Alert className="loading" severity="error">
@@ -51,7 +51,8 @@ function VideoSelection() {
           <div className="grid">
             <div className="wrapper">
               <Card
-              variant="outlined"
+               sx={{ width: "100%" }}
+                variant="outlined"
                 onClick={() => {
                   setAddPopUp(true);
                 }}
@@ -63,11 +64,10 @@ function VideoSelection() {
                   <GrAdd size={"3em"} />
 
                   <Typography variant="body2" color="text.secondary">
-                    <h1>
-                      Video
-                      <br />
-                      erstellen
-                    </h1>
+                    <h1>Video
+                    <br />
+                    erstellen</h1>
+                    
                   </Typography>
                 </CardContent>
               </Card>

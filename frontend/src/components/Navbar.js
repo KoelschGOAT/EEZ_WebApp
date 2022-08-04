@@ -24,8 +24,8 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <nav className="navbar non-printable">
+    <>
+      <nav className="navbar ">
         <div>
           <li
             className="brand-title gradient"
@@ -72,7 +72,7 @@ const Navbar = () => {
                   handleOnClick();
                 }}
               >
-                <Button
+                <Button sx={{}}
                   className="back"
                   startIcon={<ArrowBackOutlinedIcon />}
                   variant="contained"
@@ -96,7 +96,7 @@ const Navbar = () => {
           </ul>
         </div>
       </nav>
-    </div>
+    </>
   );
 };
 export default Navbar;

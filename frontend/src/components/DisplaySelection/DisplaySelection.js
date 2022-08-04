@@ -43,7 +43,7 @@ const DisplaySelection = () => {
     gridTemplateColumns: "repeat(3, 200px)",
     gridTemplateRows: "repeat(3)",
     justifyContent: "center",
-    gridGap: "10vmin",
+    gridGap: "5vmin",
     margin: "2rem 0 2rem 0",
   };
 
@@ -68,37 +68,39 @@ const DisplaySelection = () => {
         <span className="redstripe">Clients</span>
       </h1>
       {data && !isLoading && !isError && (
-        <div className="grid" style={STYLE_WRAPPER}>
-          <Card
-          variant="outlined"
-            sx={{ maxWidth: "150px" }}
-            onClick={() => {
-              setAddPopUp(true);
-            }}
-            className="Card"
-          >
-            <CardContent
-              sx={{
-                display: "flex",
-                textAlign: "center",
-                alignItems: "center",
-                justifyContent:"center",
-                height:"100%",
+        <div className="grid" >
+          <div className="wrapper">
+            <Card
+              variant="outlined"
+              sx={{ width: "150px" }}
+              onClick={() => {
+                setAddPopUp(true);
               }}
+              className="Card"
             >
-              <GrAdd size={"3em"} />
+              <CardContent
+                sx={{
+                  display: "flex",
+                  textAlign: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                }}
+              >
+                <GrAdd size={"3em"} />
 
-              
-              <Typography variant="body1" color="text.secondary">
-                PC <br/>Hinzufügen
-              </Typography>
-            </CardContent>
-          </Card>
+                <Typography variant="body1" color="text.secondary">
+                  PC <br />
+                  Hinzufügen
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
           {allPCs.data?.map((pc) => (
             <div key={pc.id} className="wrapper">
               <Card
-              variant="outlined"
-                sx={{ minWidth: "150px" }}
+                variant="outlined"
+                sx={{ width: "150px" }}
                 onClick={() => {
                   setSelectedPC(pc);
                   setPopUp(true);

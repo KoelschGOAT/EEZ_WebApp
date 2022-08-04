@@ -58,7 +58,7 @@ height:30px;
     background-color:hsl(341, 100%, 45%);
     cursor:pointer;
     margin: auto; /* Important */ 
-   
+
     color:white;
     font-weight: bold;
 }
@@ -130,13 +130,17 @@ height:30px;
     align-items:center ;
     width: 100%;
     flex-direction: column;
+    gap:.25rem;
   }
 
   .navbar-links ul li {
     text-align: center;
     width:100%;
+    
   }
-
+.navbar-links .back{
+  height:auto;
+}
   .navbar-links ul li a {
     padding: 0.5rem 1rem;
   }
