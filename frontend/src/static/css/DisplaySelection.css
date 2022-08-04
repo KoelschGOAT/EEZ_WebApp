@@ -1,9 +1,9 @@
-.DisplayWrapper {
+.css-4cocih-MuiCardContent-root{
     display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
+    flex-direction: column;
+    height: 100%;
+    align-items: center ;
 }
-
-
+.css-5repwe-MuiCardContent-root {
+    flex-direction: column;
+}

@@ -19,7 +19,6 @@ import SnackbarNoti from "../Feedback/SnackbarNoti";
 
 import "react-toastify/dist/ReactToastify.css";
 const DisplaySelection = () => {
-
   const queryClient = useQueryClient();
   const [selectedPC, setSelectedPC] = useState();
   const [popUp, setPopUp] = useState(false);
@@ -28,11 +27,12 @@ const DisplaySelection = () => {
     const response = await axios.get(url);
     return response.data;
   };
-  const allPCs = useQuery(
-    "all-pcs",
-    () => fetchData(`http://127.0.0.1:8000/api/all-pcs`)
+  const allPCs = useQuery("all-pcs", () =>
+    fetchData(`http://127.0.0.1:8000/api/all-pcs`)
   );
-  const allVids = useQuery("all-videos",() => fetchData(`http://127.0.0.1:8000/api/all-videos`)) ;
+  const allVids = useQuery("all-videos", () =>
+    fetchData(`http://127.0.0.1:8000/api/all-videos`)
+  );
   const isError = allPCs.isError || allVids.isError;
   const isLoading = allPCs.isLoading || allVids.isLoading;
   const data = allVids.data || allPCs.data;
@@ -44,10 +44,8 @@ const DisplaySelection = () => {
     gridTemplateRows: "repeat(3)",
     justifyContent: "center",
     gridGap: "10vmin",
-    marginTop: "2rem",
+    margin: "2rem 0 2rem 0",
   };
-
-
 
   const responseReturn = () => {
     <Loader loading={isLoading} />;
@@ -63,47 +61,50 @@ const DisplaySelection = () => {
   };
   return (
     <>
-    {responseReturn()}
-  
-    
+      {responseReturn()}
+
       <h1 className="title">
-          <span className="greenstripe">Einstellungen</span>
-          <span className="redstripe">Clients</span>
-        </h1>
+        <span className="greenstripe">Einstellungen</span>
+        <span className="redstripe">Clients</span>
+      </h1>
       {data && !isLoading && !isError && (
         <div className="grid" style={STYLE_WRAPPER}>
-
           <Card
+          variant="outlined"
             sx={{ maxWidth: "150px" }}
             onClick={() => {
-
               setAddPopUp(true);
             }}
             className="Card"
           >
-            <CardContent sx={{ textAlign: "center" }}>
+            <CardContent
+              sx={{
+                display: "flex",
+                textAlign: "center",
+                alignItems: "center",
+                justifyContent:"center",
+                height:"100%",
+              }}
+            >
               <GrAdd size={"3em"} />
 
-              <Typography variant="body2" color="text.secondary">
-                PC
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Hinzufügen
+              
+              <Typography variant="body1" color="text.secondary">
+                PC <br/>Hinzufügen
               </Typography>
             </CardContent>
           </Card>
           {allPCs.data?.map((pc) => (
             <div key={pc.id} className="wrapper">
               <Card
+              variant="outlined"
                 sx={{ minWidth: "150px" }}
                 onClick={() => {
-                  
                   setSelectedPC(pc);
                   setPopUp(true);
                 }}
                 className="Card"
               >
-
                 <CardContent sx={{ textAlign: "center" }}>
                   <img src={screen} alt="PC Logo" width="50px" />
 
@@ -114,7 +115,6 @@ const DisplaySelection = () => {
                     {pc.ip_address}
                   </Typography>
                 </CardContent>
-
               </Card>
             </div>
           ))}
@@ -128,8 +128,6 @@ const DisplaySelection = () => {
           onClose={() => {
             setPopUp(false);
           }}
-         
-   
         />
       ) : null}
       {addPopUp ? (
@@ -139,10 +137,8 @@ const DisplaySelection = () => {
             setAddPopUp(false);
           }}
           allVideos={allVids.data}
-
         />
       ) : null}
-      
     </>
   );
 };

@@ -33,6 +33,7 @@
   transform: translate(-50%, -50%);
   z-index: 1000;
   background-color: white;
+  border:1px solid rgba(0, 0, 0, 0.12)
 }
 
 .PopUpModal .PopUpHeader {
@@ -95,6 +96,7 @@ select,
   flex-direction: row;
   justify-content: flex-start;
   margin-top: 1rem;
+  gap:1rem;
 }
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {

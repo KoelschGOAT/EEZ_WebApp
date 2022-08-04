@@ -21,7 +21,7 @@ const AdminArea = () => {
           <span className="redstripe">Einstellungen</span>
         </h1>
         <div className="CardViewWrapper">
-          <Card className="Card"sx={{width:"25%"}} onClick={() => navigate("/clients")}>
+          <Card variant="outlined"className="Card"sx={{width:"25%"}} onClick={() => navigate("/clients")}>
             <CardContent sx={{ textAlign: "center", justifyContent: "center" }}>
               <FcTabletAndroid size={"4em"} />
 
@@ -35,7 +35,7 @@ const AdminArea = () => {
             </CardContent>
           </Card>
 
-          <Card className="Card" sx={{width:"25%"}}onClick={() => navigate("/videos")}>
+          <Card variant="outlined"className="Card" sx={{width:"25%"}}onClick={() => navigate("/videos")}>
             <CardContent sx={{ textAlign: "center", justifyContent: "center" }}>
               <FcFilmReel size={"4em"} />
 

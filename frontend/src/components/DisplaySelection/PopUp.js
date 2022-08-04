@@ -59,6 +59,7 @@ const PopUp = ({ pc, onClose, allVideos, setNoti }) => {
       },
     }
   );
+  const isLoading = putPC.isLoading||deletePC.isLoading;
   const {
     register,
     handleSubmit,
@@ -99,9 +100,9 @@ const PopUp = ({ pc, onClose, allVideos, setNoti }) => {
   return ReactDom.createPortal(
     <>
       <div className="OverflowContainer">
-        {putPC.isLoading || deletePC.isLoading ? (
+        {isLoading ? (
         
-            <Loader />
+            <Loader loading={isLoading}/>
            
           
         ) : (
