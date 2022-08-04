@@ -51,6 +51,7 @@ function VideoSelection() {
           <div className="grid">
             <div className="wrapper">
               <Card
+              variant="outlined"
                 onClick={() => {
                   setAddPopUp(true);
                 }}
