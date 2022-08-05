@@ -36,7 +36,7 @@ function Landing() {
       return (
         <Notification
           severity="error"
-          Title="Fehler"
+          Title="Server Fehler"
           Message="Ein unerwarteter Fehler ist aufgetreten"
         />
       );

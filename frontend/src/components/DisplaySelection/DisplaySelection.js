@@ -16,8 +16,15 @@ import { ToastContainer, toast } from "react-toastify";
 import Loader from "../Feedback/Loader";
 import Notification from "../Feedback/Notification";
 import SnackbarNoti from "../Feedback/SnackbarNoti";
-
 import "react-toastify/dist/ReactToastify.css";
+
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+
+
+   
+
 const DisplaySelection = () => {
   const queryClient = useQueryClient();
   const [selectedPC, setSelectedPC] = useState();
@@ -53,6 +60,8 @@ const DisplaySelection = () => {
     if (isError) {
       return (
         <Notification
+          
+          severity="error"
           Title="Fehler"
           Message="Ein unerwarteter Fehler ist aufgetreten"
         />
@@ -68,7 +77,7 @@ const DisplaySelection = () => {
         <span className="redstripe">Clients</span>
       </h1>
       {data && !isLoading && !isError && (
-        <div className="grid" >
+        <div className="grid">
           <div className="wrapper">
             <Card
               variant="outlined"
@@ -141,6 +150,9 @@ const DisplaySelection = () => {
           allVideos={allVids.data}
         />
       ) : null}
+      <Stack spacing={2}>
+        <Pagination count={10} variant="outlined" shape="rounded" />
+      </Stack>
     </>
   );
 };

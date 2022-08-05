@@ -22,7 +22,9 @@ const Navbar = () => {
   const handleOnCheck = () => {
     isActive ? setIsActive(false) : setIsActive(true);
   };
-
+const AdminLinks=location.pathname === "/Admin" ||
+              location.pathname === "/clients" ||
+              location.pathname === "/videos" ;
   return (
     <>
       <nav className="navbar ">
@@ -47,42 +49,48 @@ const Navbar = () => {
         </a>
         <div className={isActive ? "navbar-links active" : "navbar-links"}>
           <ul>
-            {location.pathname !== "/" && (
-              <>
-                <li className="items">
-                  <NavLink to="/clients" onClick={() => handleOnCheck()}>
-                    <span><FcTabletAndroid /></span>
-                    <span> Clients</span>
-                  </NavLink>
-                </li>
-                <li className="items">
-                  <NavLink to="/videos" onClick={() => handleOnCheck()}>
-					<span> <FcFilmReel /></span>
-                   <span> Videos</span>
-                    
-                  </NavLink>
-                </li>
-              </>
-            )}
+            {AdminLinks && (
+                <>
+                  <li className="items">
+                    <NavLink to="/clients" onClick={() => handleOnCheck()}>
+                      <span>
+                        <FcTabletAndroid />
+                      </span>
+                      <span> Clients</span>
+                    </NavLink>
+                  </li>
+                  <li className="items">
+                    <NavLink to="/videos" onClick={() => handleOnCheck()}>
+                      <span>
+                        {" "}
+                        <FcFilmReel />
+                      </span>
+                      <span> Videos</span>
+                    </NavLink>
+                  </li>
+                  {location.pathname !== "/" && (
+                    <li
+                      className="backLi"
+                      onClick={() => {
+                        navigate(-1);
+                        handleOnClick();
+                      }}
+                    >
+                      <Button
+                        sx={{}}
+                        className="back"
+                        startIcon={<ArrowBackOutlinedIcon />}
+                        variant="contained"
+                      >
+                        Zurück
+                      </Button>
+                    </li>
+                  )}
+                </>
+              )}
 
-            {location.pathname !== "/" && (
-              <li className="backLi"
-                onClick={() => {
-                  navigate(-1);
-                  handleOnClick();
-                }}
-              >
-                <Button sx={{}}
-                  className="back"
-                  startIcon={<ArrowBackOutlinedIcon />}
-                  variant="contained"
-                >
-                  Zurück
-                </Button>
-              </li>
-            )}
-
-            {location.pathname === "/" && (
+            {(location.pathname === "/" ||
+              location.pathname === "/SingleVideo") && (
               <li
                 className="items"
                 onClick={() => {
@@ -92,7 +100,6 @@ const Navbar = () => {
                 <NavLink to="/Admin">Admin Area</NavLink>
               </li>
             )}
-            
           </ul>
         </div>
       </nav>

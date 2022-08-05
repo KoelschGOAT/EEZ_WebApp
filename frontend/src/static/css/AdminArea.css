@@ -6,12 +6,9 @@
   gap: 1rem;
   margin-top: 1rem;
 }
-.AdminCard {
-  width: 30%;
 
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  cursor: pointer;
+.AdminWidth {
+  width: 30%;
 }
 .title {
   text-align: center;
@@ -30,7 +27,7 @@
 }
 
 @media only screen and (max-width: 640px) {
-  .AdminCard {
-    width: 310px;
+  .AdminWidth {
+    width: fit-content;
   }
 }
