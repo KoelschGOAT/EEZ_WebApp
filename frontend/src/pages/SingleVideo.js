@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import "../static/css/SingleVideo.css";
-import { useLocation } from "react-router-dom";
-
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import LanguageDisplayer from '../components/Language/LanguageDisplayer';
+import '../static/css/SingleVideo.css';
 const SingleVideo = () => {
-	const location = useLocation();
-	const [video, setVideo] = useState(location.state?.video);
-    
+  const location = useLocation();
+  const [video, setVideo] = useState(location.state?.video);
 
-	return (
+  return (
     <div>
       <div className="wrapper">
         <video className="video" autoPlay loop>
@@ -17,10 +16,19 @@ const SingleVideo = () => {
           />
         </video>
         <div className="textWrapper">
-          <h1>{video.title_de}</h1>
-          <h1>{video.title_en}</h1>
-          <p>{video.text_de}</p>
-          <p>{video.text_en}</p>
+          <h1>
+            <LanguageDisplayer
+              de={video.title_de}
+              en={video.title_en}
+            />
+          </h1>
+
+          <p>
+            <LanguageDisplayer
+              de={video.text_de}
+              en={video.text_en}
+            />
+          </p>
         </div>
       </div>
     </div>

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
 //TODO: Shadow Area
-import { useNavigate, Link, useLocation, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
-import { IconContext } from "react-icons";
-import { FcFilmReel } from "react-icons/fc";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { FcTabletAndroid } from "react-icons/fc";
+import { IconContext } from "react-icons";
+import { FcFilmReel, FcTabletAndroid } from "react-icons/fc";
 import "../static/css/AdminArea.css";
 const AdminArea = () => {
   let navigate = useNavigate();

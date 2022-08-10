@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "../static/css/Card.css";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
+import React from "react";
+import "../static/css/Card.css";
 
 const Cards = ({ video ,onClick}) => {
 	

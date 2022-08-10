@@ -1,40 +1,42 @@
-import React, { useState, useEffect } from "react";
-import ReactDom from "react-dom";
-import { AiOutlineClose } from "react-icons/ai";
-import "../../static/css/PopUp.css";
-import BarLoader from "react-spinners/BarLoader";
-import Fab from "@mui/material/Fab";
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import CloseIcon from '@mui/icons-material/Close';
-import CheckboxList from "./CheckboxList";
-import axios from "axios";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { useForm } from "react-hook-form";
-import Button from "@mui/material/Button";
-import Loader from "../Feedback/Loader";
-import Notification from "../Feedback/Notification";
-import { useQuery, useMutation, useQueryClient } from "react-query";
-import { useStepContext } from "@mui/material";
+import Favorite from '@mui/icons-material/Favorite';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import { useStepContext } from '@mui/material';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import Fab from '@mui/material/Fab';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import ReactDom from 'react-dom';
+import { useForm } from 'react-hook-form';
+import { AiOutlineClose } from 'react-icons/ai';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import BarLoader from 'react-spinners/BarLoader';
+import '../../static/css/PopUp.css';
+import Loader from '../Feedback/Loader';
+import Notification from '../Feedback/Notification';
+import CheckboxList from './CheckboxList';
 const AddPCPopUp = ({ onClose, allVideos }) => {
   const queryClient = useQueryClient();
 
   const postPC = useMutation(
-    (formData) => axios.post(`http://127.0.0.1:8000/api/all-pcs`, formData),
+    (formData) =>
+      axios.post(`http://127.0.0.1:8000/api/all-pcs`, formData),
     {
       onSuccess: () => {
         // Invalidate and refetch
-        queryClient.invalidateQueries("all-pcs");
+        queryClient.invalidateQueries('all-pcs');
         onClose();
       },
       onError: () => {
         setInputError(true);
-        setInputErrorMessage("Ein unerwarteter Fehler ist augetreten");
-
+        setInputErrorMessage(
+          'Ein unerwarteter Fehler ist augetreten'
+        );
       },
     }
   );
@@ -45,13 +47,12 @@ const AddPCPopUp = ({ onClose, allVideos }) => {
     formState: { errors },
   } = useForm();
   const [inputError, setInputError] = useState(false);
-  const [inputErrorMessage, setInputErrorMessage] = useState("");
+  const [inputErrorMessage, setInputErrorMessage] = useState('');
   const [pcName, setPcName] = useState();
   const [ipAddress, setIpAddress] = useState();
   const [pcVideos, setPcVideos] = useState([]);
 
   const onChangeHandler = (e, setState) => {
-
     e.preventDefault();
     setState(e.target.value);
   };
@@ -60,13 +61,15 @@ const AddPCPopUp = ({ onClose, allVideos }) => {
     event.preventDefault();
     const formData = {};
 
-    formData["pc_name"] = pcName;
-    formData["ip_address"] = ipAddress;
+    formData['pc_name'] = pcName;
+    formData['ip_address'] = ipAddress;
 
-    formData["Videos"] = pcVideos;
+    formData['Videos'] = pcVideos;
     if (pcName.length <= 4 || ipAddress.length <= 6) {
       setInputError(true);
-      setInputErrorMessage("Eingabe Felder leer oder zu wenig Ziffern");
+      setInputErrorMessage(
+        'Eingabe Felder leer oder zu wenig Ziffern'
+      );
     } else postPC.mutate(formData);
   };
 
@@ -78,10 +81,13 @@ const AddPCPopUp = ({ onClose, allVideos }) => {
           <Loader />
         ) : (
           <div className="PopUpModal">
-            {" "}
-            <Fab onClick={onClose}className="close" size="medium" sx={{backgroundColor:"#ff0000", "&:hover": {
-                        backgroundColor: "#d71313",
-                      },}} aria-label="close">
+            {' '}
+            <Fab
+              onClick={onClose}
+              className="close"
+              size="medium"
+              aria-label="close"
+            >
               <CloseIcon />
             </Fab>
             <div className="PopUpHeader">
@@ -101,20 +107,25 @@ const AddPCPopUp = ({ onClose, allVideos }) => {
                   <div className="input-Wrapper">
                     <div className="row">
                       <div className="col-25">
-                        <label className="inputLabel" htmlFor="pc_name">
+                        <label
+                          className="inputLabel"
+                          htmlFor="pc_name"
+                        >
                           PC Name
                         </label>
                       </div>
                       <div className="col-75">
                         <input
-                          {...register("pcName", {
+                          {...register('pcName', {
                             required: true,
                             maxLength: 40,
                           })}
                           className="PopUpInput"
                           type="text"
                           name="pc_name"
-                          onChange={(e) => onChangeHandler(e, setPcName)}
+                          onChange={(e) =>
+                            onChangeHandler(e, setPcName)
+                          }
                           value={pcName}
                           placeholder="PC Name"
                         />
@@ -122,21 +133,26 @@ const AddPCPopUp = ({ onClose, allVideos }) => {
                     </div>
                     <div className="row">
                       <div className="col-25">
-                        <label className="inputLabel" htmlFor="ipAddress">
+                        <label
+                          className="inputLabel"
+                          htmlFor="ipAddress"
+                        >
                           IP Adresse
                         </label>
                       </div>
                       <div className="col-75">
                         <input
-                          {...register("pcIpaddress", {
+                          {...register('pcIpaddress', {
                             required: true,
                             pattern:
-                              "/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/",
+                              '/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',
                           })}
                           className="PopUpInput"
                           type="text"
                           name="ip_address"
-                          onChange={(e) => onChangeHandler(e, setIpAddress)}
+                          onChange={(e) =>
+                            onChangeHandler(e, setIpAddress)
+                          }
                           value={ipAddress}
                           placeholder="IP-Adresse"
                         />
@@ -153,9 +169,9 @@ const AddPCPopUp = ({ onClose, allVideos }) => {
                 <Button
                   sx={[
                     {
-                      backgroundColor: "#04a96d",
-                      "&:hover": {
-                        backgroundColor: "#2e6b31",
+                      backgroundColor: '#04a96d',
+                      '&:hover': {
+                        backgroundColor: '#2e6b31',
                       },
                     },
                   ]}
@@ -172,7 +188,7 @@ const AddPCPopUp = ({ onClose, allVideos }) => {
         )}
       </div>
     </>,
-    document.getElementById("DisplaySelectionPopUp")
+    document.getElementById('DisplaySelectionPopUp')
   );
 };
 

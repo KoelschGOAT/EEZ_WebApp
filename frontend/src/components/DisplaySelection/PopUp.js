@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import CloseIcon from '@mui/icons-material/Close';
+import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import ReactDom from "react-dom";
 import { AiOutlineClose } from "react-icons/ai";
-import "../../static/css/PopUp.css";
 import BarLoader from "react-spinners/BarLoader";
-import Fab from "@mui/material/Fab";
-import CloseIcon from '@mui/icons-material/Close';
-import CheckboxList from "./CheckboxList";
-import axios from "axios";
-import SnackbarNoti from "../Feedback/SnackbarNoti";
-import Notification from "../Feedback/Notification";
+import "../../static/css/PopUp.css";
 import Loader from "../Feedback/Loader";
-import Button from "@mui/material/Button";
+import Notification from "../Feedback/Notification";
+import SnackbarNoti from "../Feedback/SnackbarNoti";
+import CheckboxList from "./CheckboxList";
 
 import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useQuery, useMutation, useQueryClient } from "react-query";
 const PopUp = ({ pc, onClose, allVideos, setNoti }) => {
   const [pcName, setPcName] = useState(pc.pc_name);
   const [ipAddress, setIpAddress] = useState(pc.ip_address);

@@ -1,21 +1,21 @@
-import React, { useState, useCallback, useContext, useEffect } from "react";
-import BarLoader from "react-spinners/BarLoader";
-import "../../static/css/DisplaySelection.css";
-import AppContext from "../../utils/Context/AppContext";
-import screen from "../../static/img/screen.svg";
-import axios from "axios";
+import { CardActionArea, Snackbar } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { CardActionArea, Snackbar } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { useQuery, useQueryClient } from "react-query";
+import axios from "axios";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { GrAdd } from "react-icons/gr";
-import PopUp from "./PopUp";
-import AddPCPopUp from "./AddPCPopUp";
-import { ToastContainer, toast } from "react-toastify";
+import { useQuery, useQueryClient } from "react-query";
+import BarLoader from "react-spinners/BarLoader";
+import { toast, ToastContainer } from "react-toastify";
+import "../../static/css/DisplaySelection.css";
+import screen from "../../static/img/screen.svg";
+import AppContext from "../../utils/Context/AppContext";
 import Loader from "../Feedback/Loader";
 import Notification from "../Feedback/Notification";
 import SnackbarNoti from "../Feedback/SnackbarNoti";
+import AddPCPopUp from "./AddPCPopUp";
+import PopUp from "./PopUp";
 
 import "react-toastify/dist/ReactToastify.css";
 const DisplaySelection = () => {

@@ -1,14 +1,19 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SingleVideo from "../../pages/SingleVideo";
-import { AppProvider } from "../Context/AppContext";
-import Landing from "../../pages/Landing";
-import Navbar from "../../components/Navbar";
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import Landing from '../../pages/Landing';
+import SingleVideo from '../../pages/SingleVideo';
+import { AppProvider } from '../Context/AppContext';
 
-import Slider from "../../components/Slider";
-import AdminArea from "../../pages/AdminArea";
-import VideoSelection from "../../components/VideoSelection/VideoSelection";
-import DisplaySelection from "../../components/DisplaySelection/DisplaySelection";
+import DisplaySelection from '../../components/DisplaySelection/DisplaySelection';
+import Footer from '../../components/Footer/Footer';
+import Stellenanzeige from '../../components/Footer/Stellenanzeige';
+import VideoSelection from '../../components/VideoSelection/VideoSelection';
+import AdminArea from '../../pages/AdminArea';
 function Routing() {
   return (
     <Router>
@@ -18,9 +23,17 @@ function Routing() {
           <Route index element={<Landing />}></Route>
           <Route path="SingleVideo" element={<SingleVideo />}></Route>
           <Route path="Admin" element={<AdminArea />}></Route>
-          <Route path="videos" element={<VideoSelection/>}></Route>
-          <Route path="clients" element={<DisplaySelection/>}></Route>
+          <Route path="videos" element={<VideoSelection />}></Route>
+          <Route
+            path="clients"
+            element={<DisplaySelection />}
+          ></Route>
+          <Route
+            path="stellenanzeige"
+            element={<Stellenanzeige />}
+          ></Route>
         </Routes>
+        <Footer />
       </AppProvider>
     </Router>
   );

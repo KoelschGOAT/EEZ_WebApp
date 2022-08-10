@@ -1,18 +1,14 @@
 //Beim component reload checken ob user eingeloggt
-import ".././static/css/Navbar.css";
-import enercon_logo from "../static/img/enercon_logo.png";
-import { FcTabletAndroid } from "react-icons/fc";
-import { FcFilmReel } from "react-icons/fc";
-
-import React, { useState, useContext } from "react";
-import AppContext from "../utils/Context/AppContext";
-import Button from "@mui/material/Button";
-import { useNavigate, Link, useLocation, NavLink } from "react-router-dom";
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import Button from '@mui/material/Button';
+import React, { useEffect, useState } from 'react';
+import { FcFilmReel, FcTabletAndroid } from 'react-icons/fc';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import '.././static/css/Navbar.css';
+import enercon_logo from '../static/img/enercon_logo.png';
+import LanguageSwitcher from './Language/LanguageSwitcher';
 const Navbar = () => {
   const location = useLocation();
-  const { videos, pcs } = useContext(AppContext);
   //toggle navigation button on mobile view
   const [isActive, setIsActive] = useState(false);
   const handleOnClick = () => {
@@ -26,16 +22,16 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar ">
-        <div>
+        <>
           <li
             className="brand-title gradient"
             onClick={() => {
-              navigate("/");
+              navigate('/');
             }}
           >
             <img alt="logo" className="logo" src={enercon_logo}></img>
           </li>
-        </div>
+        </>
         <a
           href={location.path}
           className="toggle-button"
@@ -45,34 +41,53 @@ const Navbar = () => {
           <span className="bar"></span>
           <span className="bar"></span>
         </a>
-        <div className={isActive ? "navbar-links active" : "navbar-links"}>
+        <div
+          className={
+            isActive ? 'navbar-links active' : 'navbar-links'
+          }
+        >
           <ul>
-            {location.pathname !== "/" && (
+            <li className="items">
+              <LanguageSwitcher />
+            </li>
+            {location.pathname !== '/' && (
               <>
                 <li className="items">
-                  <NavLink to="/clients" onClick={() => handleOnCheck()}>
-                    <span><FcTabletAndroid /></span>
+                  <NavLink
+                    to="/clients"
+                    onClick={() => handleOnCheck()}
+                  >
+                    <span>
+                      <FcTabletAndroid />
+                    </span>
                     <span> Clients</span>
                   </NavLink>
                 </li>
                 <li className="items">
-                  <NavLink to="/videos" onClick={() => handleOnCheck()}>
-					<span> <FcFilmReel /></span>
-                   <span> Videos</span>
-                    
+                  <NavLink
+                    to="/videos"
+                    onClick={() => handleOnCheck()}
+                  >
+                    <span>
+                      {' '}
+                      <FcFilmReel />
+                    </span>
+                    <span> Videos</span>
                   </NavLink>
                 </li>
               </>
             )}
 
-            {location.pathname !== "/" && (
-              <li className="backLi"
+            {location.pathname !== '/' && (
+              <li
+                className="backLi"
                 onClick={() => {
                   navigate(-1);
                   handleOnClick();
                 }}
               >
-                <Button sx={{}}
+                <Button
+                  sx={{}}
                   className="back"
                   startIcon={<ArrowBackOutlinedIcon />}
                   variant="contained"
@@ -82,7 +97,7 @@ const Navbar = () => {
               </li>
             )}
 
-            {location.pathname === "/" && (
+            {location.pathname === '/' && (
               <li
                 className="items"
                 onClick={() => {
@@ -92,7 +107,6 @@ const Navbar = () => {
                 <NavLink to="/Admin">Admin Area</NavLink>
               </li>
             )}
-            
           </ul>
         </div>
       </nav>

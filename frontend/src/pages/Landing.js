@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useCallback, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
-import Notification from "../components/Feedback/Notification";
-import Loader from "../components/Feedback/Loader";
-import "react-slideshow-image/dist/styles.css";
 import axios from "axios";
-import Cards from "../components/Card";
-import "../static/css/Landing.css";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import "react-slideshow-image/dist/styles.css";
+import Cards from "../components/Card";
+import Loader from "../components/Feedback/Loader";
+import Notification from "../components/Feedback/Notification";
+import "../static/css/Landing.css";
 function Landing() {
   let navigate = useNavigate();
 
