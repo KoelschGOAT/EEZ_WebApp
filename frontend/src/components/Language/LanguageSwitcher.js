@@ -2,15 +2,12 @@ import Button from '@mui/material/Button';
 import { De, Us } from 'react-flags-icons';
 import useLocalStorageState from 'use-local-storage-state';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 function LanguageSwitcher() {
   const [storage, setStorage] = useLocalStorageState('language', {
     defaultValue: 'de',
   });
 
-  useEffect(() => {
-    console.log(storage);
-  }, [storage]);
   return (
     <>
       <Button

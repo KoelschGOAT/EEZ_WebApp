@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+  }
+.overflow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+.popup-modal {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  border-radius: 5px;
+  border-radius: 5px;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.popup-modal .popup-header {
+  display: flex;
+  justify-content: space-between;
+  
+  color:#4c9078;
+  font-size: 2rem;
+  
+}
+.popup-modal .popup-header .close{
+    cursor:pointer;
+    
+    text-align: center;
+   
+}
+.popup-modal .popup-header .close::selection{
+    cursor:none
+}

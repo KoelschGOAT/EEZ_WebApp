@@ -1,20 +1,25 @@
-import Alert from "@mui/material/Alert";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import Alert from '@mui/material/Alert';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import axios from "axios";
-import { GrAdd } from "react-icons/gr";
-import { useQuery, useQueryClient } from "react-query";
-import "react-slideshow-image/dist/styles.css";
-import BarLoader from "react-spinners/BarLoader";
-import Cards from "../../components/Card";
-import "../../static/css/Landing.css";
-import AppContext from "../../utils/Context/AppContext";
-import Loader from "../Feedback/Loader";
-import AddVideoPopUp from "./AddVideoPopUp";
-import EditVideoPopUp from "./EditVideoPopUp";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import { GrAdd } from 'react-icons/gr';
+import { useQuery, useQueryClient } from 'react-query';
+import 'react-slideshow-image/dist/styles.css';
+import BarLoader from 'react-spinners/BarLoader';
+import Cards from '../../components/Card';
+import '../../static/css/Landing.css';
+import AppContext from '../../utils/Context/AppContext';
+import Loader from '../Feedback/Loader';
+import AddVideoPopUp from './AddVideoPopUp';
+import EditVideoPopUp from './EditVideoPopUp';
 function VideoSelection() {
   const [selectedVideo, setSelectedVideo] = useState();
   const [popUp, setPopUp] = useState(false);
@@ -23,8 +28,9 @@ function VideoSelection() {
     const response = await axios.get(url);
     return response.data;
   };
-  const { data, isError, isLoading, error } = useQuery("all-videos", () =>
-    fetchData(`http://127.0.0.1:8000/api/all-videos`)
+  const { data, isError, isLoading, error } = useQuery(
+    'all-videos',
+    () => fetchData(`http://127.0.0.1:8000/api/all-videos`)
   );
 
   const responseReturn = () => {
@@ -51,7 +57,7 @@ function VideoSelection() {
           <div className="grid">
             <div className="wrapper">
               <Card
-               sx={{ width: "100%" }}
+                sx={{ width: '100%' }}
                 variant="outlined"
                 onClick={() => {
                   setAddPopUp(true);
@@ -59,15 +65,19 @@ function VideoSelection() {
                 className="Card"
               >
                 <CardContent
-                  sx={{ textAlign: "center", justifyContent: "center" }}
+                  sx={{
+                    textAlign: 'center',
+                    justifyContent: 'center',
+                  }}
                 >
-                  <GrAdd size={"3em"} />
+                  <GrAdd size={'3em'} />
 
                   <Typography variant="body2" color="text.secondary">
-                    <h1>Video
-                    <br />
-                    erstellen</h1>
-                    
+                    <h1>
+                      Video
+                      <br />
+                      erstellen
+                    </h1>
                   </Typography>
                 </CardContent>
               </Card>

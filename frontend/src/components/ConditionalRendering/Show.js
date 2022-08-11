@@ -4,6 +4,6 @@ function Show({ condition = false, children }) {
   if (condition) return children;
 }
 Show.propTypes = {
-  condition: PropTypes.any.isReqquired,
+  condition: PropTypes.any.isRequired,
 };
 export default Show;

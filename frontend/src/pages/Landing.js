@@ -1,14 +1,22 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-
-import axios from "axios";
-import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
-import "react-slideshow-image/dist/styles.css";
-import Cards from "../components/Card";
-import Loader from "../components/Feedback/Loader";
-import Notification from "../components/Feedback/Notification";
-import "../static/css/Landing.css";
+import axios from 'axios';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { FaTimes } from 'react-icons/fa';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import 'react-slideshow-image/dist/styles.css';
+import Cards from '../components/Card';
+import Show from '../components/ConditionalRendering/Show';
+import Loader from '../components/Feedback/Loader';
+import Notification from '../components/Feedback/Notification';
+import Modal from '../components/PopUp/Modal';
+import '../static/css/Landing.css';
 function Landing() {
+  const [open, setOpen] = useState(false);
   let navigate = useNavigate();
 
   const fetchData = async (url) => {
@@ -16,11 +24,11 @@ function Landing() {
     return response.data;
   };
   const { data, isError, isLoading, error } = useQuery(
-    "current-pc-videos",
+    'current-pc-videos',
     () => fetchData(`http://127.0.0.1:8000/api/current-pc-videos`)
   );
 
-  document.title = "Übersicht";
+  document.title = 'Übersicht';
   const responseReturn = () => {
     <Loader loading={isLoading} />;
 
@@ -45,27 +53,36 @@ function Landing() {
 
   return (
     <div className="container">
-      <h1 className="title">
+      <h1 className="title" onClick={() => setOpen((o) => !0)}>
         <span className="greenstripe">ENERCON</span>
         <span className="redstripe">Filme</span>
       </h1>
 
-     {responseReturn()}
-      {data && data.length === 0 &&(
+      {open && (
+        <Modal
+          onClose={() => setOpen((o) => !o)}
+          title="Test PopUp"
+        ></Modal>
+      )}
+      {responseReturn()}
+      {data && data?.length === 0 && (
         <Notification
           severity="warning"
           Title="Warnung"
           Message="Keine Videos für diesen PC eingetragen"
         />
       )}
-      {data &&  (
+      {data && (
         <div className="grid">
           {data?.map((video) => (
             <Cards
               key={video?.id}
               video={video}
               onClick={() => {
-                navigate("/SingleVideo", { replace: false, state: { video } });
+                navigate('/SingleVideo', {
+                  replace: false,
+                  state: { video },
+                });
               }}
             />
           ))}
