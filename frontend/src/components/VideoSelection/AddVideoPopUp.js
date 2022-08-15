@@ -12,6 +12,14 @@ import Loader from '../Feedback/Loader';
 import Notification from '../Feedback/Notification';
 import Modal from '../PopUp/Modal';
 const AddVideoPopUp = ({ onClose, allVideos }) => {
+  const [videoConfig, setVideoConfig] = useState({
+    video: [],
+    screenshot: [],
+    title_de: '',
+    title_en: '',
+    text_de: '',
+    text_en: '',
+  });
   const [inputError, setInputError] = useState({
     error: false,
     message: '',
@@ -38,14 +46,6 @@ const AddVideoPopUp = ({ onClose, allVideos }) => {
     }
   );
   const { register } = useForm();
-  const [videoConfig, setVideoConfig] = useState({
-    video: [],
-    screenshot: [],
-    title_de: '',
-    title_en: '',
-    text_de: '',
-    text_en: '',
-  });
 
   const onChangeHandler = (e) => {
     e.preventDefault();
@@ -90,11 +90,10 @@ const AddVideoPopUp = ({ onClose, allVideos }) => {
       return;
     }
     if (
-      video.type === 'video/mp4' ||
-      video.type === 'video/webm' ||
-      screenshot.type === 'image/png' ||
-      screenshot.type === 'image/jpeg' ||
-      screenshot.type === 'image/webP'
+      (video.type === 'video/mp4' || video.type === 'video/webm') &&
+      (screenshot.type === 'image/png' ||
+        screenshot.type === 'image/jpeg' ||
+        screenshot.type === 'image/webP')
     ) {
       const formData = new FormData();
 
@@ -188,7 +187,7 @@ const AddVideoPopUp = ({ onClose, allVideos }) => {
                       type="text"
                       name="title_de"
                       onChange={(e) => onChangeHandler(e)}
-                      value={setVideoConfig.title_de}
+                      value={videoConfig.title_de}
                     />
                   </div>
                 </div>
@@ -208,7 +207,7 @@ const AddVideoPopUp = ({ onClose, allVideos }) => {
                       type="text"
                       name="title_en"
                       onChange={(e) => onChangeHandler(e)}
-                      value={setVideoConfig.title_en}
+                      value={videoConfig.title_en}
                     />
                   </div>
                 </div>
@@ -228,7 +227,7 @@ const AddVideoPopUp = ({ onClose, allVideos }) => {
                       type="text"
                       name="text_de"
                       onChange={(e) => onChangeHandler(e)}
-                      value={setVideoConfig.text_de}
+                      value={videoConfig.text_de}
                     ></textarea>
                   </div>
                 </div>
@@ -247,7 +246,7 @@ const AddVideoPopUp = ({ onClose, allVideos }) => {
                       type="text"
                       name="text_en"
                       onChange={(e) => onChangeHandler(e)}
-                      value={setVideoConfig.text_en}
+                      value={videoConfig.text_en}
                     ></textarea>
                   </div>
                 </div>
@@ -257,9 +256,9 @@ const AddVideoPopUp = ({ onClose, allVideos }) => {
               <Button
                 sx={[
                   {
-                    backgroundColor: '#04a96d',
+                    backgroundColor: '#4c9078;',
                     '&:hover': {
-                      backgroundColor: '#2e6b31',
+                      backgroundColor: '#669995',
                     },
                   },
                 ]}

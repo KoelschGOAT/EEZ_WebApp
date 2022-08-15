@@ -4,8 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import Show from '../ConditionalRendering/Show';
 import './Modal.css';
 function Modal({ onClose, title = 'popup Title', children }) {
-  React.useEffect(() => {
-    console.log(children);
+  /** React.useEffect(() => {
     const handleKeyDown = (event) => {
       event.preventDefault();
       if (event.key === 'Escape') {
@@ -18,7 +17,7 @@ function Modal({ onClose, title = 'popup Title', children }) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose,children]);
+  }, [onClose]); */
   return ReactDom.createPortal(
     <>
       <div className="overflow-container" onClick={(e) => onClose()}>
@@ -33,7 +32,7 @@ function Modal({ onClose, title = 'popup Title', children }) {
             </div>
           </div>
 
-          <div className="popup-body">{children}</div>
+          {children}
         </div>
       </div>
     </>,

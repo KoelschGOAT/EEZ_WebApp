@@ -8,7 +8,7 @@ const SingleVideo = () => {
 
   return (
     <div>
-      <div className="wrapper">
+      <div className="video-wrapper">
         <video className="video" autoPlay loop>
           <source
             src={`http://127.0.0.1:8000${video.video}`}

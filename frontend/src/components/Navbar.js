@@ -87,7 +87,6 @@ const Navbar = () => {
                 }}
               >
                 <Button
-                  sx={{}}
                   className="back"
                   startIcon={<ArrowBackOutlinedIcon />}
                   variant="contained"

@@ -34,8 +34,8 @@ function VideoSelection() {
   );
 
   const responseReturn = () => {
-    <Loader loading={isLoading} />;
-    if (isError) {
+    if (isLoading) return <Loader loading={isLoading} />;
+    else if (isError) {
       return (
         <Alert className="loading" severity="error">
           Ein unerwarteter Fehler ist aufgetreten

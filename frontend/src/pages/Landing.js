@@ -15,6 +15,7 @@ import Loader from '../components/Feedback/Loader';
 import Notification from '../components/Feedback/Notification';
 import Modal from '../components/PopUp/Modal';
 import '../static/css/Landing.css';
+import InputComponent from '../components/VideoSelection/Box';
 function Landing() {
   const [open, setOpen] = useState(false);
   let navigate = useNavigate();
@@ -50,7 +51,6 @@ function Landing() {
       );
     }
   };
-
   return (
     <div className="container">
       <h1 className="title" onClick={() => setOpen((o) => !0)}>
@@ -59,10 +59,12 @@ function Landing() {
       </h1>
 
       {open && (
-        <Modal
-          onClose={() => setOpen((o) => !o)}
-          title="Test PopUp"
-        ></Modal>
+        <Modal onClose={() => setOpen((o) => !o)} title="Test PopUp">
+          <InputComponent
+            onClose={() => setOpen((o) => !o)}
+            video={data[0]}
+          />
+        </Modal>
       )}
       {responseReturn()}
       {data && data?.length === 0 && (

@@ -1,62 +1,59 @@
-.loading{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
+.loading {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
-
-
-.container{
-    
-    display:flex;
-    flex-direction:column;
-    width: 100%;
-    justify-content: center;
+.wrapper {
+  display: flex;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
 }
 .container .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 400px);
-    justify-content: center;
-    grid-gap: 3vmin ;
-    margin-top: 2rem;
-    margin-bottom:2rem;
-
+  display: grid;
+  grid-template-columns: repeat(3, 400px);
+  justify-content: center;
+  grid-gap: 3vmin;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
-.title{
-    text-align: center;
-    margin-top:2rem;
-    margin-bottom:.5rem;
+.title {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .container .greenstripe {
+  border-bottom: 3px solid #00665a;
 
-    border-bottom: 3px solid #00665a;
-
-    margin: 0px .3rem 0px 0px;
+  margin: 0px 0.3rem 0px 0px;
 }
 
 .container .redstripe {
-    border-bottom: 3px solid hsl(341, 100%, 45%);
+  border-bottom: 3px solid hsl(341, 100%, 45%);
 }
 @media only screen and (max-width: 1366px) {
-    .container .grid {
-         grid-template-columns: repeat(3, 310px); 
-}}
+  .container .grid {
+    grid-template-columns: repeat(3, 310px);
+  }
+}
 @media only screen and (max-width: 640px) {
-    .container{
-        justify-content: center;
-        text-align: center;
-        align-items: center;
-        
-    }
-    .container .grid {
-        display: block;
-        justify-content: center;
-        
-    }
-    .container .title {
-        margin-left:0%;
-    }
+  .container {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+  .container .grid {
+    display: block;
+    justify-content: center;
+  }
+  .container .title {
+    margin-left: 0%;
+  }
 }

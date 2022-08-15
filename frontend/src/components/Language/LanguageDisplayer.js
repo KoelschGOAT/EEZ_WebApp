@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import useLocalStorageState from 'use-local-storage-state';
 
-function LanguageDeisplayer({ en = 'en', de = 'de' }) {
+function LanguageDisplayer({ en = 'en', de = 'de' }) {
   const [language] = useLocalStorageState('language');
   if (language === 'en') {
     return en;
@@ -9,8 +9,8 @@ function LanguageDeisplayer({ en = 'en', de = 'de' }) {
     return de;
   }
 }
-LanguageDeisplayer.propTypes = {
+LanguageDisplayer.propTypes = {
   en: PropTypes.string.isRequired,
   de: PropTypes.string.isRequired,
 };
-export default LanguageDeisplayer;
+export default LanguageDisplayer;
