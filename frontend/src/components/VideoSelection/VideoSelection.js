@@ -1,17 +1,17 @@
 import Alert from '@mui/material/Alert';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import axios from 'axios';
 import React, {
   useCallback,
   useContext,
   useEffect,
   useState,
 } from 'react';
-
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import axios from 'axios';
 import { GrAdd } from 'react-icons/gr';
 import { useQuery, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import 'react-slideshow-image/dist/styles.css';
 import BarLoader from 'react-spinners/BarLoader';
 import Cards from '../../components/Card';
@@ -21,6 +21,7 @@ import Loader from '../Feedback/Loader';
 import AddVideoPopUp from './AddVideoPopUp';
 import EditVideoPopUp from './EditVideoPopUp';
 function VideoSelection() {
+  const navigate = useNavigate();
   const [selectedVideo, setSelectedVideo] = useState();
   const [popUp, setPopUp] = useState(false);
   const [addPopUp, setAddPopUp] = useState(false);
@@ -28,9 +29,8 @@ function VideoSelection() {
     const response = await axios.get(url);
     return response.data;
   };
-  const { data, isError, isLoading, error } = useQuery(
-    'all-videos',
-    () => fetchData(`http://127.0.0.1:8000/api/all-videos`)
+  const { data, isError, isLoading } = useQuery('all-videos', () =>
+    fetchData(`http://127.0.0.1:8000/api/all-videos`)
   );
 
   const responseReturn = () => {
@@ -72,12 +72,10 @@ function VideoSelection() {
                 >
                   <GrAdd size={'3em'} />
 
-                  <Typography variant="body2" color="text.secondary">
-                    <h1>
-                      Video
-                      <br />
-                      erstellen
-                    </h1>
+                  <Typography variant="h4" color="text.secondary">
+                    Video
+                    <br />
+                    erstellen
                   </Typography>
                 </CardContent>
               </Card>
@@ -86,7 +84,11 @@ function VideoSelection() {
               <Cards
                 onClick={() => {
                   setSelectedVideo(video);
-                  setPopUp(true);
+                  //setPopUp(true);
+                  navigate('/ClientView', {
+                    replace: false,
+                    state: { video },
+                  });
                 }}
                 key={video?.id}
                 video={video}

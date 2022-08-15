@@ -14,6 +14,8 @@ import Footer from '../../components/Footer/Footer';
 import Stellenanzeige from '../../components/Footer/Stellenanzeige';
 import VideoSelection from '../../components/VideoSelection/VideoSelection';
 import AdminArea from '../../pages/AdminArea';
+import ClientView from '../../pages/Clients/ClientView';
+import VideoView from '../../pages/Videos/VideoView';
 function Routing() {
   return (
     <Router>
@@ -24,6 +26,8 @@ function Routing() {
           <Route path="SingleVideo" element={<SingleVideo />}></Route>
           <Route path="Admin" element={<AdminArea />}></Route>
           <Route path="videos" element={<VideoSelection />}></Route>
+          <Route path='clientView' element={<ClientView/>} ></Route>
+          <Route path='videoView'element={<VideoView/>}></Route>
           <Route
             path="clients"
             element={<DisplaySelection />}

@@ -9,7 +9,7 @@ function useLanguageDisplayer({ en = 'en', de = 'de' }) {
   } else if (language === 'de') {
     setSelectedLanguage('de');
   }
-  const lan = [selectedLanguage, setSelectedLanguage];
+  const lan = {selectedLanguage, setSelectedLanguage};
   return lan;
 }
 useLanguageDisplayer.propTypes = {
