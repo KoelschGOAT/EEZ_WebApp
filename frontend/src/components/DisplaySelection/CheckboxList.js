@@ -1,47 +1,48 @@
-import Checkbox from "@mui/material/Checkbox";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import * as React from "react";
+import * as React from 'react';
 
-export default function CheckboxList({ pcVideos,setPcVideos, allVideos}) {
-  
+import Checkbox from '@mui/material/Checkbox';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+
+export default function CheckboxList({
+  pcVideos,
+  setPcVideos,
+  allVideos,
+}) {
   const handleToggle = (value) => () => {
-    const currentIndex=pcVideos.findIndex((check) => check.id === value.id);
+    const currentIndex = pcVideos.findIndex(
+      (check) => check.id === value.id
+    );
     const newChecked = [...pcVideos];
-/* If Entry == -1, so doesnt exist, push to State, otherwise splice */
+    /* If Entry == -1, so doesnt exist, push to State, otherwise splice */
     if (currentIndex === -1) {
-      
-
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
     }
 
- 
     setPcVideos(newChecked);
   };
-
 
   return (
     <>
       <List
         sx={{
-          width: "100%",
+          width: '100%',
           maxWidth: 360,
-          bgcolor: "background.paper",
-          padding: "0",
-          marginLeft:"-1rem",
-          minWidth:"100%",
+          bgcolor: 'background.paper',
+          padding: '0',
+
+          minWidth: '100%',
         }}
       >
         {allVideos.map((video) => {
           const labelId = `${video.id}`;
 
           return (
-           
             <ListItem key={video.id} disablePadding>
               <ListItemButton
                 role={undefined}
@@ -50,18 +51,21 @@ export default function CheckboxList({ pcVideos,setPcVideos, allVideos}) {
               >
                 <ListItemIcon>
                   <Checkbox
-                 
                     edge="start"
                     /* Check if Video Item is in PCVideos, true= checked, false= not checked */
                     checked={
-                      pcVideos.findIndex((check) => check.id === video.id) !==
-                      -1
+                      pcVideos.findIndex(
+                        (check) => check.id === video.id
+                      ) !== -1
                     }
                     tabIndex={-1}
-                    inputProps={{ "aria-labelledby": labelId }}
+                    inputProps={{ 'aria-labelledby': labelId }}
                   />
                 </ListItemIcon>
-                <ListItemText id={labelId} primary={`${video.title_de}`} />
+                <ListItemText
+                  id={labelId}
+                  primary={`${video.title_de}`}
+                />
               </ListItemButton>
             </ListItem>
           );

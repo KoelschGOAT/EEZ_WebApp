@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import ReactDom from 'react-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import './ClientView.css';
 
 function ModalView({ onClose, title = 'Title', children }) {
-  console.log(onClose);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -13,9 +13,9 @@ function ModalView({ onClose, title = 'Title', children }) {
       <div className="client-popup-modal">
         <div className="client-popup-header">
           <div className="client-popup-title">{title}</div>
-          <div className="client-close" onClick={onClose}>
+          <Button className="client-close" onClick={onClose}>
             &times;
-          </div>
+          </Button>
         </div>
         {/* Rendering child components aka input fields */}
         {children}

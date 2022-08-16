@@ -90,6 +90,7 @@ const Navbar = () => {
                   className="back"
                   startIcon={<ArrowBackOutlinedIcon />}
                   variant="contained"
+                  color="buttonRed"
                 >
                   Zurück
                 </Button>

@@ -1,21 +1,15 @@
-import axios from 'axios';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import { FaTimes } from 'react-icons/fa';
-import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 import 'react-slideshow-image/dist/styles.css';
+import '../static/css/Landing.css';
+
+import React, { useState } from 'react';
+
 import Cards from '../components/Card';
-import Show from '../components/ConditionalRendering/Show';
 import Loader from '../components/Feedback/Loader';
 import Notification from '../components/Feedback/Notification';
-import Modal from '../components/PopUp/Modal';
-import '../static/css/Landing.css';
-import InputComponent from '../components/VideoSelection/Box';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+
 function Landing() {
   const [open, setOpen] = useState(false);
   let navigate = useNavigate();
@@ -53,19 +47,11 @@ function Landing() {
   };
   return (
     <div className="container">
-      <h1 className="title" onClick={() => setOpen((o) => !0)}>
+      <h1 className="title">
         <span className="greenstripe">ENERCON</span>
         <span className="redstripe">Filme</span>
       </h1>
 
-      {open && (
-        <Modal onClose={() => setOpen((o) => !o)} title="Test PopUp">
-          <InputComponent
-            onClose={() => setOpen((o) => !o)}
-            video={data[0]}
-          />
-        </Modal>
-      )}
       {responseReturn()}
       {data && data?.length === 0 && (
         <Notification

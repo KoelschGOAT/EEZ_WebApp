@@ -1,28 +1,21 @@
-import { CardActionArea, Snackbar } from '@mui/material';
+import 'react-toastify/dist/ReactToastify.css';
+import '../../static/css/DisplaySelection.css';
+
+import React, { useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+
+import AddPCPopUp from './AddPCPopUp';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import ClientView from '../../pages/Clients/ClientView';
+import { GrAdd } from 'react-icons/gr';
+import Loader from '../Feedback/Loader';
+import MonitorIcon from '@mui/icons-material/Monitor';
+import Notification from '../Feedback/Notification';
+import PopUp from './PopUp';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import { GrAdd } from 'react-icons/gr';
-import { useQuery, useQueryClient } from 'react-query';
-import BarLoader from 'react-spinners/BarLoader';
-import { toast, ToastContainer } from 'react-toastify';
-import '../../static/css/DisplaySelection.css';
-import screen from '../../static/img/screen.svg';
-import AppContext from '../../utils/Context/AppContext';
-import Loader from '../Feedback/Loader';
-import Notification from '../Feedback/Notification';
-import SnackbarNoti from '../Feedback/SnackbarNoti';
-import AddPCPopUp from './AddPCPopUp';
-import PopUp from './PopUp';
-import ClientView from '../../pages/Clients/ClientView';
-import 'react-toastify/dist/ReactToastify.css';
+
 const DisplaySelection = () => {
   const [EditPopupOpen, setEditPopupOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -115,8 +108,8 @@ const DisplaySelection = () => {
                 className="Card"
               >
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <img src={screen} alt="PC Logo" width="50px" />
-
+                  {/* <img src={screen} alt="PC Logo" width="50px" /> */}
+                  <MonitorIcon fontSize="large" />
                   <Typography variant="body2" color="text.secondary">
                     {pc.pc_name}
                   </Typography>
@@ -148,6 +141,7 @@ const DisplaySelection = () => {
       ) : null}
       {EditPopupOpen ? (
         <ClientView
+          allVideos={allVids.data}
           pc={selectedPC}
           onClose={() => {
             setEditPopupOpen(false);
