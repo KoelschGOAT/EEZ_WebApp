@@ -97,7 +97,7 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
         onClose={onClose}
         title={`Client Einstellungen - ${pc?.pc_name}`}
       >
-        {inputError && (
+        {inputError.error && (
           <Notification
             width="50%"
             severity="error"
