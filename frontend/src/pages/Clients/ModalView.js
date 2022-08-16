@@ -1,13 +1,10 @@
+import Button from '@mui/material/Button';
 import React, { useState } from 'react';
 import ReactDom from 'react-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import './ClientView.css';
 
 function ModalView({ onClose, title = 'Title', children }) {
-  const location = useLocation();
-  const navigate = useNavigate();
-
   return ReactDom.createPortal(
     <>
       <div className="client-popup-modal">

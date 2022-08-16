@@ -1,47 +1,31 @@
-import React, { useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-
-import ButtonLoader from '../../components/Feedback/ButtonLoader';
-import CheckboxList from '../../components/DisplaySelection/CheckboxList';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ModalView from './ModalView';
-import MuiAccordion from '../../components/Mui/Accordion';
+import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-
+import React, { useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import CheckboxList from '../../components/DisplaySelection/CheckboxList';
+import ButtonLoader from '../../components/Feedback/ButtonLoader';
+import Notification from '../../components/Feedback/Notification';
+import MuiAccordion from '../../components/Mui/Accordion';
+import { usePatchClients } from '../../services/RequestClients';
+import ModalView from './ModalView';
 function ClientView({ onClose, pc, allVideos, setNoti }) {
-  const [pcName, setPcName] = useState(pc.pc_name);
-  const [ipAddress, setIpAddress] = useState(pc.ip_address);
-  const [pcVideos, setPcVideos] = useState(pc.Videos);
-  const [inputError, setInputError] = useState(false);
-  const [inputErrorMessage, setInputErrorMessage] = useState('');
+  console.log(pc);
 
+  const [pcId, setPcId] = useState(pc?.id);
+  const [pcName, setPcName] = useState(pc?.pc_name || '');
+  const [ipAddress, setIpAddress] = useState(pc?.ip_address || '');
+  const [pcVideos, setPcVideos] = useState(pc?.Videos || []);
+  const [inputError, setInputError] = useState({
+    error: false,
+    message: '',
+  });
+  const updateClients = usePatchClients({
+    onClose: onClose,
+  });
   const queryClient = useQueryClient();
-  const [expanded, setExpanded] = React.useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
-  const putPC = useMutation(
-    (formData) =>
-      axios.patch(`http://127.0.0.1:8000/api/pc/${pc.id}`, formData),
-    {
-      onSuccess: () => {
-        //notification("PC geändert");
-        // Invalidate and refetch
-        queryClient.invalidateQueries('all-pcs');
-        //wait for closing to display success
-        setTimeout(() => onClose(), 1000);
-      },
-      onError: () => {
-        setInputError(true);
-        setInputErrorMessage(
-          'Ein unerwarteter Fehler ist augetreten'
-        );
-        console.log('error');
-      },
-    }
-  );
   const deletePC = useMutation(
     () => axios.delete(`http://127.0.0.1:8000/api/pc/${pc.id}`),
 
@@ -52,10 +36,10 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
         setTimeout(() => onClose(), 1000);
       },
       onError: () => {
-        setInputError(true);
-        setInputErrorMessage(
-          'Ein unerwarteter Fehler ist augetreten'
-        );
+        setInputError({
+          error: true,
+          message: 'Ein unerwarteter Fehler ist augetreten',
+        });
         console.log('error');
       },
     }
@@ -70,6 +54,7 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
     deletePC.mutate();
   };
   const onSubmit = (event) => {
+    console.log(pcId);
     event.preventDefault();
     const formData = {};
 
@@ -77,19 +62,33 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
     formData['ip_address'] = ipAddress;
 
     formData['Videos'] = pcVideos;
-    if (pcName.length <= 4 || ipAddress.length <= 6) {
-      setInputError(true);
-      setInputErrorMessage(
-        'Eingabe Felder leer oder zu wenig Ziffern'
-      );
+    if (pcName.length <= 4) {
+      setInputError({
+        error: true,
+        message: 'PC Name zu leer oder kurz',
+      });
     } else if (
       ipAddress.match(
         '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
       ) == null
     ) {
-      setInputError(true);
-      setInputErrorMessage('IP Adresse entspricht nicht der Norm');
-    } else putPC.mutate(formData);
+      setInputError({
+        error: true,
+        message: 'IP Adresse entspricht nicht der Norm',
+      });
+    } else
+      updateClients.mutate({
+        pcId,
+
+        formData,
+      });
+    /* updateClient.onSuccess(() => setTimeout(() => onClose(), 1000));
+    updateClient.onError(() =>
+      setInputError({
+        error: true,
+        message: 'Ein Fehler ist aufgetreten',
+      })
+    ); */
   };
 
   return (
@@ -98,6 +97,14 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
         onClose={onClose}
         title={`Client Einstellungen - ${pc?.pc_name}`}
       >
+        {inputError && (
+          <Notification
+            width="50%"
+            severity="error"
+            Title="Fehler"
+            Message={inputError.message}
+          />
+        )}
         <form onSubmit={onSubmit}>
           <div className="form-container">
             <div className="form-wrapper">
@@ -118,10 +125,6 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
                   label="IP Adresse"
                   variant="outlined"
                   value={ipAddress}
-                  inputProps={{
-                    pattern:
-                      '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
-                  }}
                   onChange={(e) => onChangeHandler(e, setIpAddress)}
                 />
                 <MuiAccordion
@@ -137,11 +140,12 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
               </div>
               <div className="button-wrapper">
                 <ButtonLoader
-                  text="Ändern"
+                  text="Änderung speichern"
                   sx={{ height: '3rem', color: '#fff' }}
                   onClick={onSubmit}
-                  isLoading={putPC.isLoading}
-                  isSuccess={putPC.isSuccess}
+                  isLoading={updateClients.isLoading}
+                  isSuccess={updateClients.isSuccess}
+                  icon={<EditIcon />}
                 />
                 <ButtonLoader
                   text="Löschen"

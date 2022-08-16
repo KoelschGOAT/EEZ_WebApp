@@ -1,13 +1,13 @@
-import Button from '@mui/material/Button';
 import DoneIcon from '@mui/icons-material/Done';
-import Loader from './Loader';
-import React from 'react';
 import UploadIcon from '@mui/icons-material/Upload';
+import Button from '@mui/material/Button';
+import React from 'react';
+import Loader from './Loader';
 
 export default function ButtonLoader({
   color,
   text = 'Submit',
-  textSuccess = 'Erfolgreich',
+  textSuccess = '',
   isLoading,
   onClick,
   isSuccess,

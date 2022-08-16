@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
 
 export default function MuiAccordion({
   title = 'Title',
@@ -19,6 +19,10 @@ export default function MuiAccordion({
   };
   return (
     <Accordion
+      sx={{
+        border: '1px solid rgba(0, 0, 0, 0.12)',
+        boxShadow: 'none',
+      }}
       expanded={expanded === 'panel1'}
       onChange={handleChange('panel1')}
     >

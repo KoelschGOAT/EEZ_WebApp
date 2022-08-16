@@ -4,23 +4,22 @@ import '../../static/css/DisplaySelection.css';
 import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 
-import AddPCPopUp from './AddPCPopUp';
+import MonitorIcon from '@mui/icons-material/Monitor';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import ClientView from '../../pages/Clients/ClientView';
-import { GrAdd } from 'react-icons/gr';
-import Loader from '../Feedback/Loader';
-import MonitorIcon from '@mui/icons-material/Monitor';
-import Notification from '../Feedback/Notification';
-import PopUp from './PopUp';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
+import { GrAdd } from 'react-icons/gr';
+import ClientView from '../../pages/Clients/ClientView';
+import Loader from '../Feedback/Loader';
+import Notification from '../Feedback/Notification';
+import AddPCPopUp from './AddPCPopUp';
+import PopUp from './PopUp';
 
 const DisplaySelection = () => {
   const [EditPopupOpen, setEditPopupOpen] = useState(false);
-  const queryClient = useQueryClient();
+
   const [selectedPC, setSelectedPC] = useState();
-  const [popUp, setPopUp] = useState(false);
   const [addPopUp, setAddPopUp] = useState(false);
   const fetchData = async (url) => {
     const response = await axios.get(url);
@@ -32,7 +31,6 @@ const DisplaySelection = () => {
   const allVids = useQuery('all-videos', () =>
     fetchData(`http://127.0.0.1:8000/api/all-videos`)
   );
-  console.log(EditPopupOpen);
   const isError = allPCs.isError || allVids.isError;
   const isLoading = allPCs.isLoading || allVids.isLoading;
   const data = allVids.data || allPCs.data;
@@ -48,8 +46,9 @@ const DisplaySelection = () => {
   };
 
   const responseReturn = () => {
-    <Loader loading={isLoading} />;
-
+    if (isLoading) {
+      <Loader loading={isLoading} />;
+    }
     if (isError) {
       return (
         <Notification
@@ -122,15 +121,7 @@ const DisplaySelection = () => {
           ))}
         </div>
       )}
-      {popUp ? (
-        <PopUp
-          pc={selectedPC}
-          allVideos={allVids.data}
-          onClose={() => {
-            setPopUp(false);
-          }}
-        />
-      ) : null}
+      {/* 
       {addPopUp ? (
         <AddPCPopUp
           onClose={() => {
@@ -138,7 +129,7 @@ const DisplaySelection = () => {
           }}
           allVideos={allVids.data}
         />
-      ) : null}
+      ) : null} */}
       {EditPopupOpen ? (
         <ClientView
           allVideos={allVids.data}
@@ -146,6 +137,14 @@ const DisplaySelection = () => {
           onClose={() => {
             setEditPopupOpen(false);
           }}
+        />
+      ) : null}
+      {addPopUp ? (
+        <ClientView
+          onClose={() => {
+            setAddPopUp(false);
+          }}
+          allVideos={allVids.data}
         />
       ) : null}
     </>
