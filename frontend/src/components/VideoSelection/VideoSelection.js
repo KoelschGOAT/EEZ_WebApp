@@ -15,10 +15,11 @@ import { useNavigate } from 'react-router-dom';
 import 'react-slideshow-image/dist/styles.css';
 import BarLoader from 'react-spinners/BarLoader';
 import Cards from '../../components/Card';
+import VideoViewAdd from '../../pages/Videos/VideoViewAdd';
+import VideoViewEdit from '../../pages/Videos/VideoViewEdit';
 import '../../static/css/Landing.css';
 import AppContext from '../../utils/Context/AppContext';
 import Loader from '../Feedback/Loader';
-import AddVideoPopUp from './AddVideoPopUp';
 import EditVideoPopUp from './EditVideoPopUp';
 function VideoSelection() {
   const navigate = useNavigate();
@@ -84,11 +85,7 @@ function VideoSelection() {
               <Cards
                 onClick={() => {
                   setSelectedVideo(video);
-                  //setPopUp(true);
-                  navigate('/ClientView', {
-                    replace: false,
-                    state: { video },
-                  });
+                  setPopUp(true);
                 }}
                 key={video?.id}
                 video={video}
@@ -98,22 +95,20 @@ function VideoSelection() {
         )}
       </div>
       {popUp ? (
-        <EditVideoPopUp
+        <VideoViewEdit
           video={selectedVideo}
-          open={popUp}
           onClose={() => {
             setPopUp(false);
           }}
         />
       ) : null}
-      {addPopUp ? (
-        <AddVideoPopUp
-          open={addPopUp}
+      {/* {addPopUp ? (
+        <VideoViewAdd
           onClose={() => {
             setAddPopUp(false);
           }}
         />
-      ) : null}
+      ) : null} */}
     </>
   );
 }

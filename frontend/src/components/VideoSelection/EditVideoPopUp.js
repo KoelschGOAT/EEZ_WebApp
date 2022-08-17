@@ -8,6 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Fab from '@mui/material/Fab';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
+import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ReactDom from 'react-dom';
@@ -19,9 +20,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Feedback/Loader';
 import Notification from '../Feedback/Notification';
 import Modal from '../PopUp/Modal';
-import TextField from '@mui/material/TextField';
 
-const EditVideoPopUp = ({ video, onClose, getPCs }) => {
+const EditVideoPopUp = ({ video, onClose }) => {
   const [videoLink, setVideoLink] = useState(video.video);
   const [screenshot, setScreenshot] = useState(video.screenshot);
   const [title_de, setTitle_de] = useState(video.title_de);
