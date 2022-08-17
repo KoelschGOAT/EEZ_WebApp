@@ -1,68 +1,50 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import TextField from '@mui/material/TextField';
-import axios from 'axios';
 import React, { useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
 import CheckboxList from '../../components/DisplaySelection/CheckboxList';
 import ButtonLoader from '../../components/Feedback/ButtonLoader';
 import Notification from '../../components/Feedback/Notification';
 import MuiAccordion from '../../components/Mui/Accordion';
-import { usePatchClients } from '../../services/RequestClients';
+import { usePostClients } from '../../services/RequestClients';
 import ModalView from './ModalView';
-function ClientView({ onClose, pc, allVideos, setNoti }) {
-  console.log(pc);
-
-  const [pcId, setPcId] = useState(pc?.id);
-  const [pcName, setPcName] = useState(pc?.pc_name || '');
-  const [ipAddress, setIpAddress] = useState(pc?.ip_address || '');
-  const [pcVideos, setPcVideos] = useState(pc?.Videos || []);
+function ClientViewAdd({ onClose, allVideos, setNoti }) {
+  const [pcName, setPcName] = useState('');
+  const [ipAddress, setIpAddress] = useState('');
+  const [pcVideos, setPcVideos] = useState([]);
   const [inputError, setInputError] = useState({
     error: false,
     message: '',
   });
-  const updateClients = usePatchClients({
+  const handleSuccess = () => {
+    setInputError({ ...inputError, error: false });
+    setTimeout(() => onClose(), 1000);
+  };
+  const handleError = () => {
+    setInputError({
+      error: true,
+      message: 'Ein unerwarteter Fehler ist augetreten',
+    });
+  };
+  const postClients = usePostClients({
     onClose: onClose,
+    config: {
+      onSuccess: handleSuccess,
+      onError: handleError,
+    },
   });
-  const queryClient = useQueryClient();
-
-  const deletePC = useMutation(
-    () => axios.delete(`http://127.0.0.1:8000/api/pc/${pc.id}`),
-
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries('all-pcs');
-        setTimeout(() => onClose(), 1000);
-      },
-      onError: () => {
-        setInputError({
-          error: true,
-          message: 'Ein unerwarteter Fehler ist augetreten',
-        });
-        console.log('error');
-      },
-    }
-  );
 
   const onChangeHandler = (e, setState) => {
     e.preventDefault();
     setState(e.target.value);
   };
 
-  const onDeleteHandler = () => {
-    deletePC.mutate();
-  };
   const onSubmit = (event) => {
-    console.log(pcId);
     event.preventDefault();
     const formData = {};
-
     formData['pc_name'] = pcName;
     formData['ip_address'] = ipAddress;
-
     formData['Videos'] = pcVideos;
-    if (pcName.length <= 4) {
+    if (pcName.length < 4) {
       setInputError({
         error: true,
         message: 'PC Name zu leer oder kurz',
@@ -77,26 +59,14 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
         message: 'IP Adresse entspricht nicht der Norm',
       });
     } else
-      updateClients.mutate({
-        pcId,
-
+      postClients.mutate({
         formData,
       });
-    /* updateClient.onSuccess(() => setTimeout(() => onClose(), 1000));
-    updateClient.onError(() =>
-      setInputError({
-        error: true,
-        message: 'Ein Fehler ist aufgetreten',
-      })
-    ); */
   };
 
   return (
     <>
-      <ModalView
-        onClose={onClose}
-        title={`Client Einstellungen - ${pc?.pc_name}`}
-      >
+      <ModalView onClose={onClose} title={`Neuen Client Erstellen`}>
         {inputError.error && (
           <Notification
             width="50%"
@@ -143,20 +113,9 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
                   text="Änderung speichern"
                   sx={{ height: '3rem', color: '#fff' }}
                   onClick={onSubmit}
-                  isLoading={updateClients.isLoading}
-                  isSuccess={updateClients.isSuccess}
-                  icon={<EditIcon />}
-                />
-                <ButtonLoader
-                  text="Löschen"
-                  variant="outlined"
-                  textSuccess="Gelöscht"
-                  color="buttonRed"
-                  sx={{ height: '3rem', color: '#000' }}
-                  icon={<DeleteIcon />}
-                  onClick={onDeleteHandler}
-                  isLoading={deletePC.isLoading}
-                  isSuccess={deletePC.isSuccess}
+                  isLoading={postClients.isLoading}
+                  isSuccess={postClients.isSuccess}
+                  icon={<AddIcon />}
                 />
               </div>
             </div>
@@ -167,4 +126,4 @@ function ClientView({ onClose, pc, allVideos, setNoti }) {
   );
 }
 
-export default ClientView;
+export default ClientViewAdd;

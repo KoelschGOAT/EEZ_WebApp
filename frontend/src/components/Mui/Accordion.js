@@ -22,6 +22,8 @@ export default function MuiAccordion({
       sx={{
         border: '1px solid rgba(0, 0, 0, 0.12)',
         boxShadow: 'none',
+        overflow: 'auto',
+        maxHeight: 500,
       }}
       expanded={expanded === 'panel1'}
       onChange={handleChange('panel1')}

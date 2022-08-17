@@ -1,49 +1,38 @@
-import 'react-toastify/dist/ReactToastify.css';
-import '../../static/css/DisplaySelection.css';
-
-import React, { useState } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
-
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import GridViewIcon from '@mui/icons-material/GridView';
 import MonitorIcon from '@mui/icons-material/Monitor';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import ToggleButton from '@mui/material/ToggleButton';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { GrAdd } from 'react-icons/gr';
-import ClientView from '../../pages/Clients/ClientView';
+import 'react-toastify/dist/ReactToastify.css';
+import ClientViewAdd from '../../pages/Clients/ClientViewAdd';
+import ClientViewEdit from '../../pages/Clients/ClientViewEdit';
+import { useGetAllClients } from '../../services/RequestClients';
+import { useGetAllVideos } from '../../services/RequestVideos';
+import '../../static/css/DisplaySelection.css';
 import Loader from '../Feedback/Loader';
 import Notification from '../Feedback/Notification';
-import AddPCPopUp from './AddPCPopUp';
-import PopUp from './PopUp';
-
+import ToggleButtons from '../Mui/ToggleButton';
 const DisplaySelection = () => {
+  const [alignment, setAlignment] = useState('list');
+
+  const handleAlignment = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
   const [EditPopupOpen, setEditPopupOpen] = useState(false);
 
   const [selectedPC, setSelectedPC] = useState();
   const [addPopUp, setAddPopUp] = useState(false);
-  const fetchData = async (url) => {
-    const response = await axios.get(url);
-    return response.data;
-  };
-  const allPCs = useQuery('all-pcs', () =>
-    fetchData(`http://127.0.0.1:8000/api/all-pcs`)
-  );
-  const allVids = useQuery('all-videos', () =>
-    fetchData(`http://127.0.0.1:8000/api/all-videos`)
-  );
+
+  const allPCs = useGetAllClients();
+  const allVids = useGetAllVideos();
+
   const isError = allPCs.isError || allVids.isError;
   const isLoading = allPCs.isLoading || allVids.isLoading;
   const data = allVids.data || allPCs.data;
-  const STYLE_WRAPPER = {
-    width: '100vmax',
-    height: '100px',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 200px)',
-    gridTemplateRows: 'repeat(3)',
-    justifyContent: 'center',
-    gridGap: '5vmin',
-    margin: '2rem 0 2rem 0',
-  };
 
   const responseReturn = () => {
     if (isLoading) {
@@ -66,6 +55,20 @@ const DisplaySelection = () => {
         <span className="greenstripe">Einstellungen</span>
         <span className="redstripe">Clients</span>
       </h1>
+      {/* <div className="loading">
+        <ToggleButtons
+          alignment={alignment}
+          handleChange={handleAlignment}
+          ariaLabel="toggle-view"
+        >
+          <ToggleButton value="list" aria-label="list ">
+            <FormatListBulletedIcon />
+          </ToggleButton>
+          <ToggleButton value="grid" aria-label="grid">
+            <GridViewIcon />
+          </ToggleButton>
+        </ToggleButtons>
+      </div> */}
       {data && !isLoading && !isError && (
         <div className="grid">
           <div className="wrapper">
@@ -131,7 +134,7 @@ const DisplaySelection = () => {
         />
       ) : null} */}
       {EditPopupOpen ? (
-        <ClientView
+        <ClientViewEdit
           allVideos={allVids.data}
           pc={selectedPC}
           onClose={() => {
@@ -140,7 +143,7 @@ const DisplaySelection = () => {
         />
       ) : null}
       {addPopUp ? (
-        <ClientView
+        <ClientViewAdd
           onClose={() => {
             setAddPopUp(false);
           }}

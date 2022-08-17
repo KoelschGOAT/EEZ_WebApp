@@ -1,27 +1,32 @@
 import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-const fetchData = async (url) => {
-  const response = await axios.get(url);
-  return response.data;
-};
-export default fetchData;
-export function useGetAllClients() {
-  return useQuery('all-pcs', () =>
-    fetchData(`http://127.0.0.1:8000/api/all-pcs`)
+import fetchData from './RequestClients';
+
+export function useGetCurrentClientVideos() {
+  return useQuery('current-pc-videos', () =>
+    fetchData(`http://127.0.0.1:8000/api/current-pc-videos`)
   );
 }
 
-export function usePostClients({ config }) {
+export function useGetAllVideos() {
+  return useQuery('all-videos', () =>
+    fetchData(`http://127.0.0.1:8000/api/all-videos`)
+  );
+}
+export function usePostVideos({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({ formData }) => {
-      await axios.post(`http://127.0.0.1:8000/api/all-pcs`, formData);
+    async ({ videoId, formData }) => {
+      await axios.post(
+        `http://127.0.0.1:8000/api/video/${videoId}`,
+        formData
+      );
     },
     {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries('all-pcs');
+        queryClient.invalidateQueries('all-videos');
         //wait for closing to display success
         config.onSuccess();
       },
@@ -32,13 +37,12 @@ export function usePostClients({ config }) {
     }
   );
 }
-
-export function usePatchClients({ config }) {
+export function usePatchVideos({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({ pcId, formData }) => {
+    async ({ videoId, formData }) => {
       await axios.patch(
-        `http://127.0.0.1:8000/api/pc/${pcId}`,
+        `http://127.0.0.1:8000/api/video/${videoId}`,
         formData
       );
     },
@@ -47,7 +51,7 @@ export function usePatchClients({ config }) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries('all-pcs');
+        queryClient.invalidateQueries('all-videos');
         //wait for closing to display success
         config.onSuccess();
       },
@@ -58,7 +62,8 @@ export function usePatchClients({ config }) {
     }
   );
 }
-export function useDeleteClients({ config }) {
+
+export function useDeleteVideos({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
     async ({ pcId }) => {
@@ -69,7 +74,7 @@ export function useDeleteClients({ config }) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries('all-pcs');
+        queryClient.invalidateQueries('all-videos');
         //wait for closing to display success
         config.onSuccess();
       },

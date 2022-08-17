@@ -7,7 +7,7 @@ const SingleVideo = () => {
   const [video, setVideo] = useState(location.state?.video);
 
   return (
-    <div>
+    <>
       <div className="video-wrapper">
         <video className="video" autoPlay loop>
           <source
@@ -15,7 +15,7 @@ const SingleVideo = () => {
             type="video/webm"
           />
         </video>
-        <div className="textWrapper">
+        <div className="text-wrapper">
           <h1>
             <LanguageDisplayer
               de={video.title_de}
@@ -31,7 +31,7 @@ const SingleVideo = () => {
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

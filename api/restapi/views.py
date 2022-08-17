@@ -116,7 +116,9 @@ def PcEditView(request, pk):
         return JsonResponse(serializer.data)
 
     elif request.method == 'PATCH':
-        data = JSONParser().parse(request)
+        print(request.data)
+        data = request.data
+        
         serializer = PCSerializer(pc_entry, data=data)
         if serializer.is_valid():
             serializer.save(Videos=data["Videos"])

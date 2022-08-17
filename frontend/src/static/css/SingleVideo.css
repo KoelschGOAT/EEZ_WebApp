@@ -1,15 +1,18 @@
 .video-wrapper {
   display: flex;
+  gap:1rem;
 }
 
 .video {
-  padding: 2rem;
+  padding:1rem;
   width: 50%;
   height: auto;
 }
-
+text-wrapper {
+  text-align:center;
+}
 @media only screen and (max-width: 640px) {
-  .wrapper {
+  .video-wrapper {
     display: flex;
     flex-direction: column;
   }

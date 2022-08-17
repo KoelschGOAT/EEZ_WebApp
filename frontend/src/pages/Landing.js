@@ -3,29 +3,22 @@ import '../static/css/Landing.css';
 
 import React, { useState } from 'react';
 
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import Cards from '../components/Card';
 import Loader from '../components/Feedback/Loader';
 import Notification from '../components/Feedback/Notification';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useGetCurrentClientVideos } from '../services/RequestVideos';
 
 function Landing() {
-  const [open, setOpen] = useState(false);
   let navigate = useNavigate();
 
-  const fetchData = async (url) => {
-    const response = await axios.get(url);
-    return response.data;
-  };
-  const { data, isError, isLoading, error } = useQuery(
-    'current-pc-videos',
-    () => fetchData(`http://127.0.0.1:8000/api/current-pc-videos`)
-  );
-
+  const { data, isError, isLoading, error } =
+    useGetCurrentClientVideos();
   document.title = 'Übersicht';
   const responseReturn = () => {
-    <Loader loading={isLoading} />;
+    if (isLoading) return <Loader loading={isLoading} />;
 
     if (isError && error?.response.status === 401) {
       return (
