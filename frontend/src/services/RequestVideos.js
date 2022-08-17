@@ -16,9 +16,9 @@ export function useGetAllVideos() {
 export function usePostVideos({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({ videoId, formData }) => {
+    async ({ formData }) => {
       await axios.post(
-        `http://127.0.0.1:8000/api/video/${videoId}`,
+        `http://127.0.0.1:8000/api/all-videos`,
         formData
       );
     },

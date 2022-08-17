@@ -1,16 +1,22 @@
-import AddIcon from '@mui/icons-material/Add';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
-import CheckboxList from '../../components/DisplaySelection/CheckboxList';
+import React, { useEffect, useState } from 'react';
 import ButtonLoader from '../../components/Feedback/ButtonLoader';
 import Notification from '../../components/Feedback/Notification';
-import MuiAccordion from '../../components/Mui/Accordion';
-import { usePostClients } from '../../services/RequestClients';
+import { usePostVideos } from '../../services/RequestVideos';
 import ModalView from '../Clients/ModalView';
-function ClientViewAdd({ onClose, allVideos, setNoti }) {
-  const [pcName, setPcName] = useState('');
-  const [ipAddress, setIpAddress] = useState('');
-  const [pcVideos, setPcVideos] = useState([]);
+export default function VideoViewAdd({ onClose }) {
+  const [videoConfig, setVideoConfig] = useState({
+    video: [],
+    screenshot: [],
+    title_de: '',
+    title_en: '',
+    text_de: '',
+    text_en: '',
+  });
   const [inputError, setInputError] = useState({
     error: false,
     message: '',
@@ -25,7 +31,7 @@ function ClientViewAdd({ onClose, allVideos, setNoti }) {
       message: 'Ein unerwarteter Fehler ist augetreten',
     });
   };
-  const postClients = usePostClients({
+  const postVideos = usePostVideos({
     onClose: onClose,
     config: {
       onSuccess: handleSuccess,
@@ -33,40 +39,80 @@ function ClientViewAdd({ onClose, allVideos, setNoti }) {
     },
   });
 
-  const onChangeHandler = (e, setState) => {
+  const onChangeHandler = (e) => {
     e.preventDefault();
-    setState(e.target.value);
+    const { name, value } = e.target;
+    setVideoConfig((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const onChangeHandlerFile = (e) => {
+    e.preventDefault();
+    const { name, files } = e.target;
+    setVideoConfig((prevState) => ({
+      ...prevState,
+      [name]: files[0],
+    }));
   };
 
   const onSubmit = (event) => {
+    setInputError({ error: false, message: '' });
+    const {
+      id,
+      video,
+      screenshot,
+      title_de,
+      title_en,
+      text_de,
+      text_en,
+    } = videoConfig;
     event.preventDefault();
-    const formData = {};
-    formData['pc_name'] = pcName;
-    formData['ip_address'] = ipAddress;
-    formData['Videos'] = pcVideos;
-    if (pcName.length < 4) {
-      setInputError({
-        error: true,
-        message: 'PC Name zu leer oder kurz',
-      });
-    } else if (
-      ipAddress.match(
-        '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-      ) == null
+
+    const formData = new FormData();
+
+    formData.append('video', video);
+    formData.append('screenshot', screenshot);
+    formData.append('title_de', title_de);
+    formData.append('title_en', title_en);
+    formData.append('text_de', text_de);
+    formData.append('text_en', text_en);
+
+    if (
+      video.length === 0 ||
+      screenshot.length === 0 ||
+      title_de.length === 0 ||
+      title_en.length === 0 ||
+      text_de.length === 0 ||
+      text_en.length === 0
     ) {
       setInputError({
+        ...inputError,
         error: true,
-        message: 'IP Adresse entspricht nicht der Norm',
+        message: 'Eingabe Felder leer oder zu wenig Ziffern',
       });
-    } else
-      postClients.mutate({
+    } /* else if (
+      video.type !== 'video/mp4' ||
+      video.type !== 'video/webm' ||
+      screenshot.type !== 'image/png' ||
+      screenshot.type !== 'image/jpeg' ||
+      screenshot.type !== 'image/webP'
+    ) {
+      console.log(formDataa, formData);
+      setInputError({
+        ...inputError,
+        error: true,
+        message: 'Video oder Screenshot nicht im richtigem Format',
+      });
+    } */ else
+      postVideos.mutate({
         formData,
       });
   };
 
   return (
     <>
-      <ModalView onClose={onClose} title={`Neuen Client Erstellen`}>
+      <ModalView onClose={onClose} title={`Nues Video Einstellungen`}>
         {inputError.error && (
           <Notification
             width="50%"
@@ -80,42 +126,83 @@ function ClientViewAdd({ onClose, allVideos, setNoti }) {
             <div className="form-wrapper">
               <div className="input-wrapper">
                 {' '}
+                <Button variant="contained" component="label">
+                  {videoConfig.video?.name ? (
+                    <CheckCircleOutlineIcon />
+                  ) : null}
+                  {videoConfig.video?.name
+                    ? videoConfig.video?.name
+                    : 'Upload Video'}
+                  <input
+                    hidden
+                    accept="video/*"
+                    type="file"
+                    name="video"
+                    onChange={(e) => onChangeHandlerFile(e)}
+                  />
+                </Button>
+                <Button variant="contained" component="label">
+                  {videoConfig.screenshot?.name ? (
+                    <CheckCircleOutlineIcon />
+                  ) : null}
+                  {videoConfig.screenshot?.name
+                    ? videoConfig.screenshot?.name
+                    : 'Upload Image'}
+
+                  <input
+                    hidden
+                    accept="image/*"
+                    multiple
+                    type="file"
+                    name="screenshot"
+                    onChange={(e) => onChangeHandlerFile(e)}
+                  />
+                </Button>{' '}
                 <TextField
                   size="large"
-                  id="pcName"
-                  label="PC Name"
+                  id="title_de"
+                  label="Deutscher Titel"
                   variant="outlined"
-                  value={pcName}
-                  onChange={(e) => onChangeHandler(e, setPcName)}
-                  sx={{ fontSize: ' 5rem' }}
+                  name="title_de"
+                  onChange={(e) => onChangeHandler(e)}
+                  value={videoConfig.title_de}
                 />
                 <TextField
                   size="large"
-                  id="ipAddress"
-                  label="IP Adresse"
+                  id="title_de"
+                  label="Deutscher Titel"
                   variant="outlined"
-                  value={ipAddress}
-                  onChange={(e) => onChangeHandler(e, setIpAddress)}
+                  name="title_en"
+                  onChange={(e) => onChangeHandler(e)}
+                  value={videoConfig.title_en}
                 />
-                <MuiAccordion
-                  title="Videos"
-                  subtitle="Wählen Sie aus allen Videos"
-                >
-                  <CheckboxList
-                    pcVideos={pcVideos}
-                    setPcVideos={setPcVideos}
-                    allVideos={allVideos}
-                  />{' '}
-                </MuiAccordion>
+                <TextField
+                  size="large"
+                  id="title_de"
+                  label="Deutscher Titel"
+                  variant="outlined"
+                  name="text_de"
+                  onChange={(e) => onChangeHandler(e)}
+                  value={videoConfig.text_de}
+                />
+                <TextField
+                  size="large"
+                  id="title_de"
+                  label="Deutscher Titel"
+                  variant="outlined"
+                  name="text_en"
+                  onChange={(e) => onChangeHandler(e)}
+                  value={videoConfig.text_en}
+                />
               </div>
               <div className="button-wrapper">
                 <ButtonLoader
                   text="Änderung speichern"
                   sx={{ height: '3rem', color: '#fff' }}
                   onClick={onSubmit}
-                  isLoading={postClients.isLoading}
-                  isSuccess={postClients.isSuccess}
-                  icon={<AddIcon />}
+                  isLoading={postVideos.isLoading}
+                  isSuccess={postVideos.isSuccess}
+                  icon={<EditIcon />}
                 />
               </div>
             </div>
@@ -125,5 +212,3 @@ function ClientViewAdd({ onClose, allVideos, setNoti }) {
     </>
   );
 }
-
-export default ClientViewAdd;

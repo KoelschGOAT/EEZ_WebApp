@@ -1,9 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
-import axios from 'axios';
 import React, { useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
 import CheckboxList from '../../components/DisplaySelection/CheckboxList';
 import ButtonLoader from '../../components/Feedback/ButtonLoader';
 import Notification from '../../components/Feedback/Notification';
@@ -13,8 +11,8 @@ import {
   usePatchClients,
 } from '../../services/RequestClients';
 import ModalView from './ModalView';
-function ClientViewEdit({ onClose, pc, allVideos, setNoti }) {
-  const [pcId, setPcId] = useState(pc?.id);
+function ClientViewEdit({ onClose, pc, allVideos }) {
+  const [pcId] = useState(pc?.id);
   const [pcName, setPcName] = useState(pc?.pc_name || '');
   const [ipAddress, setIpAddress] = useState(pc?.ip_address || '');
   const [pcVideos, setPcVideos] = useState(pc?.Videos || []);

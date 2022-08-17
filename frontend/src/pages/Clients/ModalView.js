@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button';
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDom from 'react-dom';
-import { useLocation, useNavigate } from 'react-router-dom';
 import './ClientView.css';
 
 function ModalView({ onClose, title = 'Title', children }) {
