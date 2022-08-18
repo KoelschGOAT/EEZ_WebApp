@@ -1,9 +1,9 @@
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
+import Show from '../../components/ConditionalRendering/Show';
 import ButtonLoader from '../../components/Feedback/ButtonLoader';
 import Notification from '../../components/Feedback/Notification';
 import { usePostVideos } from '../../services/RequestVideos';
@@ -126,7 +126,11 @@ export default function VideoViewAdd({ onClose }) {
             <div className="form-wrapper">
               <div className="input-wrapper">
                 {' '}
-                <Button variant="contained" component="label">
+                <Button
+                  disabled={postVideos.isLoading}
+                  variant="contained"
+                  component="label"
+                >
                   {videoConfig.video?.name ? (
                     <CheckCircleOutlineIcon />
                   ) : null}
@@ -141,7 +145,11 @@ export default function VideoViewAdd({ onClose }) {
                     onChange={(e) => onChangeHandlerFile(e)}
                   />
                 </Button>
-                <Button variant="contained" component="label">
+                <Button
+                  disabled={postVideos.isLoading}
+                  variant="contained"
+                  component="label"
+                >
                   {videoConfig.screenshot?.name ? (
                     <CheckCircleOutlineIcon />
                   ) : null}
@@ -159,6 +167,7 @@ export default function VideoViewAdd({ onClose }) {
                   />
                 </Button>{' '}
                 <TextField
+                  disabled={postVideos.isLoading}
                   size="large"
                   id="title_de"
                   label="Deutscher Titel"
@@ -168,27 +177,30 @@ export default function VideoViewAdd({ onClose }) {
                   value={videoConfig.title_de}
                 />
                 <TextField
+                  disabled={postVideos.isLoading}
                   size="large"
                   id="title_de"
-                  label="Deutscher Titel"
+                  label="Englischer Titel"
                   variant="outlined"
                   name="title_en"
                   onChange={(e) => onChangeHandler(e)}
                   value={videoConfig.title_en}
                 />
                 <TextField
+                  disabled={postVideos.isLoading}
                   size="large"
                   id="title_de"
-                  label="Deutscher Titel"
+                  label="Deutscher Text"
                   variant="outlined"
                   name="text_de"
                   onChange={(e) => onChangeHandler(e)}
                   value={videoConfig.text_de}
                 />
                 <TextField
+                  disabled={postVideos.isLoading}
                   size="large"
                   id="title_de"
-                  label="Deutscher Titel"
+                  label="Englischer Text"
                   variant="outlined"
                   name="text_en"
                   onChange={(e) => onChangeHandler(e)}
@@ -204,6 +216,18 @@ export default function VideoViewAdd({ onClose }) {
                   isSuccess={postVideos.isSuccess}
                   icon={<EditIcon />}
                 />
+                <Show condition={postVideos.isLoading}>
+                  {' '}
+                  <span
+                    style={{
+                      width: '100%',
+                      textAlign: 'center',
+                      alignSelf: 'center',
+                    }}
+                  >
+                    Daten werden hochgeladen, einen Moment...
+                  </span>
+                </Show>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
+import Show from '../../components/ConditionalRendering/Show';
 import CheckboxList from '../../components/DisplaySelection/CheckboxList';
 import ButtonLoader from '../../components/Feedback/ButtonLoader';
 import Notification from '../../components/Feedback/Notification';
@@ -90,6 +91,7 @@ function ClientViewAdd({ onClose, allVideos, setNoti }) {
                   sx={{ fontSize: ' 5rem' }}
                 />
                 <TextField
+                  disabled={postClients.isLoading}
                   size="large"
                   id="ipAddress"
                   label="IP Adresse"
@@ -117,6 +119,18 @@ function ClientViewAdd({ onClose, allVideos, setNoti }) {
                   isSuccess={postClients.isSuccess}
                   icon={<AddIcon />}
                 />
+                <Show condition={postClients.isLoading}>
+                  {' '}
+                  <span
+                    style={{
+                      width: '100%',
+                      textAlign: 'center',
+                      alignSelf: 'center',
+                    }}
+                  >
+                    Daten werden hochgeladen, einen Moment...
+                  </span>
+                </Show>
               </div>
             </div>
           </div>

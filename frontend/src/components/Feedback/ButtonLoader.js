@@ -14,13 +14,13 @@ export default function ButtonLoader({
   sx,
   variant = 'contained',
   icon = null,
+  disabled = false,
 }) {
-  const disabled = isLoading;
   return (
     <Button
       className="button"
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       variant={variant}
       sx={sx}
       color={color}

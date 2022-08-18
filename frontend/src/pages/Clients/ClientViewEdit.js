@@ -2,6 +2,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
+import Show from '../../components/ConditionalRendering/Show';
 import CheckboxList from '../../components/DisplaySelection/CheckboxList';
 import ButtonLoader from '../../components/Feedback/ButtonLoader';
 import Notification from '../../components/Feedback/Notification';
@@ -76,7 +77,7 @@ function ClientViewEdit({ onClose, pc, allVideos }) {
       });
     } else
       updateClients.mutate({
-        pcId,
+        pcId: pcId,
         formData,
       });
   };
@@ -101,6 +102,9 @@ function ClientViewEdit({ onClose, pc, allVideos }) {
               <div className="input-wrapper">
                 {' '}
                 <TextField
+                  disabled={
+                    updateClients.isLoading || deleteClients.isLoading
+                  }
                   size="large"
                   id="pcName"
                   label="PC Name"
@@ -110,6 +114,9 @@ function ClientViewEdit({ onClose, pc, allVideos }) {
                   sx={{ fontSize: ' 5rem' }}
                 />
                 <TextField
+                  disabled={
+                    updateClients.isLoading || deleteClients.isLoading
+                  }
                   size="large"
                   id="ipAddress"
                   label="IP Adresse"
@@ -130,6 +137,7 @@ function ClientViewEdit({ onClose, pc, allVideos }) {
               </div>
               <div className="button-wrapper">
                 <ButtonLoader
+                  disabled={deleteClients.isLoading}
                   text="Änderung speichern"
                   sx={{ height: '3rem', color: '#fff' }}
                   onClick={onSubmit}
@@ -138,6 +146,7 @@ function ClientViewEdit({ onClose, pc, allVideos }) {
                   icon={<EditIcon />}
                 />
                 <ButtonLoader
+                  disabled={updateClients.isLoading}
                   text="Löschen"
                   variant="outlined"
                   color="buttonRed"
@@ -147,6 +156,22 @@ function ClientViewEdit({ onClose, pc, allVideos }) {
                   isLoading={deleteClients.isLoading}
                   isSuccess={deleteClients.isSuccess}
                 />
+                <Show
+                  condition={
+                    updateClients.isLoading || deleteClients.isLoading
+                  }
+                >
+                  {' '}
+                  <span
+                    style={{
+                      width: '100%',
+                      textAlign: 'center',
+                      alignSelf: 'center',
+                    }}
+                  >
+                    Daten werden hochgeladen, einen Moment...
+                  </span>
+                </Show>
               </div>
             </div>
           </div>

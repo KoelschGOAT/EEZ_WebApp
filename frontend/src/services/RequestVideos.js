@@ -66,8 +66,10 @@ export function usePatchVideos({ config }) {
 export function useDeleteVideos({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({ pcId }) => {
-      await axios.delete(`http://127.0.0.1:8000/api/pc/${pcId}`);
+    async ({ videoId }) => {
+      await axios.delete(
+        `http://127.0.0.1:8000/api/video/${videoId}`
+      );
     },
 
     {

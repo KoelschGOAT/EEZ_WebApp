@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
+import Show from '../../components/ConditionalRendering/Show';
 import ButtonLoader from '../../components/Feedback/ButtonLoader';
 import Notification from '../../components/Feedback/Notification';
 import {
@@ -68,7 +69,7 @@ export default function VideoViewEdit({ onClose, video }) {
   };
 
   const onDeleteHandler = () => {
-    deleteVideos.mutate({});
+    deleteVideos.mutate({ videoId: videoConfig.id });
   };
 
   const onSubmit = (event) => {
@@ -216,6 +217,7 @@ export default function VideoViewEdit({ onClose, video }) {
               </div>
               <div className="button-wrapper">
                 <ButtonLoader
+                  disabled={deleteVideos.isLoading}
                   text="Änderung speichern"
                   sx={{ height: '3rem', color: '#fff' }}
                   onClick={onSubmit}
@@ -224,6 +226,7 @@ export default function VideoViewEdit({ onClose, video }) {
                   icon={<EditIcon />}
                 />
                 <ButtonLoader
+                  disabled={updateVideos.isLoading}
                   text="Löschen"
                   variant="outlined"
                   color="buttonRed"
@@ -233,6 +236,22 @@ export default function VideoViewEdit({ onClose, video }) {
                   isLoading={deleteVideos.isLoading}
                   isSuccess={deleteVideos.isSuccess}
                 />
+                <Show
+                  condition={
+                    updateVideos.isLoading || deleteVideos.isLoading
+                  }
+                >
+                  {' '}
+                  <span
+                    style={{
+                      width: '100%',
+                      textAlign: 'center',
+                      alignSelf: 'center',
+                    }}
+                  >
+                    Daten werden hochgeladen, einen Moment...
+                  </span>
+                </Show>
               </div>
             </div>
           </div>
