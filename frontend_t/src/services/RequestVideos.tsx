@@ -1,18 +1,35 @@
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import axios from 'axios';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { z } from 'zod';
 import fetchData from './RequestClients';
-
+export const getVideoValidator = z.object({
+  video: z.string(),
+  screenshot: z.string(),
+  published: z.date(),
+  title_de: z.string().max(200),
+  title_en: z.string().max(200),
+  text_de: z.string().max(2000),
+  text_en: z.string().max(2000),
+});
 export function useGetCurrentClientVideos() {
-  return useQuery('current-pc-videos', () =>
-    fetchData(`http://127.0.0.1:8000/api/current-pc-videos`)
-  );
+  return useQuery(['current-pc-videos'], () => {
+    const res = fetchData(
+      `http://127.0.0.1:8000/api/current-pc-videos`
+    );
+    return getVideoValidator.parse(res);
+  });
 }
-
 export function useGetAllVideos() {
-  return useQuery('all-videos', () =>
-    fetchData(`http://127.0.0.1:8000/api/all-videos`)
-  );
+  return useQuery(['all-videos'], () => {
+    const res = fetchData(`http://127.0.0.1:8000/api/all-videos`);
+    return getVideoValidator.parse(res);
+  });
 }
+/* 
 export function usePostVideos({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
@@ -26,7 +43,7 @@ export function usePostVideos({ config }) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries('all-videos');
+        queryClient.invalidateQueries(['all-videos']);
         //wait for closing to display success
         config.onSuccess();
       },
@@ -51,7 +68,7 @@ export function usePatchVideos({ config }) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries('all-videos');
+        queryClient.invalidateQueries(['all-videos']);
         //wait for closing to display success
         config.onSuccess();
       },
@@ -76,7 +93,7 @@ export function useDeleteVideos({ config }) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries('all-videos');
+        queryClient.invalidateQueries(['all-videos']);
         //wait for closing to display success
         config.onSuccess();
       },
@@ -87,3 +104,4 @@ export function useDeleteVideos({ config }) {
     }
   );
 }
+ */

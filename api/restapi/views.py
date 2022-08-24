@@ -120,7 +120,7 @@ def PcEditView(request, pk):
         return JsonResponse(serializer.data)
 
     elif request.method == 'PATCH':
-        print(request.data)
+
         data = request.data
 
         serializer = PCSerializer(pc_entry, data=data)
@@ -134,8 +134,9 @@ def PcEditView(request, pk):
         return HttpResponse({message: "PC deleted"}, status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['GET', 'POST'])
-def VideoSelectView(request):
+@api_view(['GET'])
+def get_current_pc(request):
+    # receiving pc wich did the request
     REMOTE_ADDR = "REMOTE_ADDR"
     client_ip_address = request.META[REMOTE_ADDR]
     """
@@ -143,23 +144,18 @@ def VideoSelectView(request):
     """
 
     if request.method == 'GET':
-        # receiving pc wich did the request
-        try:
-            requested_pc = PC.objects.get(ip_address=client_ip_address)
 
+        # check if PC exists and receiving all videos wich are linked to the PC, otherwise it returns HTTP_404_NOT_FOUND
+        try:
+
+            requested_pc = PC.objects.get(ip_address=client_ip_address)
         except:
             return JsonResponse({"message": "PC not found"}, status=status.HTTP_404_NOT_FOUND)
-        # check if PC is active and receiving all videos wich are linked to the PC, otherwise it returns HTTP_404_NOT_FOUND
 
-        query = requested_pc.Videos.all()
+        print(requested_pc)
+        """ query = requested_pc """
 
-        serializer = VideoSerializer(query, many=True)
-        return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
+        serializer = PCSerializer(
+            requested_pc)
 
-    elif request.method == 'POST':
-
-        serializer = VideoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK)
