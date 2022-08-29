@@ -17,8 +17,8 @@ function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   return (
-    <nav className="bg-slate-100 px-2 sm:px-4 shadow-md">
-      <div className="container flex flex-wrap justify-between items-center mx-auto">
+    <nav className="bg-neutral   px-2 sm:px-4 shadow-md">
+      <div className="container  flex flex-wrap justify-between items-center mx-auto">
         <NavLink to="/" className="flex items-center">
           <img
             src={enercon_logo}
@@ -52,7 +52,7 @@ function Navbar() {
           className="hidden w-full md:block md:w-auto"
           id="navbar-default"
         >
-          <ul className="flex flex-col  h-19 mt-4   rounded-lg   md:flex-row gap-1 md:mt-0 md:text-lg md:font-medium md:border-0 ">
+          <ul className="flex flex-col   md:h-14 mt-4   rounded-lg   md:flex-row gap-1 md:mt-0 md:text-lg md:font-medium md:border-0 ">
             {/* Language Switcher */}
             <li className="hover:bg-slate-500  rounded flex items-center cursor-pointer px-2 ">
               <LanguageSwitcher className="flex items-center gap-1 " />

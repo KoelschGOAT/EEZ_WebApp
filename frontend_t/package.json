@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.2.1",
+    "@tanstack/react-query-devtools": "^4.2.3",
     "axios": "^0.27.2",
+    "daisyui": "^2.24.0",
     "material-ui-flags": "^1.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -19,6 +21,7 @@
     "react-router-dom": "^6.3.0",
     "react-world-flags": "^1.5.1",
     "use-local-storage-state": "^18.1.1",
+    "usehooks-ts": "^2.6.0",
     "zod": "^3.18.0"
   },
   "devDependencies": {

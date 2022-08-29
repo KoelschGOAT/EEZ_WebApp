@@ -6,26 +6,32 @@ import {
 import axios from 'axios';
 import { z } from 'zod';
 import fetchData from './RequestClients';
-export const getVideoValidator = z.object({
-  video: z.string(),
-  screenshot: z.string(),
-  published: z.date(),
-  title_de: z.string().max(200),
-  title_en: z.string().max(200),
-  text_de: z.string().max(2000),
-  text_en: z.string().max(2000),
-});
+export const getVideoValidator = z
+  .object({
+    id: z.number(),
+    video: z.string(),
+    screenshot: z.string(),
+    published: z.string(),
+    title_de: z.string().max(200),
+    title_en: z.string().max(200),
+    text_de: z.string().max(2000),
+    text_en: z.string().max(2000),
+  })
+  .array();
+
 export function useGetCurrentClientVideos() {
-  return useQuery(['current-pc-videos'], () => {
-    const res = fetchData(
-      `http://127.0.0.1:8000/api/current-pc-videos`
-    );
+  return useQuery(['current-pc-videos'], async () => {
+    const res = await (
+      await fetch(`http://127.0.0.1:8000/api/current-pc-videos`)
+    ).json();
     return getVideoValidator.parse(res);
   });
 }
 export function useGetAllVideos() {
-  return useQuery(['all-videos'], () => {
-    const res = fetchData(`http://127.0.0.1:8000/api/all-videos`);
+  return useQuery(['all-videos'], async () => {
+    const res = await (
+      await fetch(`http://127.0.0.1:8000/api/all-videos`)
+    ).json();
     return getVideoValidator.parse(res);
   });
 }

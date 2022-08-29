@@ -16,9 +16,9 @@ const LanguageSwitcher: FC<Props> = ({ className }) => {
       onClick={() => setStorage(storage === 'de' ? 'en' : 'de')}
     >
       <span className="text-3xl">
-        {storage === 'de' ? <De /> : <Gb />}
+        {storage === 'en' ? <De /> : <Gb />}
       </span>
-      {storage === 'de' ? 'English' : 'Deutsch'}
+      {storage === 'en' ? 'Deutsch' : 'English'}
     </div>
   );
 };

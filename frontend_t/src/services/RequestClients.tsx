@@ -1,7 +1,7 @@
 import {
   useMutation,
   useQuery,
-  useQueryClient,
+  useQueryClient
 } from '@tanstack/react-query';
 import axios from 'axios';
 import { z } from 'zod';
@@ -16,6 +16,7 @@ export default fetchData;
   );
 } */
 export const getVideoValidator = z.object({
+  id: z.number(),
   video: z.string(),
   screenshot: z.string(),
   published: z.string(),
@@ -24,7 +25,8 @@ export const getVideoValidator = z.object({
   text_de: z.string().max(2000),
   text_en: z.string().max(2000),
 });
-const getClientValidator = z.object({
+export const getClientValidator = z.object({
+  id: z.number(),
   pc_name: z.string().max(50),
   ip_address: z
     .string()
@@ -40,6 +42,22 @@ export function useGetCurrentClient() {
   return useQuery(['current-pc'], async () => {
     const res = await (
       await fetch(`http://127.0.0.1:8000/api/current-pc`)
+    ).json();
+    return getClientValidator.parse(res);
+  });
+}
+export function useGetAllClients() {
+  return useQuery(['all-pcs'], async () => {
+    const res = await (
+      await fetch(`http://127.0.0.1:8000/api/all-pcs`)
+    ).json();
+    return getClientValidator.array().parse(res);
+  });
+}
+export function useGetClient(id: string) {
+  return useQuery(['all-pcs'], async () => {
+    const res = await (
+      await fetch(`http://127.0.0.1:8000/api/pc/${id}`)
     ).json();
     return getClientValidator.parse(res);
   });
