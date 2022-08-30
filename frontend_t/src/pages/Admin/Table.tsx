@@ -47,7 +47,7 @@ const Table: React.FC<Props> = ({ mapObj }) => {
   };
   console.log(mapObj);
   return (
-    <table className="table w-full border-solid border-2 border-gray-200">
+    <table className="table w-full ">
       <thead>
         <tr>
           <th className="text-center">Client Name</th>
@@ -58,7 +58,7 @@ const Table: React.FC<Props> = ({ mapObj }) => {
       </thead>
       <tbody>
         <>
-          {mapObj.map((pc) => (
+          {mapObj.map((pc, index) => (
             <tr key={pc.id}>
               <td className="text-center">{pc.pc_name}</td>
               <td className="text-center">{pc.ip_address}</td>
@@ -66,7 +66,12 @@ const Table: React.FC<Props> = ({ mapObj }) => {
                 {convert(pc.is_expo_client)}
               </td>
               <tr>
-                <button className="self-center btn btn-ghost btn-md text-secondary">
+                <button
+                  onClick={() => {
+                    navigate(`/EditClient/${pc.id}`);
+                  }}
+                  className="self-center btn btn-link btn-md text-secondary"
+                >
                   <LanguageDisplayer en="Edit" de="bearbeiten" />
                 </button>
               </tr>

@@ -1,7 +1,7 @@
 import {
   useMutation,
   useQuery,
-  useQueryClient
+  useQueryClient,
 } from '@tanstack/react-query';
 import axios from 'axios';
 import { z } from 'zod';
@@ -27,7 +27,7 @@ export const getVideoValidator = z.object({
 });
 export const getClientValidator = z.object({
   id: z.number(),
-  pc_name: z.string().max(50),
+  pc_name: z.string(),
   ip_address: z
     .string()
     .regex(

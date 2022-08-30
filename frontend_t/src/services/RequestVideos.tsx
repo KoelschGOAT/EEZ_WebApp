@@ -6,25 +6,23 @@ import {
 import axios from 'axios';
 import { z } from 'zod';
 import fetchData from './RequestClients';
-export const getVideoValidator = z
-  .object({
-    id: z.number(),
-    video: z.string(),
-    screenshot: z.string(),
-    published: z.string(),
-    title_de: z.string().max(200),
-    title_en: z.string().max(200),
-    text_de: z.string().max(2000),
-    text_en: z.string().max(2000),
-  })
-  .array();
+export const getVideoValidator = z.object({
+  id: z.number(),
+  video: z.string(),
+  screenshot: z.string(),
+  published: z.string(),
+  title_de: z.string().max(200),
+  title_en: z.string().max(200),
+  text_de: z.string().max(2000),
+  text_en: z.string().max(2000),
+});
 
 export function useGetCurrentClientVideos() {
   return useQuery(['current-pc-videos'], async () => {
     const res = await (
       await fetch(`http://127.0.0.1:8000/api/current-pc-videos`)
     ).json();
-    return getVideoValidator.parse(res);
+    return getVideoValidator.array().parse(res);
   });
 }
 export function useGetAllVideos() {
@@ -32,7 +30,8 @@ export function useGetAllVideos() {
     const res = await (
       await fetch(`http://127.0.0.1:8000/api/all-videos`)
     ).json();
-    return getVideoValidator.parse(res);
+    console.log(getVideoValidator.array().parse(res));
+    return getVideoValidator.array().parse(res);
   });
 }
 /* 

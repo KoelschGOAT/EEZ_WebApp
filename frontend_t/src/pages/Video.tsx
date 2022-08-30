@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { z } from 'zod';
+import { getVideoValidator } from '../services/RequestClients';
 import LanguageDisplayer from '../utils/Language/Language/LanguageDisplayer';
 
 export const videoValidator = z.object({
@@ -29,9 +30,9 @@ const Video = () => {
   return (
     <>
       <div className="flex  ml-7 my-7 min-h-fit min-w-fit">
-        <div className=" flex flex-row gap-5 ">
+        <div className=" flex flex-col lg:flex-row gap-5 ">
           <video
-            className="w-[60rem] h-auto"
+            className="w-[90%] lg:w-[60rem] h-auto"
             autoPlay
             loop
             poster={`http://127.0.0.1:8000${video.screenshot}`}
@@ -49,7 +50,7 @@ const Video = () => {
                 en={video.title_en}
               />
             </h1>
-            <p className="py-6 w-[30rem]">
+            <p className="py-6 w-[90%] lg:w-[30rem]">
               <LanguageDisplayer
                 de={video.text_de}
                 en={video.text_en}

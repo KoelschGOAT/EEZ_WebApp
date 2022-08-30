@@ -48,7 +48,7 @@ const Admin = (props: Props) => {
       </div>{' '}
       <div className="flex justify-center mt-6">
         {/* <Sidebar /> */}
-        {tab === true && <Videos allClients={allVideos} />}
+        {tab === true && <Videos />}
         {tab === false && <Clients allClients={allClients} />}{' '}
       </div>
     </>

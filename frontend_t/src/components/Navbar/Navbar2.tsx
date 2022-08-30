@@ -24,7 +24,7 @@ const Navbar2 = (props: Props) => {
       }`}
     >
       <div className="navbar-start">
-        <label tabIndex={0} className="btn btn-ghost lg:hidden">
+        {/*  <label tabIndex={0} className="btn btn-ghost lg:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -39,7 +39,7 @@ const Navbar2 = (props: Props) => {
               d="M4 6h16M4 12h8m-8 6h16"
             />
           </svg>
-        </label>
+        </label> */}
 
         <NavLink to="/" className=" lg:navbar-start lg:flex hidden ">
           <img
@@ -60,7 +60,17 @@ const Navbar2 = (props: Props) => {
         </NavLink>
       </div>
       {/*Zurück Button Mobile*/}
-      <div className="navbar-end  lg:hidden">
+      <div className="navbar-end cursor-pointer lg:hidden">
+        <Show
+          condition={
+            data?.is_expo_client && location.pathname !== '/Admin'
+          }
+        >
+          <FcBusinessman
+            onClick={() => navigate('/Admin')}
+            size="2.5em"
+          />
+        </Show>
         <Show condition={location.pathname !== '/'}>
           <IoMdArrowBack onClick={() => navigate(-1)} size="2.5em" />
         </Show>
@@ -90,7 +100,7 @@ const Navbar2 = (props: Props) => {
       <div className="navbar-end hidden gap-3 lg:flex">
         <Show condition={location.pathname !== '/'}>
           <a
-            className="btn bg-primary hover:bg-primary"
+            className="btn btn-primary "
             onClick={() => navigate(-1)}
           >
             {' '}

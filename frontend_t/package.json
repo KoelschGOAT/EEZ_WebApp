@@ -20,6 +20,7 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-world-flags": "^1.5.1",
+    "swiper": "^8.3.2",
     "use-local-storage-state": "^18.1.1",
     "usehooks-ts": "^2.6.0",
     "zod": "^3.18.0"

@@ -1,6 +1,6 @@
 import {
   QueryClient,
-  QueryClientProvider
+  QueryClientProvider,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -9,7 +9,7 @@ import {
   BrowserRouter,
   NavLink,
   Route,
-  Routes
+  Routes,
 } from 'react-router-dom';
 
 import Footer from '../components/Footer/Footer';
@@ -28,12 +28,13 @@ function Routing() {
       <BrowserRouter>
         <Navbar2 />
         <Routes>
-          <Route path="/Clients" element={<Clients />}>
-            <Route path=":new" element={<EditClient />}></Route>
-          </Route>
           <Route
-            path="/EditClients/:id"
+            path="/EditClient/:id"
             element={<EditClient />}
+          ></Route>
+          <Route
+            path="/EditVideo/:id"
+            element={<EditVideo />}
           ></Route>
           <Route path="/" element={<Landing />}></Route>
           <Route path="/Admin" element={<Admin />}></Route>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AiOutlineEdit } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
@@ -9,28 +10,37 @@ import {
 } from '../../services/RequestVideos';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
 
-type Props = {};
+type Props = { buttonText?: string };
 
 const Card = (props: Props) => {
+  const { buttonText } = props;
   const navigate = useNavigate();
   const { data } = useGetCurrentClientVideos();
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="flex flex-col items-center gap-3 lg:items-stretch lg:grid lg:grid-cols-3 lg:gap-6 lg:mb-6">
+        {/* <div
+        className="flex flex-col md
+    :items-center xs:items-center lg:grid lg:grid-cols-3 lg:gap-6 lg:mb-6"
+      > */}
         {data?.map((video) => (
           <div
             key={video.id}
             onClick={() => {
-              navigate('/Video', {
-                replace: false,
-                state: { video },
-              });
+              navigate(
+                buttonText ? `/EditVideo/${video.id}` : '/Video',
+                {
+                  replace: false,
+                  state: { video },
+                }
+              );
             }}
-            className="card hover:shadow-2xl border-solid border-2 border-gray-200 cursor-pointer w-96 bg-base-100 shadow-xl"
+            className="card  w-[90%] hover:shadow-2xl cursor-pointer lg:w-96 bg-base-100 shadow-xl"
           >
             <figure>
               <img
+                className="hover:scale-110  transition duration-300 ease-in-out"
                 src={`http://127.0.0.1:8000${video.screenshot}`}
                 alt={video.title_de}
               />
@@ -42,17 +52,28 @@ const Card = (props: Props) => {
                   en={video.title_en}
                 />
               </h2>
-              <p>
-                {' '}
-                <LanguageDisplayer
-                  de={video.text_de}
-                  en={video.text_en}
-                />
-              </p>
+              {!buttonText ? (
+                <p>
+                  {' '}
+                  <LanguageDisplayer
+                    de={video.text_de}
+                    en={video.text_en}
+                  />
+                </p>
+              ) : null}
+
               <div className="card-actions justify-end mt-2 ">
-                <button className="btn btn-primary w-full">
-                  <BsFillPlayFill size="2.5em" />{' '}
-                  <LanguageDisplayer de="Abspielen" en="Play" />
+                <button className="btn btn-primary w-full gap-1">
+                  {buttonText ? (
+                    <AiOutlineEdit size="2.5em" />
+                  ) : (
+                    <BsFillPlayFill size="2.5em" />
+                  )}{' '}
+                  {buttonText ? (
+                    buttonText
+                  ) : (
+                    <LanguageDisplayer de="Abspielen" en="Play" />
+                  )}
                 </button>
               </div>
             </div>

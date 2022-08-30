@@ -22,7 +22,10 @@ interface Props {
 const Clients: React.FC<Props> = ({ allClients }) => {
   return (
     <>
-      <Collapse width="self-center w-1/2" title="Client Tabelle">
+      <Collapse
+        width="self-center w-[90%] lg:w-1/2 "
+        title="Client Tabelle"
+      >
         <Table mapObj={allClients} />
       </Collapse>
     </>
