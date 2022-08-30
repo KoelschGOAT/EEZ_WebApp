@@ -32,16 +32,20 @@ const Admin = (props: Props) => {
         currentClient={currentClient}
         handleClick={() => setTab(!tab)}
       />
-      <div className="tabs tabs-boxed rounded-none bg-inherit w-full flex justify-center">
+      <div className="tabs  rounded-none bg-inherit w-full flex justify-center">
         <a
           onClick={() => handleClick()}
-          className={`tab ${tab === true ? 'tab-active' : null}`}
+          className={`tab tab-bordered ${
+            tab === true ? 'tab-active' : null
+          }`}
         >
           Videos
         </a>
         <a
           onClick={() => handleClick()}
-          className={`tab ${tab === false ? 'tab-active' : null}`}
+          className={`tab tab-bordered ${
+            tab === false ? 'tab-active' : null
+          }`}
         >
           Clients
         </a>

@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
-import ButtonSwitcher from '../components/Buttons/ButtonSwitcher';
 import Card from '../components/Card/Card';
 import Caroussel from '../components/Caroussel';
+import ButtonSwitcher from '../components/Inputs/ButtonSwitcher';
 
 type Props = {};
 

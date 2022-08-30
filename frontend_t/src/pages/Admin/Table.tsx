@@ -65,16 +65,15 @@ const Table: React.FC<Props> = ({ mapObj }) => {
               <td className="text-center">
                 {convert(pc.is_expo_client)}
               </td>
-              <tr>
-                <button
-                  onClick={() => {
-                    navigate(`/EditClient/${pc.id}`);
-                  }}
-                  className="self-center btn btn-link btn-md text-secondary"
-                >
-                  <LanguageDisplayer en="Edit" de="bearbeiten" />
-                </button>
-              </tr>
+
+              <td
+                onClick={() => {
+                  navigate(`/EditClient/${pc.id}`);
+                }}
+                className=" self-center text-accent hover:underline cursor-pointer text-secondary"
+              >
+                <LanguageDisplayer en="Edit" de="bearbeiten" />
+              </td>
             </tr>
           ))}
         </>
