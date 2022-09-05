@@ -13,13 +13,13 @@ import { useGetCurrentClientVideos } from '../services/RequestVideos';
 type Props = {};
 
 const Caroussel = (props: Props) => {
-  const { data } = useGetCurrentClientVideos();
+  const { data, isError, isLoading } = useGetCurrentClientVideos();
   return (
     <Swiper
       // install Swiper modules
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       spaceBetween={50}
-      slidesPerView={2}
+      slidesPerView={1}
       navigation
       pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
@@ -27,19 +27,31 @@ const Caroussel = (props: Props) => {
       onSlideChange={() => console.log('slide change')}
     >
       {data?.map((video) => (
-        <SwiperSlide>
+        <SwiperSlide className="h-1/2 ">
           {' '}
-          <figure>
+          <figure className="relativ">
             <img
               draggable="false"
-              className=" h-[28rem] hover:scale-110 transition duration-300 ease-in-out"
+              className=" h-auto w-full stretch  "
               src={`http://127.0.0.1:8000${video.screenshot}`}
               alt={video.title_de}
             />
-          </figure>
+          </figure>{' '}
+          <div className="w-1/2">
+            {' '}
+            <div className="bg-primary">
+              {' '}
+              <span className="prose-xl">
+                Videoscreenshot für: {video.title_de}
+              </span>
+            </div>
+            <div className="bg-white ">
+              <span className="prose prose-lg">{video.text_de}</span>
+            </div>
+          </div>
         </SwiperSlide>
       ))}
-    </Swiper>
+    </Swiper> /*  hover:scale-110 transition duration-300 ease-in-out} */
   );
 };
 

@@ -5,9 +5,10 @@ import {
 } from '@tanstack/react-query';
 import axios from 'axios';
 import { z } from 'zod';
+import Client from './types';
 const fetchData = async (url: string) => {
   const response = await axios.get(url);
-  return response.data;
+  return response;
 };
 export default fetchData;
 /* export function useGetAllClients() {
@@ -38,6 +39,7 @@ export const getClientValidator = z.object({
   is_expo_client: z.boolean(),
   Videos: z.array(getVideoValidator),
 });
+
 export function useGetCurrentClient() {
   return useQuery(['current-pc'], async () => {
     const res = await (
@@ -47,14 +49,14 @@ export function useGetCurrentClient() {
   });
 }
 export function useGetAllClients() {
-  return useQuery(['all-pcs'], async () => {
+  return useQuery<Array<Client>>(['all-pcs'], async () => {
     const res = await (
       await fetch(`http://127.0.0.1:8000/api/all-pcs`)
     ).json();
-    return getClientValidator.array().parse(res);
+    return res;
   });
 }
-export function useGetClient(id: string) {
+export function useGetClient(id: string | undefined) {
   return useQuery(['all-pcs'], async () => {
     const res = await (
       await fetch(`http://127.0.0.1:8000/api/pc/${id}`)

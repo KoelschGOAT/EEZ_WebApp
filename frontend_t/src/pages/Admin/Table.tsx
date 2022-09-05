@@ -68,7 +68,9 @@ const Table: React.FC<Props> = ({ mapObj }) => {
 
               <td
                 onClick={() => {
-                  navigate(`/EditClient/${pc.id}`);
+                  navigate(`/EditClient/${pc.id}`, {
+                    state: { client: pc },
+                  });
                 }}
                 className=" self-center text-accent hover:underline cursor-pointer text-secondary"
               >

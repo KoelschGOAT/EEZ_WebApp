@@ -16,7 +16,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [require('daisyui'), require('@tailwindcss/typography')],
   daisyui: {
     styled: true,
     themes: [
@@ -30,7 +30,8 @@ module.exports = {
 
           neutral: '#10b981',
 
-          'base-100': '#f5f5f4',
+          'base-100': '#F3F5F9',
+          'base-ui': '#FFF',
 
           info: '#6EB8DE',
 

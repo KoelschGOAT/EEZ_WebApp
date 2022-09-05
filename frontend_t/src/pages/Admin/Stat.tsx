@@ -2,13 +2,13 @@ import React from 'react';
 import {
   FcFilmReel,
   FcMultipleDevices,
-  FcTouchscreenSmartphone
+  FcTouchscreenSmartphone,
 } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import {
   getClientValidator,
-  getVideoValidator
+  getVideoValidator,
 } from '../../services/RequestClients';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
 interface Props {
@@ -27,7 +27,7 @@ const Stat: React.FC<Props> = ({
   console.log(videos, clients, currentClient);
   return (
     <>
-      <div className="stats shadow-xl flex flex-col lg:flex-row">
+      <div className="stats bg-white shadow-xl flex flex-col lg:flex-row">
         <div
           onClick={() => navigate(`/EditClient/${currentClient?.id}`)}
           className="stat hover:bg-primary cursor-pointer"

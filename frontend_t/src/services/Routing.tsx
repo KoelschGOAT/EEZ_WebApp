@@ -37,9 +37,12 @@ function Routing() {
             element={<EditVideo />}
           ></Route>
           <Route path="/" element={<Landing />}></Route>
-          <Route path="/Admin" element={<Admin />}></Route>
+          <Route path="/Admin" element={<Admin />}>
+            <Route path="Clients" element={<Clients />}></Route>
+            <Route path="Videos" element={<Video />}></Route>
+          </Route>
           <Route path="/video" element={<Video />}></Route>
-          <Route path="*" element={<NotFound />}></Route>
+          <Route path="*" element={<NotFound path="/" />}></Route>
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

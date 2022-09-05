@@ -15,38 +15,22 @@ const Navbar2 = (props: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { data } = useGetCurrentClient();
-  console.table(data);
-
   return (
     <div
-      className={`navbar ${
+      className={`navbar bg-white ${
         location.pathname !== '/Admin' ? 'shadow-md' : null
       }`}
     >
       <div className="navbar-start">
-        {/*  <label tabIndex={0} className="btn btn-ghost lg:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h8m-8 6h16"
-            />
-          </svg>
-        </label> */}
-
         <NavLink to="/" className=" lg:navbar-start lg:flex hidden ">
-          <img
-            src={enercon_logo}
-            className=" h-8"
-            alt="ENERCON Logo"
-          />
+          <figure>
+            {' '}
+            <img
+              src={enercon_logo}
+              className=" h-8"
+              alt="ENERCON Logo"
+            />
+          </figure>
         </NavLink>
       </div>
       <div className="flex navbar-center lg:hidden">
