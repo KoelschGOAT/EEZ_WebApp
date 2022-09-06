@@ -11,7 +11,7 @@ export type Video = {
     id:number;
     pc_name: string;
     ip_address: string;
-    is_expo_client: string;
+    is_expo_client: boolean;
     Videos: Video[];
   };
   export default Client

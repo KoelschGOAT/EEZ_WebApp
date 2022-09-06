@@ -24,15 +24,18 @@ import React, { useState } from 'react';
 import { BiEditAlt } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import Client from '../../services/types';
+import Client, { Video } from '../../services/types';
 
 interface Props {
   allClients: Client[];
+  allVideos: Video[];
 }
 
-export default function MuiTable({ allClients }: Props) {
+export default function MuiTable({ allClients, allVideos }: Props) {
   const handleClick = (cellValues: Client) => {
-    navigate(`/EditClient/${cellValues.id}`);
+    navigate(`/EditClient/${cellValues.id}`, {
+      state: { client: cellValues, allVideos: allVideos },
+    });
   };
   const navigate = useNavigate();
 
@@ -49,7 +52,7 @@ export default function MuiTable({ allClients }: Props) {
     },
     {
       field: 'is_expo_client',
-      headerName: 'AusstellungsClient',
+      headerName: 'Ausstellungs Client',
       type: 'boolean',
       width: 200,
     },
@@ -77,7 +80,7 @@ export default function MuiTable({ allClients }: Props) {
       <DataGrid
         rows={allClients}
         columns={columns}
-        pageSize={100}
+        pageSize={5}
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
       />

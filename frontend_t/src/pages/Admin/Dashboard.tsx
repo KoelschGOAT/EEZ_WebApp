@@ -15,14 +15,12 @@ const Dashboard: React.FC<Props> = ({
   handleClick,
 }) => {
   return (
-    <div className="flex my-5 justify-center">
-      <Stat
-        clients={clients}
-        videos={videos}
-        currentClient={currentClient}
-        handleClick={handleClick}
-      />
-    </div>
+    <Stat
+      clients={clients}
+      videos={videos}
+      currentClient={currentClient}
+      handleClick={handleClick}
+    />
   );
 };
 

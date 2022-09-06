@@ -64,6 +64,40 @@ export function useGetClient(id: string | undefined) {
     return getClientValidator.parse(res);
   });
 }
+interface configInterface {
+  config: { onSuccess: () => void; onError: () => void };
+}
+
+interface mutationInterface {
+  clientId: number;
+  formData: Client;
+}
+export function usePatchClients({ config }: configInterface) {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async ({ clientId, formData }: mutationInterface) => {
+      await axios.patch(
+        `http://127.0.0.1:8000/api/pc/${clientId}`,
+        formData
+      );
+    },
+
+    {
+      onSuccess: () => {
+        //notification("PC geändert");
+        // Invalidate and refetch
+        queryClient.invalidateQueries(['current-pc-videos']);
+        //wait for closing to display success
+        console.log('success');
+        config.onSuccess();
+      },
+      onError: () => {
+        config.onError();
+        console.log('error');
+      },
+    }
+  );
+}
 /* 
 export function usePostClients({ config }) {
   const queryClient = useQueryClient();

@@ -7,6 +7,10 @@ import {
   useParams,
 } from 'react-router-dom';
 import { z } from 'zod';
+import useForm from '../../components/Inputs/useForm';
+import Client, { Video } from '../../services/types';
+
+import CheckboxList from '../../components/Inputs/CheckboxList';
 import Input from '../../components/Inputs/Input';
 import List from '../../components/Inputs/List';
 import TextField from '../../components/Inputs/TextField';
@@ -15,6 +19,7 @@ import ErroNotFound2 from '../../Images/ErroNotFound2.svg';
 import {
   useGetClient,
   useGetCurrentClient,
+  usePatchClients,
 } from '../../services/RequestClients';
 import {
   useGetAllVideos,
@@ -22,7 +27,7 @@ import {
 } from '../../services/RequestVideos';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
 import NotFound from '../NotFound';
-type Props = {};
+
 export const getVideoValidator = z.object({
   id: z.number(),
   video: z.string(),
@@ -47,50 +52,80 @@ export const getClientValidator = z.object({
   is_expo_client: z.boolean(),
   Videos: z.array(getVideoValidator),
 });
-interface Video {
-  id: number;
-  video: string;
-  screenshot: string;
-  title_de: string;
-  title_en: string;
-  text_de: string;
-  text_en: string;
-}
+
 interface ClientInterface {
   id: number;
+  ip_address: string;
   pc_name: string;
   is_expo_client: boolean;
   Videos: Video[];
 }
-
+type Props = {};
 const EditClient: React.FC<Props> = () => {
+  type LocationState = {
+    client: ClientInterface;
+    allVideos: Video[];
+  };
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const { client, allVideos } = location.state as LocationState;
   const { id } = useParams<string>();
-  console.log(id);
+
   // Type Casting, then you can get the params passed via router
-
-  const { data: allVideosData, isError: AllVideosError } =
-    useGetAllVideos();
-  const { data, isError: currentClientError } = useGetClient(id);
-
-  const [clientName, setClientName] = useState(data?.pc_name);
+  if (!client || !id) return <NotFound path="/Admin" />;
+  const [clientInput, setClientInput] = useState({
+    pc_name: client?.pc_name ?? '',
+    ip_address: client?.ip_address ?? '',
+    is_expo_client: client?.is_expo_client ?? '',
+    Videos: client?.Videos ?? [],
+  });
+  const [clientName, setClientName] = useState(client?.pc_name ?? '');
   const [clientIpAddress, setClientIpAddress] = useState(
-    data?.ip_address
+    client?.ip_address ?? ''
   );
   const [isExpoClient, setIsExpoClient] = useState(
-    data?.is_expo_client
+    client?.is_expo_client ?? ''
   );
-  if (currentClientError) return <NotFound path="/Admin" />;
+  const [clientVideos, setClientVideos] = useState(
+    client?.Videos ?? []
+  );
+
+  //UPDATE Client Logic
+  const handleSuccess = () => {
+    console.log('success');
+    navigate('/Admin');
+  };
+  const handleError = () => {
+    console.log('Error');
+  };
+  const updateClient = usePatchClients({
+    config: {
+      onSuccess: handleSuccess,
+      onError: handleError,
+    },
+  });
+  // send "values" to database
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = {} as Client;
+    formData['pc_name'] = clientName;
+    formData['ip_address'] = clientIpAddress;
+    formData['is_expo_client'] = isExpoClient;
+    formData['Videos'] = clientVideos;
+
+    updateClient.mutate({ clientId: client.id, formData: formData });
+    console.log(formData);
+  }
+
   return (
     <>
       <div className="flex justify-center ">
         <div className="mt-16 w-1/2 shadow-lg p-5 bg-white rounded">
           <h1 className="prose-xl">
             Einstelleungen für{' '}
-            <span className="text-secondary">{data?.pc_name}</span>
+            <span className="text-secondary">{client?.pc_name}</span>
           </h1>
-          <form className="mt-5">
+          <form className="mt-5" onSubmit={onSubmit}>
             <Input
               label="Client Name"
               value={clientName}
@@ -118,33 +153,17 @@ const EditClient: React.FC<Props> = () => {
             </label>
             {/*             <List pcVideos={client?.Videos} allVideos={allVideos} />{' '}
              */}{' '}
+            <CheckboxList
+              clientVideos={clientVideos}
+              setClientVideos={setClientVideos}
+              allVideos={allVideos}
+            />{' '}
             <div className="flex justify-left items-center mt-7 gap-5">
               <button type="submit" className="btn btn-primary">
                 Änderung Speichern
               </button>
               <button className="btn btn-outline btn-error">
                 Löschen
-                <input
-                  type="checkbox"
-                  id="delete-modal"
-                  className="modal-toggle"
-                />
-                <div className="modal">
-                  <div className="modal-box">
-                    <h3 className="font-bold text-lg">
-                      Congratulations random Internet user!
-                    </h3>
-                    <p className="py-4">
-                      You've been selected for a chance to get one
-                      year of subscription to use Wikipedia for free!
-                    </p>
-                    <div className="modal-action">
-                      <label htmlFor="delete-modal" className="btn">
-                        Yay!
-                      </label>
-                    </div>
-                  </div>
-                </div>
               </button>
             </div>
           </form>

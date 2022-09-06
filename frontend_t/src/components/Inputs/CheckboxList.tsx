@@ -7,47 +7,33 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { z } from 'zod';
-import { VideoValidator } from '../../pages/Admin/Table';
 import { getVideoValidator } from '../../services/RequestVideos';
-export const VideoType = z
-  .object({
-    id: z.string(),
-    video: z.string(),
-    screenshot: z.string(),
-    published: z.string(),
-    title_de: z.string(),
-    title_en: z.string(),
-    text_de: z.string(),
-    text_en: z.string(),
-  })
-  .array();
-export const tt = { VideoType } as const;
-console.log(tt);
+import Client, { Video } from '../../services/types';
+
 export type Props = {
-  pcVideos: typeof VideoType;
-  setPcVideos: () => void;
-  allVideos: typeof VideoType;
-  id: string;
+  clientVideos: Video[];
+  setClientVideos: React.Dispatch<React.SetStateAction<Array<Video>>>;
+  allVideos: Video[];
 };
 export default function CheckboxList({
-  pcVideos,
-  setPcVideos,
+  clientVideos,
+  setClientVideos,
   allVideos,
-  id,
 }: Props) {
-  const handleToggle = (value: any) => () => {
-    const currentIndex = pcVideos.findIndex(
-      (check: any) => check.id === value.id
+  const handleToggle = (video: Video) => () => {
+    const currentIndex = clientVideos.findIndex(
+      (check) => check.id === video.id
     );
-    const newChecked = [...pcVideos];
+
+    const newChecked = [...clientVideos];
     /* If Entry == -1, so doesnt exist, push to State, otherwise splice */
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(video);
     } else {
       newChecked.splice(currentIndex, 1);
     }
 
-    setPcVideos(newChecked);
+    setClientVideos(newChecked);
   };
 
   return (
@@ -77,7 +63,7 @@ export default function CheckboxList({
                     edge="start"
                     /* Check if Video Item is in PCVideos, true= checked, false= not checked */
                     checked={
-                      pcVideos.findIndex(
+                      clientVideos.findIndex(
                         (check) => check.id === video.id
                       ) !== -1
                     }

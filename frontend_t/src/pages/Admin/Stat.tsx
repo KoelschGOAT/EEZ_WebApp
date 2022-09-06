@@ -10,21 +10,25 @@ import {
   getClientValidator,
   getVideoValidator,
 } from '../../services/RequestClients';
+import Client, { Video } from '../../services/types';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
-interface Props {
+interface Props2 {
   videos: typeof getVideoValidator;
   clients: typeof getClientValidator;
   currentClient: typeof getClientValidator;
   handleClick: Function;
 }
+interface Props {
+  videos: Video[];
+  clients: Client[];
+  currentClient: Client;
+}
 const Stat: React.FC<Props> = ({
   videos,
   clients,
   currentClient,
-  handleClick,
 }) => {
   const navigate = useNavigate();
-  console.log(videos, clients, currentClient);
   return (
     <>
       <div className="stats bg-white shadow-xl flex flex-col lg:flex-row">
@@ -52,10 +56,7 @@ const Stat: React.FC<Props> = ({
           </div>
         </div>
 
-        <div
-          onClick={() => handleClick}
-          className="stat hover:bg-primary cursor-pointer"
-        >
+        <div className="stat hover:bg-primary cursor-pointer">
           <div className="stat-figure ">
             <FcFilmReel size={'3em'} />
           </div>
@@ -71,10 +72,7 @@ const Stat: React.FC<Props> = ({
           </div>
         </div>
 
-        <div
-          onClick={() => handleClick}
-          className="stat hover:bg-primary cursor-pointer"
-        >
+        <div className="stat hover:bg-primary cursor-pointer">
           <div className="stat-figure ">
             <FcMultipleDevices size="3em" />
           </div>

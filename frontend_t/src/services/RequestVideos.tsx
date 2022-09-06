@@ -6,6 +6,7 @@ import {
 import axios from 'axios';
 import { z } from 'zod';
 import fetchData from './RequestClients';
+import { Video } from './types';
 export const getVideoValidator = z.object({
   id: z.number(),
   video: z.string(),
@@ -18,20 +19,20 @@ export const getVideoValidator = z.object({
 });
 
 export function useGetCurrentClientVideos() {
-  return useQuery(['current-pc-videos'], async () => {
+  return useQuery<Array<Video>>(['current-pc-videos'], async () => {
     const res = await (
       await fetch(`http://127.0.0.1:8000/api/current-pc-videos`)
     ).json();
-    return getVideoValidator.array().parse(res);
+    return res;
   });
 }
 export function useGetAllVideos() {
-  return useQuery(['all-videos'], async () => {
+  return useQuery<Array<Video>>(['all-videos'], async () => {
     const res = await (
       await fetch(`http://127.0.0.1:8000/api/all-videos`)
     ).json();
-    console.log(getVideoValidator.array().parse(res));
-    return getVideoValidator.array().parse(res);
+
+    return res;
   });
 }
 /* 
