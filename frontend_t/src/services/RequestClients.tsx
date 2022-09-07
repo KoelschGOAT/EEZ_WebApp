@@ -98,6 +98,35 @@ export function usePatchClients({ config }: configInterface) {
     }
   );
 }
+interface deleteClient {
+  clientId: number;
+}
+export function useDeleteClients({ config }: configInterface) {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async ({ clientId }: deleteClient) => {
+      await axios.delete(`http://127.0.0.1:8000/api/pc/${clientId}`);
+    },
+
+    {
+      onSuccess: () => {
+        //notification("PC geändert");
+        // Invalidate and refetch
+        queryClient.invalidateQueries([
+          'current-pc-videos',
+          'all-pcs',
+        ]);
+        //wait for closing to display success
+        console.log('success');
+        config.onSuccess();
+      },
+      onError: () => {
+        config.onError();
+        console.log('error');
+      },
+    }
+  );
+}
 /* 
 export function usePostClients({ config }) {
   const queryClient = useQueryClient();

@@ -17,6 +17,7 @@ import TextField from '../../components/Inputs/TextField';
 import TextInput from '../../components/Inputs/TextInput';
 import ErroNotFound2 from '../../Images/ErroNotFound2.svg';
 import {
+  useDeleteClients,
   useGetClient,
   useGetCurrentClient,
   usePatchClients,
@@ -104,6 +105,17 @@ const EditClient: React.FC<Props> = () => {
       onError: handleError,
     },
   });
+  const deleteClient = useDeleteClients({
+    config: {
+      onSuccess: handleSuccess,
+      onError: handleError,
+    },
+  });
+  const handleDelete = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    deleteClient.mutate({ clientId: client.id });
+  };
   // send "values" to database
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -159,10 +171,18 @@ const EditClient: React.FC<Props> = () => {
               allVideos={allVideos}
             />{' '}
             <div className="flex justify-left items-center mt-7 gap-5">
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                className={`btn btn-primary ${
+                  updateClient.isLoading ? 'loading' : null
+                }`}
+              >
                 Änderung Speichern
               </button>
-              <button className="btn btn-outline btn-error">
+              <button
+                onClick={handleDelete}
+                className={`btn btn-outline btn-error `}
+              >
                 Löschen
               </button>
             </div>
