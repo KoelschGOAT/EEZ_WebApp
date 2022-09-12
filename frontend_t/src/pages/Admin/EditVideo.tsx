@@ -14,6 +14,7 @@ import CheckboxList from '../../components/Inputs/CheckboxList';
 import Input from '../../components/Inputs/Input';
 
 import Alert from '../../components/Alert/Alert';
+import Collapse from '../../components/Collapse';
 import {
   useDeleteClients,
   useGetClient,
@@ -202,14 +203,29 @@ const EditVideo: React.FC<Props> = () => {
               </>
             ) : (
               <>
-                <label
-                  htmlFor="videoFile"
-                  className="form-label inline-block mb-2 text-primary"
+                <Collapse
+                  defaultState={false}
+                  width="self-center w-[90%] lg:w-full max-h-fit  "
+                  title="Video"
                 >
-                  Video auswählen
-                </label>
-                <input
-                  className="form-control  block    w-full    px-3    py-1.5 text-base
+                  <video
+                    autoPlay
+                    loop
+                    poster={`http://127.0.0.1:8000${video.screenshot}`}
+                  >
+                    <source
+                      src={`http://127.0.0.1:8000${video.video}`}
+                      type="video/*"
+                    />
+                  </video>{' '}
+                  <label
+                    htmlFor="videoFile"
+                    className="form-label inline-block mb-2 text-primary mt-5"
+                  >
+                    Video ändern?
+                  </label>
+                  <input
+                    className="form-control  block    w-full    px-3    py-1.5 text-base
     font-normal
     text-gray-700
     bg-white bg-clip-padding
@@ -219,19 +235,32 @@ const EditVideo: React.FC<Props> = () => {
     ease-in-out
     m-0
     focus:text-gray-700 focus:bg-white focus:border-accent focus:outline-none"
-                  type="file"
-                  id="videoFile"
-                  onChange={changeVideo}
-                  accept="video/*"
-                ></input>
-                <label
-                  htmlFor="videoFile"
-                  className="form-label inline-block mb-2 text-primary"
+                    type="file"
+                    id="videoFile"
+                    onChange={changeVideo}
+                    accept="video/*"
+                  ></input>
+                </Collapse>
+                <Collapse
+                  defaultState={false}
+                  width="self-center w-[90%] lg:w-full max-h-fit "
+                  title="Screenshot"
                 >
-                  Screenshot auswählen
-                </label>
-                <input
-                  className="form-control  block    w-full    px-3    py-1.5 text-base
+                  {/*  <Table mapObj={allClients} /> */}
+                  <figure>
+                    <img
+                      src={`http://127.0.0.1:8000${video.screenshot}`}
+                      alt={video.title_de}
+                    />
+                  </figure>
+                  <label
+                    htmlFor="videoFile"
+                    className="form-label inline-block mb-2 text-primary mt-5"
+                  >
+                    Screenshot ändern?
+                  </label>
+                  <input
+                    className="form-control  block    w-full    px-3    py-1.5 text-base
     font-normal
     text-gray-700
     bg-white bg-clip-padding
@@ -241,11 +270,12 @@ const EditVideo: React.FC<Props> = () => {
     ease-in-out
     m-0
     focus:text-gray-700 focus:bg-white focus:border-accent focus:outline-none "
-                  type="file"
-                  id="videoFile"
-                  onChange={changeScreenshot}
-                  accept="image/*"
-                ></input>
+                    type="file"
+                    id="videoFile"
+                    onChange={changeScreenshot}
+                    accept="image/*"
+                  ></input>
+                </Collapse>
                 <Input
                   label="Deutscher Titel"
                   value={title_de}
@@ -263,6 +293,7 @@ const EditVideo: React.FC<Props> = () => {
                   placeholder="Titel EN"
                 ></Input>
                 <Input
+                  textarea
                   label="Deutscher Text"
                   value={text_de}
                   onChange={setText_de}
@@ -272,6 +303,7 @@ const EditVideo: React.FC<Props> = () => {
                 ></Input>
                 <Input
                   label="Englischer Text"
+                  textarea
                   value={text_en}
                   onChange={setText_en}
                   required={true}

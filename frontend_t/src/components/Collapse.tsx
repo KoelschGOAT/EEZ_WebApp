@@ -4,10 +4,16 @@ interface Props {
   title: string;
   children: ReactNode;
   width: string | number;
+  defaultState?: boolean;
 }
 
-const Collapse: React.FC<Props> = ({ title, children, width }) => {
-  const [open, setOpen] = useState(true);
+const Collapse: React.FC<Props> = ({
+  title,
+  children,
+  width,
+  defaultState = true,
+}) => {
+  const [open, setOpen] = useState(defaultState);
   const handleOpen = () => setOpen(!open);
   return (
     <div

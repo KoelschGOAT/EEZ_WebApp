@@ -53,6 +53,7 @@ const Admin = (props: Props) => {
                     clients={allClients.data}
                     videos={allVideos.data}
                     currentClient={currentClient.data}
+                    setTab={setTab}
                   />
                 )}
               </div>

@@ -39,7 +39,7 @@ export function useGetAllVideos() {
 interface mutationInterface {
   videoId: number;
   formData?: Video;
-  setProgress: (val: number) => void;
+  setProgress?: (val: number) => void;
 }
 interface configInterface {
   config: { onSuccess: () => void; onError: () => void };

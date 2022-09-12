@@ -14,7 +14,7 @@ class Video(models.Model):
     text_en = models.TextField(max_length=20000, default=None)
 
     def __str__(self):
-        return '%s: %s' % (self.title_de, self.title_en)
+        return '%s: %s: %s' % (self.title_de, self.title_en,self.video.name)
 
 
 class PC(models.Model):
