@@ -7,10 +7,8 @@ import {
   useParams,
 } from 'react-router-dom';
 import { z } from 'zod';
-import useForm from '../../components/Inputs/useForm';
 import Client, { Video } from '../../services/types';
 
-import CheckboxList from '../../components/Inputs/CheckboxList';
 import Input from '../../components/Inputs/Input';
 
 import Alert from '../../components/Alert/Alert';
@@ -198,7 +196,9 @@ const EditVideo: React.FC<Props> = () => {
                 {' '}
                 <div
                   className="radial-progress text-primary"
-                  style={{ '--value': progress }}
+                  style={
+                    { '--value': progress } as React.CSSProperties
+                  }
                 >
                   {progress}%
                 </div>

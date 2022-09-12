@@ -36,10 +36,9 @@ const Bar = ({ handleClick, tab }: Props) => {
             <li>
               {/* Link tag to Forward the use to the Settings Component withour loadingtime */}
               <NavLink to="/">
-                <a
-                  href="#"
+                <div
                   className={
-                    'relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6'
+                    'relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6 cursor-pointer'
                   }
                 >
                   <span className="inline-flex justify-center items-center ml-2">
@@ -49,18 +48,17 @@ const Bar = ({ handleClick, tab }: Props) => {
                   <span className="ml-2 text-lg tracking-wide truncate">
                     Home
                   </span>
-                </a>
+                </div>
               </NavLink>
             </li>
 
             <li>
               {/* Link tag to Forward the use to the Settings Component withour loadingtime */}
-              <NavLink to="Clients" onClick={() => handleClick(1)}>
-                <a
-                  href="#"
+              <div onClick={() => handleClick(1)}>
+                <div
                   className={`${
                     tab == 1 ? 'bg-accent' : null
-                  } relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6`}
+                  } relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6 cursor-pointer`}
                 >
                   <span className="inline-flex justify-center items-center ml-2">
                     {/* Settings SVG Icon */}
@@ -69,17 +67,16 @@ const Bar = ({ handleClick, tab }: Props) => {
                   <span className="ml-2 text-lg tracking-wide truncate">
                     Clients
                   </span>
-                </a>
-              </NavLink>
+                </div>
+              </div>
             </li>
             <li>
               {/* Link tag to Forward the use to the Settings Component withour loadingtime */}
-              <NavLink to="Videos" onClick={() => handleClick(2)}>
-                <a
-                  href="#"
+              <div onClick={() => handleClick(2)}>
+                <div
                   className={`${
                     tab == 2 ? 'bg-accent' : null
-                  } relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6`}
+                  } relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6 cursor-pointer`}
                 >
                   <span className="inline-flex justify-center items-center ml-2">
                     {/* Settings SVG Icon */}
@@ -88,19 +85,16 @@ const Bar = ({ handleClick, tab }: Props) => {
                   <span className="ml-2 text-lg tracking-wide truncate">
                     Videos
                   </span>
-                </a>
-              </NavLink>
+                </div>
+              </div>
             </li>
             <li>
               {/* Link tag to Forward the use to the Settings Component withour loadingtime */}
-              <a
-                href="#"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6"
-              >
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6 cursor-pointer">
                 <span className="inline-flex justify-center items-center ml-2">
                   <LanguageSwitcher className="flex flex-row gap-2 ml-2 w-full" />{' '}
                 </span>
-              </a>
+              </div>
             </li>
           </ul>
         </div>

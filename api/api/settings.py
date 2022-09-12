@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-  
+
     "corsheaders.middleware.CorsMiddleware",
 
 
@@ -140,7 +140,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://192.168.3.23:3000"
 ]
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:5173', "http://192.168.3.23:3000", "http://127.0.0.1:3000","http://127.0.0.1:5173",
+    'http://localhost:5173', "http://192.168.3.23:3000", "http://127.0.0.1:3000",
 ]
 GRAPHENE = {
     "SCHEMA": "api.scheme.schema"

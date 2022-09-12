@@ -143,7 +143,7 @@ const AddVideo: React.FC<Props> = () => {
             {postVideo.isLoading ? (
               <div
                 className="radial-progress text-primary"
-                style={{ '--value': progress }}
+                style={{ '--value': progress } as React.CSSProperties}
               >
                 {progress}%
               </div>

@@ -1,25 +1,6 @@
 import Box from '@mui/material/Box';
-import {
-  DataGrid,
-  GridApi,
-  GridColDef,
-  GridValueGetterParams,
-} from '@mui/x-data-grid';
-import {
-  DataGridPro,
-  GridActionsCellItem,
-  GridColumns,
-  GridEventListener,
-  GridRenderCellParams,
-  GridRowId,
-  GridRowModel,
-  GridRowModes,
-  GridRowModesModel,
-  GridRowParams,
-  GridRowsProp,
-  GridToolbarContainer,
-  MuiEvent,
-} from '@mui/x-data-grid-pro';
+import { DataGrid } from '@mui/x-data-grid';
+import { GridColumns } from '@mui/x-data-grid-pro';
 import React, { useState } from 'react';
 import { BiEditAlt } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
@@ -37,29 +18,54 @@ export default function MuiTable({ allClients, allVideos }: Props) {
       state: { client: cellValues, allVideos: allVideos },
     });
   };
+
   const navigate = useNavigate();
 
   const columns: GridColumns = [
     {
       field: 'pc_name',
       headerName: 'Client Name',
-      width: 300,
+      minWidth: 100,
+      align: 'center',
+      headerAlign: 'center',
+
+      flex: 1,
     },
     {
       field: 'ip_address',
       headerName: 'IP-Adresse',
-      width: 200,
+      flex: 1,
+      align: 'center',
+      headerAlign: 'center',
+      minWidth: 100,
     },
     {
       field: 'is_expo_client',
+      align: 'center',
       headerName: 'Ausstellungs Client',
       type: 'boolean',
-      width: 200,
+      headerAlign: 'center',
+      flex: 1,
+      minWidth: 100,
     },
-
+    {
+      field: 'client_video_number',
+      headerName: 'Anzahl Videos',
+      headerAlign: 'center',
+      type: 'number',
+      align: 'center',
+      minWidth: 100,
+      flex: 1,
+      renderCell: (cellValues) => {
+        return <div>{cellValues.row.Videos.length}</div>;
+      },
+    },
     {
       field: 'Bearbeiten',
-      width: 200,
+      align: 'center',
+      minWidth: 100,
+      headerAlign: 'center',
+      flex: 1,
       renderCell: (cellValues) => {
         return (
           <button
@@ -80,7 +86,7 @@ export default function MuiTable({ allClients, allVideos }: Props) {
       <DataGrid
         rows={allClients}
         columns={columns}
-        pageSize={5}
+        pageSize={7}
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
       />

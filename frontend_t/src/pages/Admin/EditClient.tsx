@@ -7,10 +7,8 @@ import {
   useParams,
 } from 'react-router-dom';
 import { z } from 'zod';
-import useForm from '../../components/Inputs/useForm';
 import Client, { Video } from '../../services/types';
 
-import AlertDialog from '../../components/Dialog/Dialog';
 import CheckboxList from '../../components/Inputs/CheckboxList';
 import Input from '../../components/Inputs/Input';
 

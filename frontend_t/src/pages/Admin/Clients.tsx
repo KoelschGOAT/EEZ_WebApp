@@ -15,23 +15,16 @@ const Clients: React.FC<Props> = ({ allClients, allVideos }) => {
 
   return (
     <>
-      <div className="flex flex-col w-full gap-5">
+      <div className="flex flex-col w-full gap-5 lg:w-1/2">
         <Link
           to={'/NewClient'}
           state={{ allVideos: allVideos }}
-          className="btn btn-primary self-center lg:w-1/2"
+          className="btn btn-primary self-center w-full"
         >
           Client erstellen
         </Link>
 
-        <Collapse
-          width="self-center w-[90%] lg:w-2/4 "
-          title="Client Tabelle"
-        >
-          {/*  <Table mapObj={allClients} /> */}
-
-          <MuiTable allVideos={allVideos} allClients={allClients} />
-        </Collapse>
+        <MuiTable allVideos={allVideos} allClients={allClients} />
       </div>
     </>
   );

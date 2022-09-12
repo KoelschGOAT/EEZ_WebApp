@@ -39,10 +39,7 @@ function Routing() {
             element={<EditVideo />}
           ></Route>
           <Route path="/" element={<Landing />}></Route>
-          <Route path="/Admin" element={<Admin />}>
-            <Route path="Clients" element={<Clients />}></Route>
-            <Route path="Videos" element={<Video />}></Route>
-          </Route>
+          <Route path="/Admin" element={<Admin />}></Route>
           <Route path="/NewClient" element={<AddClient />}></Route>
           <Route path="/NewVideo" element={<AddVideo />}></Route>
           <Route path="/video" element={<Video />}></Route>

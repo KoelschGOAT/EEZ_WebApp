@@ -7,7 +7,6 @@ import {
 import { useGetAllVideos } from '../../services/RequestVideos';
 import NotFound from '../NotFound';
 import Clients from './Clients';
-import Dashboard from './Dashboard';
 import Sidebar from './Sidebar';
 import Stat from './Stat';
 import Videos from './Videos';

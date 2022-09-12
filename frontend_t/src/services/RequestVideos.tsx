@@ -91,11 +91,13 @@ export function usePatchVideos({ config }: configInterface) {
     }
   );
 }
-
+interface deleteInterface {
+  videoId: number;
+}
 export function useDeleteVideos({ config }: configInterface) {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({ videoId }: mutationInterface) => {
+    async ({ videoId }: deleteInterface) => {
       await axios.delete(
         `http://127.0.0.1:8000/api/video/${videoId}`
       );
