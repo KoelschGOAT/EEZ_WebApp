@@ -14,6 +14,7 @@ import {
 
 import Footer from '../components/Footer/Footer';
 import Navbar2 from '../components/Navbar/Navbar2';
+import AddClient from '../pages/Admin/AddClient';
 import Admin from '../pages/Admin/Admin';
 import Clients from '../pages/Admin/Clients';
 import EditClient from '../pages/Admin/EditClient';
@@ -41,6 +42,7 @@ function Routing() {
             <Route path="Clients" element={<Clients />}></Route>
             <Route path="Videos" element={<Video />}></Route>
           </Route>
+          <Route path="/NewClient" element={<AddClient />}></Route>
           <Route path="/video" element={<Video />}></Route>
           <Route path="*" element={<NotFound path="/" />}></Route>
         </Routes>

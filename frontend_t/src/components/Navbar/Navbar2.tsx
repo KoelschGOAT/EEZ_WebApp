@@ -73,7 +73,7 @@ const Navbar2 = (props: Props) => {
             <li tabIndex={0}>
               <LanguageSwitcher className="flex items-center gap-1 " />
             </li>
-            <Show condition={data?.is_expo_client}>
+            <Show condition={!data?.is_expo_client}>
               <li tabIndex={0}>
                 <NavLink to="/Admin" aria-current="page">
                   <span className="flex  items-center gap-1">
@@ -104,5 +104,6 @@ const Navbar2 = (props: Props) => {
         </div>
       </div>
     );
+  return null;
 };
 export default Navbar2;

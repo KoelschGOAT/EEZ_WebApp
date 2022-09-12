@@ -8,7 +8,7 @@ import { z } from 'zod';
 import fetchData from './RequestClients';
 import { Video } from './types';
 export const getVideoValidator = z.object({
-  id: z.number(),
+  id: z.number().optional(),
   video: z.string(),
   screenshot: z.string(),
   published: z.string(),
@@ -35,7 +35,68 @@ export function useGetAllVideos() {
     return res;
   });
 }
-/* 
+
+interface mutationInterface {
+  videoId: number;
+  formData?: Video;
+}
+interface configInterface {
+  config: { onSuccess: () => void; onError: () => void };
+}
+
+export function usePatchVideos({ config }: configInterface) {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async ({ videoId, formData }: mutationInterface) => {
+      await axios.patch(
+        `http://127.0.0.1:8000/api/video/${videoId}`,
+        formData
+      );
+    },
+
+    {
+      onSuccess: () => {
+        //notification("PC geändert");
+        // Invalidate and refetch
+        queryClient.invalidateQueries(['all-videos']);
+        //wait for closing to display success
+        config.onSuccess();
+      },
+      onError: () => {
+        config.onError();
+        console.log('error');
+      },
+    }
+  );
+}
+
+export function useDeleteVideos({ config }: configInterface) {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async ({ videoId }: mutationInterface) => {
+      await axios.delete(
+        `http://127.0.0.1:8000/api/video/${videoId}`
+      );
+    },
+
+    {
+      onSuccess: () => {
+        //notification("PC geändert");
+        // Invalidate and refetch
+        queryClient.invalidateQueries(['all-videos']);
+        //wait for closing to display success
+        config.onSuccess();
+      },
+      onError: () => {
+        config.onError();
+        console.log('error');
+      },
+    }
+  );
+}
+/* interface PostClients {
+  formData: Video;
+}
 export function usePostVideos({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
@@ -60,31 +121,7 @@ export function usePostVideos({ config }) {
     }
   );
 }
-export function usePatchVideos({ config }) {
-  const queryClient = useQueryClient();
-  return useMutation(
-    async ({ videoId, formData }) => {
-      await axios.patch(
-        `http://127.0.0.1:8000/api/video/${videoId}`,
-        formData
-      );
-    },
 
-    {
-      onSuccess: () => {
-        //notification("PC geändert");
-        // Invalidate and refetch
-        queryClient.invalidateQueries(['all-videos']);
-        //wait for closing to display success
-        config.onSuccess();
-      },
-      onError: () => {
-        config.onError();
-        console.log('error');
-      },
-    }
-  );
-}
 
 export function useDeleteVideos({ config }) {
   const queryClient = useQueryClient();

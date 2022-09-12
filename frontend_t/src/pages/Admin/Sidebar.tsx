@@ -8,6 +8,7 @@ import {
 import { MdOutlineDashboard } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
+import LanguageSwitcher from '../../utils/Language/Language/LanguageSwitcher';
 //Sidebar Component With TailwindCSS
 interface Props {
   handleClick: (num: number) => void;
@@ -99,7 +100,17 @@ const Bar = ({ handleClick }: Props) => {
                 </a>
               </NavLink>
             </li>
-            {/* List item to display the drain context in the Desktop View */}
+            <li>
+              {/* Link tag to Forward the use to the Settings Component withour loadingtime */}
+              <a
+                href="#"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6"
+              >
+                <span className="inline-flex justify-center items-center ml-2">
+                  <LanguageSwitcher />{' '}
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>

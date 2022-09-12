@@ -40,15 +40,14 @@ class PCSerializer(serializers.ModelSerializer):
         return pc
 
     def update(self, instance, validated_data):
-
+        print(validated_data)
         video = validated_data.pop('Videos', [])
 
         instance.Videos.set(self.create_or_update_videos(video))
         fields = ["id",
                   "pc_name",
                   "ip_address",
-                  "is_expo_client"
-                  "Videos"]
+                  "is_expo_client","Videos"]
         for field in fields:
             try:
                 setattr(instance, field, validated_data[field])

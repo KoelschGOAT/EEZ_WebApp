@@ -8,6 +8,7 @@ type Props = {
   value: string | undefined;
   required?: true;
   textarea?: boolean;
+  placeholder?: string;
 };
 const Input = ({
   label,
@@ -16,7 +17,7 @@ const Input = ({
   type = 'text',
   onChange,
   textarea,
-
+  placeholder,
   ...rest
 }: Props) => {
   const InputElement = textarea ? 'textarea' : 'input';
@@ -29,14 +30,15 @@ const Input = ({
         {label}
       </label>
       <InputElement
-        {...rest}
         id={name}
         type={type}
         value={value}
+        placeholder={placeholder}
         onChange={({ target: { value } }: InputChangeEvent) =>
           onChange(value)
         }
         className="bg-base-100 border border-gray-300  text-sm text-gray-800 placeholder-primary rounded-lg focus:border-accent focus:border-blue-500 block w-full p-2.5"
+        {...rest}
       />
     </div>
   );

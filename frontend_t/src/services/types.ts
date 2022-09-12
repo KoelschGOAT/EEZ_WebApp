@@ -2,6 +2,7 @@ export type Video = {
   id:number;
     video: string;
     screenshot: string;
+    published:string;
     title_de: string;
     title_en: string;
     text_de: string;

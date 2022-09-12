@@ -20,6 +20,7 @@ import {
   useGetClient,
   useGetCurrentClient,
   usePatchClients,
+  usePostClients,
 } from '../../services/RequestClients';
 import {
   useGetAllVideos,
@@ -61,33 +62,21 @@ interface ClientInterface {
   Videos: Video[];
 }
 type Props = {};
-const EditClient: React.FC<Props> = () => {
+const AddClient: React.FC<Props> = () => {
   type LocationState = {
-    client: ClientInterface;
     allVideos: Video[];
   };
   const navigate = useNavigate();
   const location = useLocation();
-  const { client, allVideos } = location.state as LocationState;
-  const { id } = useParams<string>();
-
+  const { allVideos } = location.state as LocationState;
   // Type Casting, then you can get the params passed via router
-  if (!client || !id) return <NotFound path="/Admin" />;
-  const [inputError, setInputError] = useState({
-    open: false,
-    message: '',
-  });
+  const [open, setOpen] = useState(false);
 
-  const [clientName, setClientName] = useState(client?.pc_name ?? '');
-  const [clientIpAddress, setClientIpAddress] = useState(
-    client?.ip_address ?? ''
-  );
-  const [isExpoClient, setIsExpoClient] = useState(
-    client?.is_expo_client ?? false
-  );
-  const [clientVideos, setClientVideos] = useState(
-    client?.Videos ?? []
-  );
+  const [clientName, setClientName] = useState('');
+  const [clientIpAddress, setClientIpAddress] = useState('');
+  const [isExpoClient, setIsExpoClient] = useState(false);
+  const [clientVideos, setClientVideos] = useState(allVideos);
+
   //UPDATE client Logic
   const handleSuccess = () => {
     console.log('success');
@@ -96,26 +85,16 @@ const EditClient: React.FC<Props> = () => {
   const handleError = () => {
     console.log('Error');
   };
-  const updateClient = usePatchClients({
+  const postClient = usePostClients({
     config: {
       onSuccess: handleSuccess,
       onError: handleError,
     },
   });
-  const deleteClient = useDeleteClients({
-    config: {
-      onSuccess: handleSuccess,
-      onError: handleError,
-    },
+  const [inputError, setInputError] = useState({
+    open: false,
+    message: '',
   });
-  const handleDelete = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    console.log('delete');
-    deleteClient.mutate({ clientId: client.id });
-  };
-
   // send "values" to database
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -124,12 +103,13 @@ const EditClient: React.FC<Props> = () => {
     formData['ip_address'] = clientIpAddress;
     formData['is_expo_client'] = isExpoClient;
     formData['Videos'] = clientVideos;
+
     try {
       getClientValidator.parse(formData);
     } catch (error) {
       if (error instanceof z.ZodError) {
         /* map zod errors to the appropriate form fields */
-        console.log(error.errors[0].message);
+
         setInputError({
           open: true,
           message: error.errors[0].message,
@@ -137,19 +117,23 @@ const EditClient: React.FC<Props> = () => {
         return;
       }
     }
-
-    updateClient.mutate({ clientId: client.id, formData: formData });
+    postClient.mutate({ formData: formData });
     console.log(formData);
   }
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    console.log('close');
+    setOpen(false);
+  };
   return (
     <>
       <div className="flex justify-center ">
         <div className="mt-16 w-1/2 shadow-lg p-5 bg-white rounded">
-          <h1 className="prose-xl">
-            Einstelleungen für{' '}
-            <span className="text-secondary">{client?.pc_name}</span>
-          </h1>
+          <h1 className="prose-xl">Neuen Client erstellen</h1>
           <Alert
             open={inputError.open}
             title="Fehler bei der Eingabe"
@@ -162,7 +146,6 @@ const EditClient: React.FC<Props> = () => {
               onChange={setClientName}
               required={true}
               name="pc_name"
-              placeholder="Ausstellungs Client"
             ></Input>
             <Input
               label="IP Adresse"
@@ -170,7 +153,6 @@ const EditClient: React.FC<Props> = () => {
               onChange={setClientIpAddress}
               required={true}
               name="ip_address"
-              placeholder="127.0.0.1"
             ></Input>
             <label className="flex  gap-5 cursor-pointer">
               <span className="label-text">Austellungs Client?</span>
@@ -194,16 +176,10 @@ const EditClient: React.FC<Props> = () => {
               <button
                 type="submit"
                 className={`btn btn-primary ${
-                  updateClient.isLoading ? 'loading' : null
+                  postClient.isLoading ? 'loading' : null
                 }`}
               >
-                Änderung Speichern
-              </button>
-              <button
-                onClick={handleDelete}
-                className={`btn btn-outline btn-error modal-button`}
-              >
-                Löschen
+                Client erstellen
               </button>
             </div>
           </form>
@@ -222,4 +198,4 @@ const EditClient: React.FC<Props> = () => {
   );
 };
 
-export default EditClient;
+export default AddClient;

@@ -86,7 +86,10 @@ export function usePatchClients({ config }: configInterface) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries(['current-pc-videos']);
+        queryClient.invalidateQueries([
+          'all-pcs',
+          'current-pc-videos',
+        ]);
         //wait for closing to display success
         console.log('success');
         config.onSuccess();
@@ -127,18 +130,20 @@ export function useDeleteClients({ config }: configInterface) {
     }
   );
 }
-/* 
-export function usePostClients({ config }) {
+interface PostClients {
+  formData: Client;
+}
+export function usePostClients({ config }: configInterface) {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({ formData }) => {
+    async ({ formData }: PostClients) => {
       await axios.post(`http://127.0.0.1:8000/api/all-pcs`, formData);
     },
     {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries('all-pcs');
+        queryClient.invalidateQueries(['all-pcs']);
         //wait for closing to display success
         config.onSuccess();
       },
@@ -149,7 +154,7 @@ export function usePostClients({ config }) {
     }
   );
 }
-
+/*
 export function usePatchClients({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
