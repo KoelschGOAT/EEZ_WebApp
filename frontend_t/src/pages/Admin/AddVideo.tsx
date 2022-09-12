@@ -156,7 +156,7 @@ const AddVideo: React.FC<Props> = () => {
                   Video auswählen
                 </label>
                 <input
-                  className="form-control  block    w-full    px-3    py-1.5 text-base
+                  className="form-control  block    w-full    px-3    py-1.5 text-base mb-5
     font-normal
     text-gray-700
     bg-white bg-clip-padding
@@ -180,7 +180,7 @@ const AddVideo: React.FC<Props> = () => {
                 </label>
                 <input
                   required
-                  className="form-control  block    w-full    px-3    py-1.5 text-base
+                  className="form-control  block    w-full    px-3    py-1.5 text-base mb-5
     font-normal
     text-gray-700
     bg-white bg-clip-padding
@@ -212,6 +212,7 @@ const AddVideo: React.FC<Props> = () => {
                   placeholder="Titel EN"
                 ></Input>
                 <Input
+                  textarea
                   label="Deutscher Text"
                   value={text_de}
                   onChange={setText_de}
@@ -220,6 +221,7 @@ const AddVideo: React.FC<Props> = () => {
                   placeholder="Text DE"
                 ></Input>
                 <Input
+                  textarea
                   label="Englischer Text"
                   value={text_en}
                   onChange={setText_en}

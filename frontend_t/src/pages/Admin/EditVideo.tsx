@@ -118,11 +118,13 @@ const EditVideo: React.FC<Props> = () => {
     const form_data = {} as VideoInputType;
 
     const formData = new FormData();
-    if (videoFile && screenshotFile) {
-      formData.append('video', videoFile);
+    if (screenshotFile) {
       formData.append('screenshot', screenshotFile);
-      form_data['video'] = videoFile;
       form_data['screenshot'] = screenshotFile;
+    }
+    if (videoFile) {
+      form_data['video'] = videoFile;
+      formData.append('video', videoFile);
     }
 
     formData.append('title_de', title_de);
@@ -310,8 +312,7 @@ const EditVideo: React.FC<Props> = () => {
                   name="text_en"
                   placeholder="Text EN"
                 ></Input>
-                {/*             <List pcVideos={client?.Videos} allVideos={allVideos} />{' '}
-                 */}{' '}
+
                 <div className="flex justify-left items-center mt-7 gap-5">
                   <button
                     type="submit"
