@@ -14,6 +14,7 @@ export const videoValidator = z.object({
   text_en: z.string().max(2000),
 });
 interface VideoInterface {
+  id: number;
   video: string;
   screenshot: string;
   published: string;
@@ -22,10 +23,13 @@ interface VideoInterface {
   text_de: string;
   text_en: string;
 }
+type LocationState = {
+  Video: VideoInterface;
+};
 const Video = () => {
   const location = useLocation();
   const state = location.state; // Type Casting, then you can get the params passed via router
-  const { video } = state as VideoInterface;
+  const { Video } = state as LocationState;
 
   return (
     <>
@@ -35,10 +39,10 @@ const Video = () => {
             className="w-[90%] lg:w-[60rem] h-auto"
             autoPlay
             loop
-            poster={`http://127.0.0.1:8000${video.screenshot}`}
+            poster={`http://127.0.0.1:8000${Video.screenshot}`}
           >
             <source
-              src={`http://127.0.0.1:8000${video.video}`}
+              src={`http://127.0.0.1:8000${Video.video}`}
               type="video/webm"
             />
           </video>
@@ -46,14 +50,14 @@ const Video = () => {
           <div className="w-full">
             <h1 className="text-5xl  w-fit font-bold">
               <LanguageDisplayer
-                de={video.title_de}
-                en={video.title_en}
+                de={Video.title_de}
+                en={Video.title_en}
               />
             </h1>
             <p className="py-6 w-[90%] lg:w-[30rem]">
               <LanguageDisplayer
-                de={video.text_de}
-                en={video.text_en}
+                de={Video.text_de}
+                en={Video.text_en}
               />
             </p>
           </div>
