@@ -39,6 +39,7 @@ export function useGetAllVideos() {
 interface mutationInterface {
   videoId: number;
   formData?: Video;
+  setProgress: (val: number) => void;
 }
 interface configInterface {
   config: { onSuccess: () => void; onError: () => void };
@@ -47,10 +48,28 @@ interface configInterface {
 export function usePatchVideos({ config }: configInterface) {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({ videoId, formData }: mutationInterface) => {
+    async ({ videoId, formData, setProgress }: mutationInterface) => {
       await axios.patch(
         `http://127.0.0.1:8000/api/video/${videoId}`,
-        formData
+        formData,
+        {
+          onUploadProgress: (progressEvent) => {
+            const totalLength = progressEvent.lengthComputable
+              ? progressEvent.total
+              : progressEvent.target.getResponseHeader(
+                  'content-length'
+                ) ||
+                progressEvent.target.getResponseHeader(
+                  'x-decompressed-content-length'
+                );
+
+            if (totalLength !== null) {
+              setProgress(
+                Math.round((progressEvent.loaded * 100) / totalLength)
+              );
+            }
+          },
+        }
       );
     },
 
@@ -58,7 +77,10 @@ export function usePatchVideos({ config }: configInterface) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries(['all-videos']);
+        queryClient.invalidateQueries([
+          'all-videos',
+          'current-client-videos',
+        ]);
         //wait for closing to display success
         config.onSuccess();
       },
@@ -94,6 +116,63 @@ export function useDeleteVideos({ config }: configInterface) {
     }
   );
 }
+
+export type postVideo = {
+  video: File;
+  screenshot: File;
+
+  title_de: string;
+  title_en: string;
+  text_de: string;
+  text_en: string;
+};
+interface PostClients {
+  formData: postVideo;
+  setProgress: (val: number) => void;
+}
+export function usePostVideos({ config }: configInterface) {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async ({ formData, setProgress }: PostClients) => {
+      await axios.post(
+        `http://127.0.0.1:8000/api/all-videos`,
+        formData,
+        {
+          onUploadProgress: (progressEvent) => {
+            const totalLength = progressEvent.lengthComputable
+              ? progressEvent.total
+              : progressEvent.target.getResponseHeader(
+                  'content-length'
+                ) ||
+                progressEvent.target.getResponseHeader(
+                  'x-decompressed-content-length'
+                );
+
+            if (totalLength !== null) {
+              setProgress(
+                Math.round((progressEvent.loaded * 100) / totalLength)
+              );
+            }
+          },
+        }
+      );
+    },
+    {
+      onSuccess: () => {
+        //notification("PC geändert");
+        // Invalidate and refetch
+        queryClient.invalidateQueries(['all-videos']);
+        //wait for closing to display success
+        config.onSuccess();
+      },
+      onError: () => {
+        config.onError();
+        console.log('error');
+      },
+    }
+  );
+}
+
 /* interface PostClients {
   formData: Video;
 }

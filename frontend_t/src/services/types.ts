@@ -1,8 +1,8 @@
 export type Video = {
-  id:number;
+  id?:number;
     video: string;
     screenshot: string;
-    published:string;
+    published?:string;
     title_de: string;
     title_en: string;
     text_de: string;

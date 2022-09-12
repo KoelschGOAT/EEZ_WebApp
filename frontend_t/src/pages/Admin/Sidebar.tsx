@@ -18,8 +18,8 @@ const Bar = ({ handleClick }: Props) => {
 
   //returning the Sidebar, sidebar gets folded when the device is on less tha 769 pxs
   return (
-    <div className="table-cell align-top">
-      <div className=" flex flex-col w-14 hover:w-60 2xl:w-60 bg-white shadow-xl h-screen transition-all duration-300 border-none z-10 ">
+    <div className="table-cell align-top ">
+      <aside className=" fixed flex-col w-14 hover:w-60 2xl:w-60 bg-white shadow-xl h-screen transition-all duration-300 border-none z-10 ">
         <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
           <ul className="flex flex-col py-4 space-y-2 gap-3">
             <li className="px-5 hidden 2xl:block mb-5">
@@ -113,7 +113,7 @@ const Bar = ({ handleClick }: Props) => {
             </li>
           </ul>
         </div>
-      </div>
+      </aside>
     </div>
   );
 };

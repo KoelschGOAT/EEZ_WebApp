@@ -1,3 +1,4 @@
+import { UseQueryResult } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
@@ -8,6 +9,7 @@ import {
   useGetAllVideos,
   useGetCurrentClientVideos,
 } from '../../services/RequestVideos';
+import { Video } from '../../services/types';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
 
 type Props = { buttonText?: string };
@@ -15,8 +17,11 @@ type Props = { buttonText?: string };
 const Card = (props: Props) => {
   const { buttonText } = props;
   const navigate = useNavigate();
-  const { data } = useGetCurrentClientVideos();
-
+  let DataType: UseQueryResult<Video[], unknown>;
+  if (buttonText) {
+    DataType = useGetAllVideos();
+  } else DataType = useGetCurrentClientVideos();
+  const { data } = DataType;
   return (
     <>
       <div className="flex flex-col items-center gap-3 lg:items-stretch lg:grid lg:grid-cols-3 lg:gap-6 lg:mb-6">

@@ -22,7 +22,7 @@ const Admin = (props: Props) => {
   const handleClick = (num: number) => {
     setTab(num);
   };
-
+  //TRUE in Prduction
   /* if (currentClient?.is_expo_client)
     return <Navigate to="/" replace />; */
   if (
@@ -35,7 +35,7 @@ const Admin = (props: Props) => {
   return (
     <>
       {/* Table Wrapper */}
-      <div className="table ">
+      <div className="table w-full">
         <Sidebar handleClick={handleClick} />
         <div className="w-full h-full table-cell justify-center align-top">
           {currentClient.isLoading ||
@@ -48,11 +48,13 @@ const Admin = (props: Props) => {
           ) : (
             <>
               <div className="flex justify-center mt-5">
-                <Stat
-                  clients={allClients.data}
-                  videos={allVideos.data}
-                  currentClient={currentClient.data}
-                />
+                {allVideos.data && (
+                  <Stat
+                    clients={allClients.data}
+                    videos={allVideos.data}
+                    currentClient={currentClient.data}
+                  />
+                )}
               </div>
               {/* <div className="tabs  my-5 rounded-none bg-inherit w-full flex justify-center">
             <a
@@ -73,7 +75,7 @@ const Admin = (props: Props) => {
             </a>
           </div>{' '} */}
               <div className="flex mt-10 justify-center ">
-                {tab === 1 && allClients.data && (
+                {tab === 1 && allClients.data && allVideos.data && (
                   <Clients
                     allVideos={allVideos.data}
                     allClients={allClients.data}
