@@ -22,7 +22,7 @@ const Card = (props: Props) => {
     DataType = useGetAllVideos();
   } else DataType = useGetCurrentClientVideos();
   const { data } = DataType;
-  console.log(data);
+
   return (
     <>
       <div className="flex flex-col items-center gap-3 lg:items-stretch lg:grid lg:grid-cols-3 lg:gap-6 lg:mb-6">

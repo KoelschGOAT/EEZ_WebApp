@@ -36,7 +36,7 @@ const Admin = (props: Props) => {
     <>
       {/* Table Wrapper */}
       <div className="table w-full">
-        <Sidebar handleClick={handleClick} />
+        <Sidebar handleClick={handleClick} tab={tab} />
         <div className="w-full h-full table-cell justify-center align-top">
           {currentClient.isLoading ||
           allClients.isLoading ||

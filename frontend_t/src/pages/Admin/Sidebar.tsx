@@ -12,8 +12,9 @@ import LanguageSwitcher from '../../utils/Language/Language/LanguageSwitcher';
 //Sidebar Component With TailwindCSS
 interface Props {
   handleClick: (num: number) => void;
+  tab: number;
 }
-const Bar = ({ handleClick }: Props) => {
+const Bar = ({ handleClick, tab }: Props) => {
   //Getting the drain Context from the usersetting to display the context always
 
   //returning the Sidebar, sidebar gets folded when the device is on less tha 769 pxs
@@ -37,7 +38,9 @@ const Bar = ({ handleClick }: Props) => {
               <NavLink to="/">
                 <a
                   href="#"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6"
+                  className={
+                    'relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6'
+                  }
                 >
                   <span className="inline-flex justify-center items-center ml-2">
                     {/* Settings SVG Icon */}
@@ -49,29 +52,15 @@ const Bar = ({ handleClick }: Props) => {
                 </a>
               </NavLink>
             </li>
-            <li>
-              {/* Link tag to Forward the use to the Settings Component withour loadingtime */}
-              <NavLink to="/Admin">
-                <a
-                  href="#"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6"
-                >
-                  <span className="inline-flex justify-center items-center ml-2">
-                    {/* Settings SVG Icon */}
-                    <MdOutlineDashboard size="2.5em" />
-                  </span>
-                  <span className="ml-2 text-lg tracking-wide truncate">
-                    Dashboard
-                  </span>
-                </a>
-              </NavLink>
-            </li>
+
             <li>
               {/* Link tag to Forward the use to the Settings Component withour loadingtime */}
               <NavLink to="Clients" onClick={() => handleClick(1)}>
                 <a
                   href="#"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6"
+                  className={`${
+                    tab == 1 ? 'bg-accent' : null
+                  } relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6`}
                 >
                   <span className="inline-flex justify-center items-center ml-2">
                     {/* Settings SVG Icon */}
@@ -88,7 +77,9 @@ const Bar = ({ handleClick }: Props) => {
               <NavLink to="Videos" onClick={() => handleClick(2)}>
                 <a
                   href="#"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6"
+                  className={`${
+                    tab == 2 ? 'bg-accent' : null
+                  } relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6`}
                 >
                   <span className="inline-flex justify-center items-center ml-2">
                     {/* Settings SVG Icon */}
@@ -107,7 +98,7 @@ const Bar = ({ handleClick }: Props) => {
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-accent  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-accent  pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-2">
-                  <LanguageSwitcher className="flex flex-row gap-2 ml-2" />{' '}
+                  <LanguageSwitcher className="flex flex-row gap-2 ml-2 w-full" />{' '}
                 </span>
               </a>
             </li>
