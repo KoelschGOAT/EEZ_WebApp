@@ -33,11 +33,7 @@ export type Video = {
 };
 type Props = {};
 const AddVideo: React.FC<Props> = () => {
-  type LocationState = {
-    video: Video;
-  };
   const navigate = useNavigate();
-  const location = useLocation();
 
   // Type Casting, then you can get the params passed via router
 

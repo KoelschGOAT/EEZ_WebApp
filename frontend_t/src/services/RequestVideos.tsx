@@ -38,7 +38,7 @@ export function useGetAllVideos() {
 
 interface mutationInterface {
   videoId: number;
-  formData?: Video;
+  formData: FormData;
   setProgress: (val: number) => void;
 }
 interface configInterface {
@@ -129,7 +129,7 @@ export type postVideo = {
   text_en: string;
 };
 interface PostClients {
-  formData: postVideo;
+  formData: FormData;
   setProgress: (val: number) => void;
 }
 export function usePostVideos({ config }: configInterface) {
@@ -174,58 +174,3 @@ export function usePostVideos({ config }: configInterface) {
     }
   );
 }
-
-/* interface PostClients {
-  formData: Video;
-}
-export function usePostVideos({ config }) {
-  const queryClient = useQueryClient();
-  return useMutation(
-    async ({ formData }) => {
-      await axios.post(
-        `http://127.0.0.1:8000/api/all-videos`,
-        formData
-      );
-    },
-    {
-      onSuccess: () => {
-        //notification("PC geändert");
-        // Invalidate and refetch
-        queryClient.invalidateQueries(['all-videos']);
-        //wait for closing to display success
-        config.onSuccess();
-      },
-      onError: () => {
-        config.onError();
-        console.log('error');
-      },
-    }
-  );
-}
-
-
-export function useDeleteVideos({ config }) {
-  const queryClient = useQueryClient();
-  return useMutation(
-    async ({ videoId }) => {
-      await axios.delete(
-        `http://127.0.0.1:8000/api/video/${videoId}`
-      );
-    },
-
-    {
-      onSuccess: () => {
-        //notification("PC geändert");
-        // Invalidate and refetch
-        queryClient.invalidateQueries(['all-videos']);
-        //wait for closing to display success
-        config.onSuccess();
-      },
-      onError: () => {
-        config.onError();
-        console.log('error');
-      },
-    }
-  );
-}
- */
