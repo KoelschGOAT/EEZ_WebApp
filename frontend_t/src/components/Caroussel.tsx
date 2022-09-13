@@ -23,8 +23,6 @@ const Caroussel = (props: Props) => {
       navigation
       pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
     >
       {data?.map((video) => (
         <SwiperSlide className="h-1/2 ">
@@ -33,7 +31,9 @@ const Caroussel = (props: Props) => {
             <img
               draggable="false"
               className=" h-auto w-full stretch  "
-              src={`http://127.0.0.1:8000${video.screenshot}`}
+              src={`http://${import.meta.env.VITE_SERVER_ADRRESS}${
+                video.screenshot
+              }`}
               alt={video.title_de}
             />
           </figure>{' '}

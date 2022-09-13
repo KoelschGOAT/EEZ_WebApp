@@ -86,7 +86,7 @@ export default function MuiTable({ allClients, allVideos }: Props) {
       <DataGrid
         rows={allClients}
         columns={columns}
-        pageSize={7}
+        pageSize={6}
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
       />

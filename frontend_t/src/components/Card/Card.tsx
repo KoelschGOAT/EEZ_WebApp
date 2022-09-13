@@ -47,7 +47,9 @@ const Card = (props: Props) => {
             <figure>
               <img
                 className="hover:scale-110  transition duration-500 ease-in-out "
-                src={`http://127.0.0.1:8000${video.screenshot}`}
+                src={`http://${import.meta.env.VITE_SERVER_ADRRESS}${
+                  video.screenshot
+                }`}
                 alt={video.title_de}
               />
             </figure>

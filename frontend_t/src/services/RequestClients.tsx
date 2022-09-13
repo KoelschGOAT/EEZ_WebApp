@@ -39,7 +39,9 @@ export const getClientValidator = z.object({
 export function useGetCurrentClient() {
   return useQuery(['current-pc'], async () => {
     const res = await (
-      await fetch(`http://192.168.178.3:8000/api/current-pc`)
+      await fetch(
+        `http://${import.meta.env.VITE_SERVER_ADRRESS}/api/current-pc`
+      )
     ).json();
     return getClientValidator.parse(res);
   });
@@ -47,7 +49,9 @@ export function useGetCurrentClient() {
 export function useGetAllClients() {
   return useQuery<Array<Client>>(['all-pcs'], async () => {
     const res = await (
-      await fetch(`http://192.168.178.3:8000/api/all-pcs`)
+      await fetch(
+        `http://${import.meta.env.VITE_SERVER_ADRRESS}/api/all-pcs`
+      )
     ).json();
     return res;
   });
@@ -55,7 +59,9 @@ export function useGetAllClients() {
 export function useGetClient(id: string | undefined) {
   return useQuery(['all-pcs'], async () => {
     const res = await (
-      await fetch(`http://192.168.178.3:8000/api/pc/${id}`)
+      await fetch(
+        `http://${import.meta.env.VITE_SERVER_ADRRESS}/api/pc/${id}`
+      )
     ).json();
     return getClientValidator.parse(res);
   });
@@ -73,7 +79,9 @@ export function usePatchClients({ config }: configInterface) {
   return useMutation(
     async ({ clientId, formData }: mutationInterface) => {
       await axios.patch(
-        `http://192.168.178.3:8000/api/pc/${clientId}`,
+        `http://${
+          import.meta.env.VITE_SERVER_ADRRESS
+        }/api/pc/${clientId}`,
         formData
       );
     },
@@ -105,7 +113,9 @@ export function useDeleteClients({ config }: configInterface) {
   return useMutation(
     async ({ clientId }: deleteClient) => {
       await axios.delete(
-        `http://192.168.178.3:8000/api/pc/${clientId}`
+        `http://${
+          import.meta.env.VITE_SERVER_ADRRESS
+        }/api/pc/${clientId}`
       );
     },
 
@@ -135,7 +145,7 @@ export function usePostClients({ config }: configInterface) {
   return useMutation(
     async ({ formData }: PostClients) => {
       await axios.post(
-        `http://192.168.178.3:8000/api/all-pcs`,
+        `http://${import.meta.env.VITE_SERVER_ADRRESS}/api/all-pcs`,
         formData
       );
     },
@@ -154,52 +164,3 @@ export function usePostClients({ config }: configInterface) {
     }
   );
 }
-/*
-export function 192.168.178.3lients({ config }) {
-  const queryClient = useQueryClient();
-  return useMutation(
-    async ({ pcId, formData }) => {
-      await axios.patch(
-        `http://192.168.178.3:8000/api/pc/${pcId}`,
-        formData
-      );
-    },
-
-    {
-      onSuccess: () => {
-        //notification("PC geändert");
-        // Invalidate and refetch
-        queryClient.invalidateQueries('all-pcs');
-        //wait for closing to display success
-        config.onSuccess();
-      },
-      onError: () => {
-        config.onError();
-        console.log('error');
-      },
-    }
-  );
-}192.168.178.3
-export function useDeleteClients({ config }) {
-  const queryClient = useQueryClient();
-  return useMutation(
-    async ({ pcId }) => {
-      await axios.delete(`http://192.168.178.3:8000/api/pc/${pcId}`);
-    },
-
-    {
-      onSuccess: () => {
-        //notification("PC geändert");
-        // Invalidate and refetch
-        queryClient.invalidateQueries('all-pcs');
-        //wait for closing to display success
-        config.onSuccess();
-      },
-      onError: () => {
-        config.onError();
-        console.log('error');
-      },
-    }
-  );
-}
- */

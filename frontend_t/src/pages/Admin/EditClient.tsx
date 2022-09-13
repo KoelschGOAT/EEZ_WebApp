@@ -156,7 +156,7 @@ const EditClient: React.FC<Props> = () => {
               onChange={setClientIpAddress}
               required={true}
               name="ip_address"
-              placeholder="192.168.178.3"
+              placeholder="192.168.1.1"
             ></Input>
             <label className="flex  gap-5 cursor-pointer">
               <span className="label-text">Austellungs Client?</span>

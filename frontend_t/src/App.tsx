@@ -1,11 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import Routing from './services/Routing'
+import Routing from './services/Routing';
 
 function App() {
- return (
-  <Routing/>
- )
+  return <Routing />;
 }
 
-export default App
+export default App;

@@ -198,10 +198,14 @@ const EditVideo: React.FC<Props> = () => {
                   <video
                     autoPlay
                     loop
-                    poster={`http://192.168.178.3:8000${video.screenshot}`}
+                    poster={`http://${
+                      import.meta.env.VITE_SERVER_ADRRESS
+                    }${video.screenshot}`}
                   >
                     <source
-                      src={`http://192.168.178.3:8000${video.video}`}
+                      src={`http://${
+                        import.meta.env.VITE_SERVER_ADRRESS
+                      }${video.video}`}
                       type="video/*"
                     />
                   </video>{' '}
@@ -236,7 +240,9 @@ const EditVideo: React.FC<Props> = () => {
                   {/*  <Table mapObj={allClients} /> */}
                   <figure>
                     <img
-                      src={`http://192.168.178.3:8000${video.screenshot}`}
+                      src={`http://${
+                        import.meta.env.VITE_SERVER_ADRRESS
+                      }${video.screenshot}`}
                       alt={video.title_de}
                     />
                   </figure>
