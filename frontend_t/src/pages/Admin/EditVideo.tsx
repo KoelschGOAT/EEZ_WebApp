@@ -1,31 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import {
   useLocation,
   useNavigate,
   useParams,
 } from 'react-router-dom';
 import { z } from 'zod';
-import Client, { Video } from '../../services/types';
+import { Video } from '../../services/types';
 
 import Input from '../../components/Inputs/Input';
 
 import Alert from '../../components/Alert/Alert';
 import Collapse from '../../components/Collapse';
 import {
-  useDeleteClients,
-  useGetClient,
-  useGetCurrentClient,
-  usePatchClients,
-} from '../../services/RequestClients';
-import {
   useDeleteVideos,
-  useGetAllVideos,
-  useGetCurrentClientVideos,
   usePatchVideos,
 } from '../../services/RequestVideos';
-import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
 import NotFound from '../NotFound';
 
 export const getVideoValidator = z.object({
@@ -83,7 +72,6 @@ const EditVideo: React.FC<Props> = () => {
   const [progress, setProgress] = useState(0);
   //UPDATE client Logic
   const handleSuccess = () => {
-    console.log('success');
     navigate('/Admin');
   };
   const handleError = () => {
@@ -105,7 +93,6 @@ const EditVideo: React.FC<Props> = () => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    console.log('delete');
 
     video.id ? deleteVideo.mutate({ videoId: video.id }) : null;
   };
@@ -129,7 +116,6 @@ const EditVideo: React.FC<Props> = () => {
     formData.append('title_en', title_en);
     formData.append('text_de', text_de);
     formData.append('text_en', text_en);
-    console.log(formData);
 
     form_data['title_de'] = title_de;
     form_data['title_en'] = title_en;
@@ -157,7 +143,6 @@ const EditVideo: React.FC<Props> = () => {
           setProgress: setProgress,
         })
       : null;
-    console.log(formData);
   }
 
   const changeVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -213,10 +198,10 @@ const EditVideo: React.FC<Props> = () => {
                   <video
                     autoPlay
                     loop
-                    poster={`http://127.0.0.1:8000${video.screenshot}`}
+                    poster={`http://192.168.178.3:8000${video.screenshot}`}
                   >
                     <source
-                      src={`http://127.0.0.1:8000${video.video}`}
+                      src={`http://192.168.178.3:8000${video.video}`}
                       type="video/*"
                     />
                   </video>{' '}
@@ -251,7 +236,7 @@ const EditVideo: React.FC<Props> = () => {
                   {/*  <Table mapObj={allClients} /> */}
                   <figure>
                     <img
-                      src={`http://127.0.0.1:8000${video.screenshot}`}
+                      src={`http://192.168.178.3:8000${video.screenshot}`}
                       alt={video.title_de}
                     />
                   </figure>

@@ -11,11 +11,7 @@ const fetchData = async (url: string) => {
   return response;
 };
 export default fetchData;
-/* export function useGetAllClients() {
-  return useQuery(['all-pcs'], () =>
-    fetchData(`http://127.0.0.1:8000/api/all-pcs`)
-  );
-} */
+
 export const getVideoValidator = z.object({
   id: z.number(),
   video: z.string(),
@@ -43,7 +39,7 @@ export const getClientValidator = z.object({
 export function useGetCurrentClient() {
   return useQuery(['current-pc'], async () => {
     const res = await (
-      await fetch(`http://127.0.0.1:8000/api/current-pc`)
+      await fetch(`http://192.168.178.3:8000/api/current-pc`)
     ).json();
     return getClientValidator.parse(res);
   });
@@ -51,7 +47,7 @@ export function useGetCurrentClient() {
 export function useGetAllClients() {
   return useQuery<Array<Client>>(['all-pcs'], async () => {
     const res = await (
-      await fetch(`http://127.0.0.1:8000/api/all-pcs`)
+      await fetch(`http://192.168.178.3:8000/api/all-pcs`)
     ).json();
     return res;
   });
@@ -59,7 +55,7 @@ export function useGetAllClients() {
 export function useGetClient(id: string | undefined) {
   return useQuery(['all-pcs'], async () => {
     const res = await (
-      await fetch(`http://127.0.0.1:8000/api/pc/${id}`)
+      await fetch(`http://192.168.178.3:8000/api/pc/${id}`)
     ).json();
     return getClientValidator.parse(res);
   });
@@ -77,7 +73,7 @@ export function usePatchClients({ config }: configInterface) {
   return useMutation(
     async ({ clientId, formData }: mutationInterface) => {
       await axios.patch(
-        `http://127.0.0.1:8000/api/pc/${clientId}`,
+        `http://192.168.178.3:8000/api/pc/${clientId}`,
         formData
       );
     },
@@ -91,7 +87,7 @@ export function usePatchClients({ config }: configInterface) {
           'current-pc-videos',
         ]);
         //wait for closing to display success
-        console.log('success');
+
         config.onSuccess();
       },
       onError: () => {
@@ -108,7 +104,9 @@ export function useDeleteClients({ config }: configInterface) {
   const queryClient = useQueryClient();
   return useMutation(
     async ({ clientId }: deleteClient) => {
-      await axios.delete(`http://127.0.0.1:8000/api/pc/${clientId}`);
+      await axios.delete(
+        `http://192.168.178.3:8000/api/pc/${clientId}`
+      );
     },
 
     {
@@ -120,7 +118,6 @@ export function useDeleteClients({ config }: configInterface) {
           'all-pcs',
         ]);
         //wait for closing to display success
-        console.log('success');
         config.onSuccess();
       },
       onError: () => {
@@ -137,7 +134,10 @@ export function usePostClients({ config }: configInterface) {
   const queryClient = useQueryClient();
   return useMutation(
     async ({ formData }: PostClients) => {
-      await axios.post(`http://127.0.0.1:8000/api/all-pcs`, formData);
+      await axios.post(
+        `http://192.168.178.3:8000/api/all-pcs`,
+        formData
+      );
     },
     {
       onSuccess: () => {
@@ -155,12 +155,12 @@ export function usePostClients({ config }: configInterface) {
   );
 }
 /*
-export function usePatchClients({ config }) {
+export function 192.168.178.3lients({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
     async ({ pcId, formData }) => {
       await axios.patch(
-        `http://127.0.0.1:8000/api/pc/${pcId}`,
+        `http://192.168.178.3:8000/api/pc/${pcId}`,
         formData
       );
     },
@@ -179,12 +179,12 @@ export function usePatchClients({ config }) {
       },
     }
   );
-}
+}192.168.178.3
 export function useDeleteClients({ config }) {
   const queryClient = useQueryClient();
   return useMutation(
     async ({ pcId }) => {
-      await axios.delete(`http://127.0.0.1:8000/api/pc/${pcId}`);
+      await axios.delete(`http://192.168.178.3:8000/api/pc/${pcId}`);
     },
 
     {

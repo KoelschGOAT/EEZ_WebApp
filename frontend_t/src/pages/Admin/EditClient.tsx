@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import React, { useState } from 'react';
 import {
   useLocation,
@@ -15,15 +13,8 @@ import Input from '../../components/Inputs/Input';
 import Alert from '../../components/Alert/Alert';
 import {
   useDeleteClients,
-  useGetClient,
-  useGetCurrentClient,
   usePatchClients,
 } from '../../services/RequestClients';
-import {
-  useGetAllVideos,
-  useGetCurrentClientVideos,
-} from '../../services/RequestVideos';
-import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
 import NotFound from '../NotFound';
 
 export const getVideoValidator = z.object({
@@ -88,7 +79,6 @@ const EditClient: React.FC<Props> = () => {
   );
   //UPDATE client Logic
   const handleSuccess = () => {
-    console.log('success');
     navigate('/Admin');
   };
   const handleError = () => {
@@ -110,7 +100,6 @@ const EditClient: React.FC<Props> = () => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    console.log('delete');
     deleteClient.mutate({ clientId: client.id });
   };
 
@@ -137,7 +126,6 @@ const EditClient: React.FC<Props> = () => {
     }
 
     updateClient.mutate({ clientId: client.id, formData: formData });
-    console.log(formData);
   }
 
   return (
@@ -168,7 +156,7 @@ const EditClient: React.FC<Props> = () => {
               onChange={setClientIpAddress}
               required={true}
               name="ip_address"
-              placeholder="127.0.0.1"
+              placeholder="192.168.178.3"
             ></Input>
             <label className="flex  gap-5 cursor-pointer">
               <span className="label-text">Austellungs Client?</span>

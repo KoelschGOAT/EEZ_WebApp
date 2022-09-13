@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { z } from 'zod';
-import { getVideoValidator } from '../services/RequestClients';
 import LanguageDisplayer from '../utils/Language/Language/LanguageDisplayer';
 
 export const videoValidator = z.object({
@@ -39,10 +37,10 @@ const Video = () => {
             className="w-[90%] lg:w-[60rem] h-auto"
             autoPlay
             loop
-            poster={`http://127.0.0.1:8000${Video.screenshot}`}
+            poster={`http://192.168.178.3:8000${Video.screenshot}`}
           >
             <source
-              src={`http://127.0.0.1:8000${Video.video}`}
+              src={`http://192.168.178.3:8000${Video.video}`}
               type="video/webm"
             />
           </video>

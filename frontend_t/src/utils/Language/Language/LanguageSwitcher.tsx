@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { De, Gb } from 'react-flags-select';
 import useLocalStorageState from 'use-local-storage-state';
 interface Props {

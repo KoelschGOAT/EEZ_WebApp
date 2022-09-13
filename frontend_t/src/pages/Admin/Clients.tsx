@@ -1,8 +1,5 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { z } from 'zod';
-import Collapse from '../../components/Collapse';
-import { getClientValidator } from '../../services/RequestClients';
 import Client, { Video } from '../../services/types';
 import MuiTable from './MuiTable';
 

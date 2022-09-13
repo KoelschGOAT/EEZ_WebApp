@@ -1,6 +1,5 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import ErroNotFound from '../Images/ErroNotFound.png';
+import ErrorNotFound from '../Images/ErrorNotFound.png';
 type Props = { title?: string; path: string };
 
 const NotFound = ({
@@ -29,7 +28,7 @@ const NotFound = ({
         </div>
       </div>
       <figure className="flex justify-center">
-        <img className="w-1/4" src={ErroNotFound}></img>
+        <img className="w-1/4" src={ErrorNotFound}></img>
       </figure>
       <button
         onClick={() => navigate(path, { replace: true })}

@@ -4,20 +4,12 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import React from 'react';
-import {
-  BrowserRouter,
-  NavLink,
-  Route,
-  Routes,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Footer from '../components/Footer/Footer';
 import Navbar2 from '../components/Navbar/Navbar2';
 import AddClient from '../pages/Admin/AddClient';
 import AddVideo from '../pages/Admin/AddVideo';
 import Admin from '../pages/Admin/Admin';
-import Clients from '../pages/Admin/Clients';
 import EditClient from '../pages/Admin/EditClient';
 import EditVideo from '../pages/Admin/EditVideo';
 import Landing from '../pages/Landing';

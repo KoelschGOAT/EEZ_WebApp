@@ -1,11 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import React, { useState } from 'react';
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import Client, { Video } from '../../services/types';
 
@@ -13,19 +7,7 @@ import CheckboxList from '../../components/Inputs/CheckboxList';
 import Input from '../../components/Inputs/Input';
 
 import Alert from '../../components/Alert/Alert';
-import {
-  useDeleteClients,
-  useGetClient,
-  useGetCurrentClient,
-  usePatchClients,
-  usePostClients,
-} from '../../services/RequestClients';
-import {
-  useGetAllVideos,
-  useGetCurrentClientVideos,
-} from '../../services/RequestVideos';
-import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
-import NotFound from '../NotFound';
+import { usePostClients } from '../../services/RequestClients';
 
 export const getVideoValidator = z.object({
   id: z.number(),
@@ -77,7 +59,6 @@ const AddClient: React.FC<Props> = () => {
 
   //UPDATE client Logic
   const handleSuccess = () => {
-    console.log('success');
     navigate('/Admin');
   };
   const handleError = () => {
@@ -116,7 +97,6 @@ const AddClient: React.FC<Props> = () => {
       }
     }
     postClient.mutate({ formData: formData });
-    console.log(formData);
   }
 
   const handleClickOpen = () => {
@@ -124,7 +104,6 @@ const AddClient: React.FC<Props> = () => {
   };
 
   const handleClose = () => {
-    console.log('close');
     setOpen(false);
   };
   return (

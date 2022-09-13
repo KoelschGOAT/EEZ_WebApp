@@ -1,14 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import Input from '../../components/Inputs/Input';
 
 import Alert from '../../components/Alert/Alert';
 
-import { width } from '@mui/system';
 import { usePostVideos } from '../../services/RequestVideos';
 
 export const getVideoValidator = z.object({
@@ -52,7 +49,6 @@ const AddVideo: React.FC<Props> = () => {
 
   //UPDATE client Logic
   const handleSuccess = () => {
-    console.log('success');
     navigate('/Admin');
   };
   const handleError = () => {
@@ -105,7 +101,6 @@ const AddVideo: React.FC<Props> = () => {
       formData: formData,
       setProgress: setProgress,
     });
-    console.log(formData);
   }
 
   const changeVideo = (e: React.ChangeEvent<HTMLInputElement>) => {

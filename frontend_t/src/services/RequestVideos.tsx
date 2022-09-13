@@ -21,7 +21,7 @@ export const getVideoValidator = z.object({
 export function useGetCurrentClientVideos() {
   return useQuery<Array<Video>>(['current-pc-videos'], async () => {
     const res = await (
-      await fetch(`http://127.0.0.1:8000/api/current-pc-videos`)
+      await fetch(`http://192.168.178.3:8000/api/current-pc-videos`)
     ).json();
     return res;
   });
@@ -29,7 +29,7 @@ export function useGetCurrentClientVideos() {
 export function useGetAllVideos() {
   return useQuery<Array<Video>>(['all-videos'], async () => {
     const res = await (
-      await fetch(`http://127.0.0.1:8000/api/all-videos`)
+      await fetch(`http://192.168.178.3:8000/api/all-videos`)
     ).json();
 
     return res;
@@ -50,7 +50,7 @@ export function usePatchVideos({ config }: configInterface) {
   return useMutation(
     async ({ videoId, formData, setProgress }: mutationInterface) => {
       await axios.patch(
-        `http://127.0.0.1:8000/api/video/${videoId}`,
+        `http://192.168.178.3:8000/api/video/${videoId}`,
         formData,
         {
           onUploadProgress: (progressEvent) => {
@@ -99,7 +99,7 @@ export function useDeleteVideos({ config }: configInterface) {
   return useMutation(
     async ({ videoId }: deleteInterface) => {
       await axios.delete(
-        `http://127.0.0.1:8000/api/video/${videoId}`
+        `http://192.168.178.3:8000/api/video/${videoId}`
       );
     },
 
@@ -137,7 +137,7 @@ export function usePostVideos({ config }: configInterface) {
   return useMutation(
     async ({ formData, setProgress }: PostClients) => {
       await axios.post(
-        `http://127.0.0.1:8000/api/all-videos`,
+        `http://192.168.178.3:8000/api/all-videos`,
         formData,
         {
           onUploadProgress: (progressEvent) => {

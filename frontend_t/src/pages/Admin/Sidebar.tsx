@@ -1,11 +1,5 @@
-import React, { useContext } from 'react';
-import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
-import {
-  FcFilmReel,
-  FcMultipleDevices,
-  FcTouchscreenSmartphone,
-} from 'react-icons/fc';
-import { MdOutlineDashboard } from 'react-icons/md';
+import { AiFillHome } from 'react-icons/ai';
+import { FcFilmReel, FcMultipleDevices } from 'react-icons/fc';
 import { NavLink } from 'react-router-dom';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
 import LanguageSwitcher from '../../utils/Language/Language/LanguageSwitcher';
