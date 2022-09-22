@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.core.validators import validate_ipv4_address
+
 # Create your models here.
 
 
@@ -20,7 +22,7 @@ class Video(models.Model):
 class PC(models.Model):
     pc_name = models.CharField(max_length=50, unique=True)
     ip_address = models.CharField(
-        max_length=15, unique=True)
+        max_length=15, unique=True,validators=[validate_ipv4_address])
 
     Videos = models.ManyToManyField(Video)
     is_expo_client = models.BooleanField(default=False)
