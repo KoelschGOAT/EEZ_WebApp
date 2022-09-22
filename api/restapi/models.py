@@ -24,7 +24,7 @@ class PC(models.Model):
     ip_address = models.CharField(
         max_length=15, unique=True,validators=[validate_ipv4_address])
 
-    Videos = models.ManyToManyField(Video)
+    Videos = models.ManyToManyField(Video,blank=True)
     is_expo_client = models.BooleanField(default=False)
 
     class Meta:
