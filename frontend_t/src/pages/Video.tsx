@@ -37,12 +37,12 @@ const Video = () => {
             className="w-[90%] lg:w-[60rem] h-auto"
             autoPlay
             loop
-            poster={`http://${import.meta.env.VITE_SERVER_ADRRESS}${
+            poster={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
               Video.screenshot
             }`}
           >
             <source
-              src={`http://${import.meta.env.VITE_SERVER_ADRRESS}${
+              src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
                 Video.video
               }`}
               type="video/webm"

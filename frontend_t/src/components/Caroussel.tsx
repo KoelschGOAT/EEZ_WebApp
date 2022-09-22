@@ -31,7 +31,7 @@ const Caroussel = (props: Props) => {
             <img
               draggable="false"
               className=" h-auto w-full stretch  "
-              src={`http://${import.meta.env.VITE_SERVER_ADRRESS}${
+              src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
                 video.screenshot
               }`}
               alt={video.title_de}

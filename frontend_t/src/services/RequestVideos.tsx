@@ -23,7 +23,7 @@ export function useGetCurrentClientVideos() {
     const res = await (
       await fetch(
         `http://${
-          import.meta.env.VITE_SERVER_ADRRESS
+          import.meta.env.VITE_SERVER_ADDRESS
         }/api/current-pc-videos`
       )
     ).json();
@@ -34,7 +34,7 @@ export function useGetAllVideos() {
   return useQuery<Array<Video>>(['all-videos'], async () => {
     const res = await (
       await fetch(
-        `http://${import.meta.env.VITE_SERVER_ADRRESS}/api/all-videos`
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-videos`
       )
     ).json();
 
@@ -57,7 +57,7 @@ export function usePatchVideos({ config }: configInterface) {
     async ({ videoId, formData, setProgress }: mutationInterface) => {
       await axios.patch(
         `http://${
-          import.meta.env.VITE_SERVER_ADRRESS
+          import.meta.env.VITE_SERVER_ADDRESS
         }/api/video/${videoId}`,
         formData,
         {
@@ -108,7 +108,7 @@ export function useDeleteVideos({ config }: configInterface) {
     async ({ videoId }: deleteInterface) => {
       await axios.delete(
         `http://${
-          import.meta.env.VITE_SERVER_ADRRESS
+          import.meta.env.VITE_SERVER_ADDRESS
         }/api/video/${videoId}`
       );
     },
@@ -148,7 +148,7 @@ export function usePostVideos({ config }: configInterface) {
     async ({ formData, setProgress }: PostClients) => {
       await axios.post(
         `http://${
-          import.meta.env.VITE_SERVER_ADRRESS
+          import.meta.env.VITE_SERVER_ADDRESS
         }/api/all-videos`,
         formData,
         {

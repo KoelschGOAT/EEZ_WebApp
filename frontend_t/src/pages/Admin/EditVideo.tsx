@@ -199,12 +199,12 @@ const EditVideo: React.FC<Props> = () => {
                     autoPlay
                     loop
                     poster={`http://${
-                      import.meta.env.VITE_SERVER_ADRRESS
+                      import.meta.env.VITE_SERVER_ADDRESS
                     }${video.screenshot}`}
                   >
                     <source
                       src={`http://${
-                        import.meta.env.VITE_SERVER_ADRRESS
+                        import.meta.env.VITE_SERVER_ADDRESS
                       }${video.video}`}
                       type="video/*"
                     />
@@ -241,7 +241,7 @@ const EditVideo: React.FC<Props> = () => {
                   <figure>
                     <img
                       src={`http://${
-                        import.meta.env.VITE_SERVER_ADRRESS
+                        import.meta.env.VITE_SERVER_ADDRESS
                       }${video.screenshot}`}
                       alt={video.title_de}
                     />

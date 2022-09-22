@@ -40,7 +40,7 @@ export function useGetCurrentClient() {
   return useQuery(['current-pc'], async () => {
     const res = await (
       await fetch(
-        `http://${import.meta.env.VITE_SERVER_ADRRESS}/api/current-pc`
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/current-pc`
       )
     ).json();
     return getClientValidator.parse(res);
@@ -50,7 +50,7 @@ export function useGetAllClients() {
   return useQuery<Array<Client>>(['all-pcs'], async () => {
     const res = await (
       await fetch(
-        `http://${import.meta.env.VITE_SERVER_ADRRESS}/api/all-pcs`
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-pcs`
       )
     ).json();
     return res;
@@ -60,7 +60,7 @@ export function useGetClient(id: string | undefined) {
   return useQuery(['all-pcs'], async () => {
     const res = await (
       await fetch(
-        `http://${import.meta.env.VITE_SERVER_ADRRESS}/api/pc/${id}`
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/pc/${id}`
       )
     ).json();
     return getClientValidator.parse(res);
@@ -80,7 +80,7 @@ export function usePatchClients({ config }: configInterface) {
     async ({ clientId, formData }: mutationInterface) => {
       await axios.patch(
         `http://${
-          import.meta.env.VITE_SERVER_ADRRESS
+          import.meta.env.VITE_SERVER_ADDRESS
         }/api/pc/${clientId}`,
         formData
       );
@@ -114,7 +114,7 @@ export function useDeleteClients({ config }: configInterface) {
     async ({ clientId }: deleteClient) => {
       await axios.delete(
         `http://${
-          import.meta.env.VITE_SERVER_ADRRESS
+          import.meta.env.VITE_SERVER_ADDRESS
         }/api/pc/${clientId}`
       );
     },
@@ -145,7 +145,7 @@ export function usePostClients({ config }: configInterface) {
   return useMutation(
     async ({ formData }: PostClients) => {
       await axios.post(
-        `http://${import.meta.env.VITE_SERVER_ADRRESS}/api/all-pcs`,
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-pcs`,
         formData
       );
     },
