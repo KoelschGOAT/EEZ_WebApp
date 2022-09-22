@@ -38,7 +38,7 @@ const Card = (props: Props) => {
                 buttonText ? `/EditVideo/${video.id}` : '/Video',
                 {
                   replace: false,
-                  state: { Video: video },
+                  state: { video: video },
                 }
               );
             }}
