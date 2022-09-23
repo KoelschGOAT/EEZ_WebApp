@@ -22,12 +22,12 @@ interface VideoInterface {
   text_en: string;
 }
 type LocationState = {
-  Video: VideoInterface;
+  video: VideoInterface;
 };
 const Video = () => {
   const location = useLocation();
   const state = location.state; // Type Casting, then you can get the params passed via router
-  const { Video } = state as LocationState;
+  const { video } = state as LocationState;
 
   return (
     <>
@@ -38,12 +38,12 @@ const Video = () => {
             autoPlay
             loop
             poster={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
-              Video.screenshot
+              video.screenshot
             }`}
           >
             <source
               src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
-                Video.video
+                video.video
               }`}
               type="video/webm"
             />
@@ -52,14 +52,14 @@ const Video = () => {
           <div className="w-full">
             <h1 className="text-5xl  w-fit font-bold">
               <LanguageDisplayer
-                de={Video.title_de}
-                en={Video.title_en}
+                de={video.title_de}
+                en={video.title_en}
               />
             </h1>
             <p className="py-6 w-[90%] lg:w-[30rem]">
               <LanguageDisplayer
-                de={Video.text_de}
-                en={Video.text_en}
+                de={video.text_de}
+                en={video.text_en}
               />
             </p>
           </div>
