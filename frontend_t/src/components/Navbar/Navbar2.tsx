@@ -14,7 +14,9 @@ type Props = {};
 const Navbar2 = (props: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { data } = useGetCurrentClient();
+
+  const currentClient = useGetCurrentClient();
+  console.log(currentClient.data);
   if (!location.pathname.toLowerCase().includes('/admin'))
     return (
       <div
@@ -51,7 +53,9 @@ const Navbar2 = (props: Props) => {
         <div className="navbar-end cursor-pointer lg:hidden">
           <Show
             condition={
-              data?.is_expo_client && location.pathname !== '/Admin'
+              currentClient.data &&
+              currentClient.data?.is_expo_client &&
+              location.pathname !== '/Admin'
             }
           >
             <FcBusinessman
@@ -73,7 +77,7 @@ const Navbar2 = (props: Props) => {
             <li tabIndex={0}>
               <LanguageSwitcher className="flex items-center gap-1 " />
             </li>
-            <Show condition={!data?.is_expo_client}>
+            <Show condition={!currentClient.data?.is_expo_client}>
               <li tabIndex={0}>
                 <NavLink to="/Admin" aria-current="page">
                   <span className="flex  items-center gap-1">

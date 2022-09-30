@@ -9,7 +9,7 @@ interface Props {
 }
 const Clients: React.FC<Props> = ({ allClients, allVideos }) => {
   const navigate = useNavigate();
-
+  console.log(allClients, allVideos);
   return (
     <>
       <div className="flex flex-col w-full gap-5 lg:w-1/2">

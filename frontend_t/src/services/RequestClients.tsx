@@ -37,24 +37,36 @@ export const getClientValidator = z.object({
 });
 
 export function useGetCurrentClient() {
-  return useQuery(['current-pc'], async () => {
-    const res = await (
-      await fetch(
-        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/current-pc`
-      )
-    ).json();
-    return getClientValidator.parse(res);
-  });
+  return useQuery<Client>(
+    ['current-pc'],
+    async () => {
+      return await axios
+        .get(
+          `http://${
+            import.meta.env.VITE_SERVER_ADDRESS
+          }/api/current-pc`
+        )
+        .then((res) => res.data);
+    },
+    {
+      onError(err) {},
+    }
+  );
 }
 export function useGetAllClients() {
-  return useQuery<Array<Client>>(['all-pcs'], async () => {
-    const res = await (
-      await fetch(
-        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-pcs`
-      )
-    ).json();
-    return res;
-  });
+  return useQuery<Array<Client>>(
+    ['all-pcs'],
+    async () => {
+      return await axios
+        .get(
+          `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-pcs`
+        )
+        .then((res) => res.data);
+    },
+    {
+      onError(err) {},
+    }
+  );
 }
 export function useGetClient(id: string | undefined) {
   return useQuery(['all-pcs'], async () => {

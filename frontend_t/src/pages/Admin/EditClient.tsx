@@ -1,3 +1,4 @@
+import * as H from 'history';
 import React, { useState } from 'react';
 import {
   useLocation,
@@ -50,14 +51,16 @@ interface ClientInterface {
   Videos: Video[];
 }
 type Props = {};
+type LocationState = {
+  client: ClientInterface;
+  allVideos: Video[];
+};
 const EditClient: React.FC<Props> = () => {
-  type LocationState = {
-    client: ClientInterface;
-    allVideos: Video[];
-  };
   const navigate = useNavigate();
-  const location = useLocation();
-  const { client, allVideos } = location.state as LocationState;
+  const location: H.Location = useLocation();
+
+  const { client, allVideos } = location.state as any;
+
   const { id } = useParams<string>();
 
   // Type Casting, then you can get the params passed via router

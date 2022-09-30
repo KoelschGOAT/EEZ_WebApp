@@ -21,7 +21,7 @@ const Landing: FC<Props> = ({}) => {
       />
       <div className="h-3/6">
         {viewMode === 1 ? (
-          <div className="flex flex-col items-center ">
+          <div className="flex flex-col items-center justify-center">
             <div className="flex ">
               <Card />
             </div>{' '}

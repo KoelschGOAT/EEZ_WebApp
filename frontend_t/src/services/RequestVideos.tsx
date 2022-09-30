@@ -17,29 +17,43 @@ export const getVideoValidator = z.object({
   text_de: z.string().max(2000),
   text_en: z.string().max(2000),
 });
-
 export function useGetCurrentClientVideos() {
-  return useQuery<Array<Video>>(['current-pc-videos'], async () => {
-    const res = await (
-      await fetch(
-        `http://${
-          import.meta.env.VITE_SERVER_ADDRESS
-        }/api/current-pc-videos`
-      )
-    ).json();
-    return res;
-  });
+  return useQuery<Array<Video>>(
+    ['current-pc-videos'],
+    async () => {
+      return await axios
+        .get(
+          `http://${
+            import.meta.env.VITE_SERVER_ADDRESS
+          }/api/current-pc-videos`
+        )
+        .then((res) => res.data);
+    },
+    {
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
 }
 export function useGetAllVideos() {
-  return useQuery<Array<Video>>(['all-videos'], async () => {
-    const res = await (
-      await fetch(
-        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-videos`
-      )
-    ).json();
-
-    return res;
-  });
+  return useQuery<Array<Video>>(
+    ['all-videos'],
+    async () => {
+      return await axios
+        .get(
+          `http://${
+            import.meta.env.VITE_SERVER_ADDRESS
+          }/api/all-videos`
+        )
+        .then((res) => res.data);
+    },
+    {
+      onError: (err) => {
+        console.log(err);
+      },
+    }
+  );
 }
 
 interface mutationInterface {

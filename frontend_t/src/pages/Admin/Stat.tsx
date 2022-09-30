@@ -8,55 +8,23 @@ import {
 } from '../../services/RequestClients';
 import Client, { Video } from '../../services/types';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
-interface Props2 {
-  videos: typeof getVideoValidator;
-  clients: typeof getClientValidator;
-  currentClient: typeof getClientValidator;
-  handleClick: Function;
-}
+
 interface Props {
   videos: Video[];
   clients: Client[];
-  currentClient: Client;
+
   setTab: (val: number) => void;
 }
 const Stat: React.FC<Props> = ({
   videos,
   clients,
-  currentClient,
+
   setTab,
 }) => {
   const navigate = useNavigate();
   return (
     <>
       <div className="stats bg-white shadow-xl flex flex-col lg:flex-row">
-        <div
-          onClick={() =>
-            navigate(`/EditClient/${currentClient?.id}`, {
-              state: { client: currentClient, allVideos: videos },
-            })
-          }
-          className="stat hover:bg-primary cursor-pointer"
-        >
-          <div className="stat-figure ">
-            <FcFilmReel size={'3em'} />
-          </div>
-          <div className="stat-title">
-            <LanguageDisplayer
-              de="Videos Für diesen Pc"
-              en="Videos for this Pc"
-            />
-          </div>
-          <div className="stat-value">
-            {currentClient?.Videos?.length}
-          </div>
-          <div className="stat-desc">
-            <LanguageDisplayer
-              de=" Anzahl der Videos für diesen PC"
-              en="Number of Videos for this PC"
-            />
-          </div>
-        </div>
         <div
           onClick={() => setTab(1)}
           className="stat hover:bg-primary cursor-pointer"
