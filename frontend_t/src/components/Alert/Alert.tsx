@@ -12,7 +12,11 @@ const Alert = ({ open, title, text, variant = 'error' }: Props) => {
   return (
     <>
       <Show condition={open}>
-        <div className={`alert alert-${variant} shadow-lg`}>
+        <div
+          className={`alert alert-${variant} ${
+            variant === 'warning' ? 'alert-warning' : null
+          } shadow-lg w-full`}
+        >
           <div>
             {variant === 'warning' && (
               <MdWarningAmber size={'1.5em'} />

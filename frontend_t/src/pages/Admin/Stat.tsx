@@ -10,14 +10,14 @@ import Client, { Video } from '../../services/types';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
 
 interface Props {
-  videos: Video[];
-  clients: Client[];
+  videoTotal: number;
+  clientsTotal: number;
 
   setTab: (val: number) => void;
 }
 const Stat: React.FC<Props> = ({
-  videos,
-  clients,
+  videoTotal: videos,
+  clientsTotal: clients,
 
   setTab,
 }) => {
@@ -35,7 +35,7 @@ const Stat: React.FC<Props> = ({
           <div className="stat-title ">
             <LanguageDisplayer de="Alle Clients" en="All Clients" />
           </div>
-          <div className="stat-value">{clients?.length}</div>
+          <div className="stat-value">{clients}</div>
           <div className="stat-desc">
             <LanguageDisplayer
               de="Gesamtanzahl aller Clients"
@@ -53,7 +53,7 @@ const Stat: React.FC<Props> = ({
           <div className="stat-title ">
             <LanguageDisplayer de="Alle Videos" en="All Videos" />
           </div>
-          <div className="stat-value">{videos?.length}</div>
+          <div className="stat-value">{videos}</div>
           <div className="stat-desc">
             <LanguageDisplayer
               de="Gesamtanzahl aller Videos"

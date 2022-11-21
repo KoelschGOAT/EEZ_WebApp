@@ -40,14 +40,7 @@ const Card = (props: Props) => {
         className="flex flex-col md
     :items-center xs:items-center lg:grid lg:grid-cols-3 lg:gap-6 lg:mb-6"
       > */}
-          {data.length === 0 && (
-            <Alert
-              variant="warning"
-              open
-              text="Keine Videos für diesen Client"
-              title="Achtung"
-            />
-          )}
+
           {data?.map((video) => (
             <div
               key={video.id}

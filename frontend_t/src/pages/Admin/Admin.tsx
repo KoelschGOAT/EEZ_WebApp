@@ -3,7 +3,7 @@ import { useGetAllClients } from '../../services/RequestClients';
 import { useGetAllVideos } from '../../services/RequestVideos';
 import NotFound from '../NotFound';
 import Clients from './Clients';
-import Sidebar from './Sidebar';
+import Sidebar2 from './Sidebar2';
 import Stat from './Stat';
 import Videos from './Videos';
 
@@ -25,8 +25,8 @@ const Admin = (props: Props) => {
     return (
       <>
         {/* Table Wrapper */}
-        <div className="table w-full">
-          <Sidebar handleClick={handleClick} tab={tab} />
+        <div className="table w-full h-screen">
+          <Sidebar2 handleClick={handleClick} tab={tab} />
           <div className="w-full h-full table-cell justify-center align-top">
             {allClients.isLoading || allVideos.isLoading ? (
               <div className="flex justify-center mt-5 items-center flex-col">
@@ -38,8 +38,8 @@ const Admin = (props: Props) => {
                 <div className="flex justify-center mt-5">
                   {allVideos.data && (
                     <Stat
-                      clients={allClients.data}
-                      videos={allVideos.data}
+                      clientsTotal={allClients.data.length}
+                      videoTotal={allVideos.data.length}
                       setTab={setTab}
                     />
                   )}
