@@ -20,7 +20,7 @@ function ButtonSwitcher({
           onClick={setState2}
           className={`${
             state === 2 ? 'text-accent' : null
-          }  gap-1 inline-flex items-center transition-colors duration-300 ease-in focus:outline-none hover:text-accent  rounded-l-full px-4 py-2 `}
+          }  gap-1 inline-flex items-center  focus:outline-none hover:text-gray-600  rounded-l-full px-4 py-2 `}
           id="slider"
         >
           <TbSlideshow size="2.5em" />
