@@ -39,9 +39,9 @@ const Sidebar2 = ({ handleClick, tab }: Props) => {
               )}
             </Link>
             <a
-              onClick={() => handleClick(1)}
+              onClick={() => handleClick(2)}
               className={`flex  justify-center items-center w-full h-12 px-3 lg:px-10 mt-2 ${
-                tab === 1 ? 'text-gray-200 bg-gray-700' : null
+                tab === 2 ? 'text-gray-200 bg-gray-700' : null
               } rounded hover:bg-gray-700 hover:text-gray-300`}
               href={'#'}
             >
@@ -53,9 +53,9 @@ const Sidebar2 = ({ handleClick, tab }: Props) => {
               )}
             </a>
             <a
-              onClick={() => handleClick(2)}
+              onClick={() => handleClick(1)}
               className={`flex  justify-center items-center px-3 w-full h-12 lg:px-10 mt-2 ${
-                tab === 2 ? 'text-gray-200 bg-gray-700' : null
+                tab === 1 ? 'text-gray-200 bg-gray-700' : null
               } rounded hover:bg-gray-700 hover:text-gray-300`}
               href="#"
             >
