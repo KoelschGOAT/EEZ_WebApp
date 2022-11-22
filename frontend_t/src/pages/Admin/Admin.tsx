@@ -60,5 +60,10 @@ const Admin = (props: Props) => {
         </div>
       </>
     );
+  return (
+    <div className="w-full flex justify-center items-center h-screen">
+      <progress className="progress w-56 "></progress>
+    </div>
+  );
 };
 export default Admin;
