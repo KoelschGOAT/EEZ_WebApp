@@ -21,14 +21,10 @@ const Stat: React.FC<Props> = ({
 
   setTab,
 }) => {
-  const navigate = useNavigate();
   return (
     <>
       <div className="stats bg-white shadow-xl flex flex-col lg:flex-row">
-        <div
-          onClick={() => setTab(1)}
-          className="stat hover:bg-primary cursor-pointer"
-        >
+        <div onClick={() => setTab(1)} className="stat">
           <div className="stat-figure ">
             <FcMultipleDevices size="3em" />
           </div>
@@ -43,10 +39,7 @@ const Stat: React.FC<Props> = ({
             />
           </div>
         </div>{' '}
-        <div
-          onClick={() => setTab(2)}
-          className="stat hover:bg-primary cursor-pointer"
-        >
+        <div onClick={() => setTab(2)} className="stat  ">
           <div className="stat-figure ">
             <FcFilmReel size={'3em'} />
           </div>
