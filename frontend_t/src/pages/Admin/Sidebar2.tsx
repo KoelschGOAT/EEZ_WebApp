@@ -8,6 +8,7 @@ import { GiWindTurbine } from 'react-icons/gi';
 import { MdDashboard } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import useMediaQuery from '../../components/Hooks/useMediaQuery';
+
 import LanguageSwitcher from '../../utils/Language/Language/LanguageSwitcher';
 interface Props {
   handleClick: (num: number) => void;
@@ -22,7 +23,8 @@ const Sidebar2 = ({ handleClick, tab }: Props) => {
           className="flex  justify-center items-center w-full px-3 mt-3 lg:px-10"
           href="#"
         >
-          <MdDashboard size="2em" color="grey" />
+          <MdDashboard size="2em" />
+
           {isMobile && (
             <span className="ml-2 text-sm font-bold ">Dashboard</span>
           )}
