@@ -1,11 +1,18 @@
 import { useState } from 'react';
+import { BiSearch, BiVideo } from 'react-icons/bi';
+import { BsBack, BsBackspace, BsServer } from 'react-icons/bs';
+import { IoMdAdd, IoMdArrowBack } from 'react-icons/io';
+import { MdAdd } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import VideoAdmin from '../../components/Card/VideoAdmin';
+import Searchbar from '../../components/Inputs/Searchbar';
+import preloader from '../../Images/preloader.gif';
 import { useGetAllClients } from '../../services/RequestClients';
 import { useGetAllVideos } from '../../services/RequestVideos';
 import NotFound from '../NotFound';
 import Clients from './Clients';
 import Sidebar2 from './Sidebar2';
 import Stat from './Stat';
-import Videos from './Videos';
 
 type Props = {};
 
@@ -17,7 +24,11 @@ const Admin = (props: Props) => {
   const handleClick = (num: number) => {
     setTab(num);
   };
-
+  const tabs = [
+    ['Dashboard'],
+    ['Clients', '/NewClient'],
+    ['Videos', '/NewVideo'],
+  ];
   if (allClients.isError || allVideos.isError)
     return <NotFound path="/" />;
 
@@ -28,41 +39,54 @@ const Admin = (props: Props) => {
         <div className="table w-full h-screen">
           <Sidebar2 handleClick={handleClick} tab={tab} />
           <div className="w-full h-full table-cell justify-center align-top">
-            {allClients.isLoading || allVideos.isLoading ? (
-              <div className="flex justify-center mt-5 items-center flex-col">
-                Einen Augenblick...
-                <progress className="mt-5 progress w-56 align-center"></progress>
-              </div>
-            ) : (
-              <>
-                <div className="flex justify-center mt-5">
-                  {allVideos.data && (
-                    <Stat
-                      clientsTotal={allClients.data.length}
-                      videoTotal={allVideos.data.length}
-                      setTab={setTab}
-                    />
-                  )}
-                </div>
+            <div className="w-full flex h-20 mt-5 justify-center">
+              <div className="w-[85%] shadow-lg rounded flex justify-between items-center px-5 border-white">
+                <Link
+                  to="/"
+                  className="flex flex-row items-center gap-1 divide-x-2  hover:bg-gray-700 p-2 hover:text-gray-300 rounded cursor-pointer"
+                >
+                  <IoMdArrowBack size={'2em'} />
 
-                <div className="flex mt-10 justify-center ">
-                  {tab === 1 && allClients.data && allVideos.data && (
-                    <Clients
-                      allVideos={allVideos.data}
-                      allClients={allClients.data}
-                    />
-                  )}
-                  {tab === 2 && <Videos />}
+                  <div>Zurück zur Videoübersicht</div>
+                </Link>
+              </div>
+            </div>
+
+            <div className="flex justify-center w-full mt-5">
+              <div className="w-[85%] flex justify-between">
+                <h1 className="text-[2.5rem]  font-weigt-700">
+                  {tabs[tab][0]}
+                </h1>
+                <span>
+                  <Link to={tabs[tab][1]} className="btn btn-outline">
+                    <IoMdAdd size="2em" />
+                  </Link>
+                </span>
+              </div>
+            </div>
+
+            <div className="flex mt-10 justify-center w-full ">
+              {tab === 1 && (
+                <Clients
+                  allVideos={allVideos.data}
+                  allClients={allClients.data}
+                />
+              )}
+              {tab === 2 && (
+                <div className="w-[85%]">
+                  <VideoAdmin Videos={allVideos.data} />
                 </div>
-              </>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </>
     );
   return (
-    <div className="w-full flex justify-center items-center h-screen">
-      <progress className="progress w-56 "></progress>
+    <div className="flex justify-center mt-5 items-center flex-col">
+      Einen Augenblick...
+      <progress className="mt-5 progress w-56 items-center"></progress>
+      <img className="" width="64" src={preloader}></img>
     </div>
   );
 };

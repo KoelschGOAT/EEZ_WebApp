@@ -30,6 +30,7 @@ export default function MuiTable({ allClients, allVideos }: Props) {
       headerAlign: 'center',
 
       flex: 1,
+      disableColumnMenu: true,
     },
     {
       field: 'ip_address',
@@ -38,8 +39,10 @@ export default function MuiTable({ allClients, allVideos }: Props) {
       align: 'center',
       headerAlign: 'center',
       minWidth: 100,
+      disableColumnMenu: true,
     },
     {
+      disableColumnMenu: true,
       field: 'is_expo_client',
       align: 'center',
       headerName: 'Ausstellungs Client',
@@ -49,9 +52,12 @@ export default function MuiTable({ allClients, allVideos }: Props) {
       minWidth: 100,
     },
     {
+      disableColumnMenu: true,
       field: 'client_video_number',
       headerName: 'Anzahl Videos',
       headerAlign: 'center',
+      filterable: false,
+
       type: 'number',
       align: 'center',
       minWidth: 100,
@@ -61,6 +67,7 @@ export default function MuiTable({ allClients, allVideos }: Props) {
       },
     },
     {
+      disableColumnMenu: true,
       field: 'Bearbeiten',
       align: 'center',
       minWidth: 100,

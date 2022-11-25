@@ -222,7 +222,7 @@ const AddVideo: React.FC<Props> = () => {
                 ></Input>
 
                 <div className="flex justify-left items-center mt-7 gap-5"></div>
-                <button type="submit" className={`btn btn-primary`}>
+                <button type="submit" className={`btn btn-primary `}>
                   Video erstellen
                 </button>
               </>

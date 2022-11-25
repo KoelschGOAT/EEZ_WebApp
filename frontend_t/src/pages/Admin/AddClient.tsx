@@ -8,6 +8,7 @@ import Input from '../../components/Inputs/Input';
 
 import Alert from '../../components/Alert/Alert';
 import { usePostClients } from '../../services/RequestClients';
+import { useGetAllVideos } from '../../services/RequestVideos';
 
 export const getVideoValidator = z.object({
   id: z.number(),
@@ -34,28 +35,32 @@ export const getClientValidator = z.object({
   Videos: z.array(getVideoValidator),
 });
 
-interface ClientInterface {
-  id: number;
-  ip_address: string;
-  pc_name: string;
-  is_expo_client: boolean;
-  Videos: Video[];
-}
-type Props = {};
-const AddClient: React.FC<Props> = () => {
-  type LocationState = {
-    allVideos: Video[];
-  };
+export const AddClient = () => {
+  const { data, isLoading } = useGetAllVideos();
+  if (data) return <AddClientService Videos={data} />;
+  if (isLoading)
+    return <progress className="progress w-56"></progress>;
+  return (
+    <Alert
+      variant="error"
+      open={true}
+      title="Fehler!"
+      text="Fehler beim Laden der Videos"
+    />
+  );
+};
+type Props = { Videos: Video[] };
+const AddClientService = ({ Videos }: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { allVideos } = location.state as LocationState;
+
   // Type Casting, then you can get the params passed via router
   const [open, setOpen] = useState(false);
 
   const [clientName, setClientName] = useState('');
   const [clientIpAddress, setClientIpAddress] = useState('');
   const [isExpoClient, setIsExpoClient] = useState(false);
-  const [clientVideos, setClientVideos] = useState(allVideos);
+  const [clientVideos, setClientVideos] = useState(Videos);
 
   //UPDATE client Logic
   const handleSuccess = () => {
@@ -99,13 +104,6 @@ const AddClient: React.FC<Props> = () => {
     postClient.mutate({ formData: formData });
   }
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <>
       <div className="flex justify-center ">
@@ -147,7 +145,7 @@ const AddClient: React.FC<Props> = () => {
             <CheckboxList
               clientVideos={clientVideos}
               setClientVideos={setClientVideos}
-              allVideos={allVideos}
+              allVideos={Videos}
             />{' '}
             <div className="flex justify-left items-center mt-7 gap-5">
               <button
@@ -160,15 +158,6 @@ const AddClient: React.FC<Props> = () => {
               </button>
             </div>
           </form>
-          {/* <AlertDialog
-            title_de={`${client?.pc_name}`}
-            title_en={`${client?.pc_name}`}
-            text_en={`do you really want to delete ${client?.pc_name}? `}
-            text_de={`Willst du ${client?.pc_name} wirklich löschen?`}
-            handleClose={() => handleClose}
-            handleSubmit={() => handleDelete}
-            open={open}
-          ></AlertDialog> */}
         </div>
       </div>
     </>
