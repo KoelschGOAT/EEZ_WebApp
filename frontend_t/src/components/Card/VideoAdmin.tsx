@@ -3,6 +3,10 @@ import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { Video } from '../../services/types';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
+import {
+  useDeleteVideos,
+
+} from '../../services/RequestVideos';
 type Props = {
   Videos: Video[];
 };
