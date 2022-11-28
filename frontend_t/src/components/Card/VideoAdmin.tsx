@@ -9,6 +9,25 @@ type Props = {
 
 const VideoAdmin = ({ Videos }: Props) => {
   const navigate = useNavigate();
+ 
+  const handleError = () => {
+    console.log('Error');
+  };
+  const deleteVideo = useDeleteVideos({
+    config: {
+  
+      onError: handleError,
+    },
+  });
+  const handleDelete = (
+    event: React.MouseEvent<HTMLButtonElement>,id:string
+  ) => {
+    event.preventDefault();
+    
+    deleteVideo.mutate({ videoId: id }) ;
+  };
+ 
+  
   return (
     <>
       <div className="flex flex-col items-center gap-3 lg:items-stretch lg:grid lg:grid-cols-3 lg:gap-7 lg:mb-6">
@@ -46,7 +65,7 @@ const VideoAdmin = ({ Videos }: Props) => {
                   <AiOutlineEdit size="2.5em" />
                   <LanguageDisplayer de="Bearbeiten" en="edit" />
                 </button>
-                <button className="btn btn-outline  hover:text-red-400 gap-1">
+                <button className="btn btn-outline  hover:text-red-400 gap-1" onClick={()=>handleDelete(video.id)}>
                   <AiOutlineDelete size="2.5em" />
                 </button>
               </div>
