@@ -120,7 +120,6 @@ const AddClientService = ({ Videos }: Props) => {
           'Falsche Eingabe oder Name und IP-Adresse exestieren bereits',
       });
   }, [postClient.isError]);
-  console.log(postClient.error?.response?.data);
 
   return (
     <>
