@@ -3,7 +3,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
 import Client from './types';
 const fetchData = async (url: string) => {
@@ -156,10 +156,12 @@ export function usePostClients({ config }: configInterface) {
   const queryClient = useQueryClient();
   return useMutation(
     async ({ formData }: PostClients) => {
-      await axios.post(
-        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-pcs`,
-        formData
-      );
+      await axios
+        .post(
+          `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-pcs`,
+          formData
+        )
+        .then((resp) => resp.data);
     },
     {
       onSuccess: () => {
@@ -169,9 +171,8 @@ export function usePostClients({ config }: configInterface) {
         //wait for closing to display success
         config.onSuccess();
       },
-      onError: () => {
-        config.onError();
-        console.log('error');
+      onError: (error: AxiosError) => {
+        console.log(error?.response?.data);
       },
     }
   );

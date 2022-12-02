@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import Client, { Video } from '../../services/types';
@@ -34,7 +34,15 @@ export const getClientValidator = z.object({
   is_expo_client: z.boolean(),
   Videos: z.array(getVideoValidator),
 });
-
+type errorPC = {
+  pcName: Array<string>;
+};
+type errorIP = {
+  ip_address: Array<string>;
+};
+type errorMe = {
+  data: errorPC | errorIP | undefined;
+};
 export const AddClient = () => {
   const { data, isLoading } = useGetAllVideos();
   if (data) return <AddClientService Videos={data} />;
@@ -103,6 +111,16 @@ const AddClientService = ({ Videos }: Props) => {
     }
     postClient.mutate({ formData: formData });
   }
+
+  useEffect(() => {
+    if (postClient.error?.response?.data == 'ERR_BAD_REQUEST')
+      setInputError({
+        open: true,
+        message:
+          'Falsche Eingabe oder Name und IP-Adresse exestieren bereits',
+      });
+  }, [postClient.isError]);
+  console.log(postClient.error?.response?.data);
 
   return (
     <>

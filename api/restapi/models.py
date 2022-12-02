@@ -1,6 +1,6 @@
+from django.core.validators import validate_ipv4_address
 from django.db import models
 from django.utils import timezone
-from django.core.validators import validate_ipv4_address
 
 # Create your models here.
 
@@ -20,9 +20,9 @@ class Video(models.Model):
 
 
 class PC(models.Model):
-    pc_name = models.CharField(max_length=50, unique=True)
+    pc_name = models.CharField(max_length=50, unique=True,error_messages={"unique":"Dieser Name ist bereits vorhanden"})
     ip_address = models.CharField(
-        max_length=15, unique=True,validators=[validate_ipv4_address])
+        max_length=15, unique=True,validators=[validate_ipv4_address],error_messages={"unique":"Diese IP-Adresse ist bereits vorhanden"})
 
     Videos = models.ManyToManyField(Video,blank=True)
     is_expo_client = models.BooleanField(default=False)
