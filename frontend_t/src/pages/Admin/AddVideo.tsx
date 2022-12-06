@@ -6,6 +6,8 @@ import Input from '../../components/Inputs/Input';
 
 import Alert from '../../components/Alert/Alert';
 
+import { BiCheckCircle } from 'react-icons/bi';
+import Toast from '../../components/Toast';
 import { usePostVideos } from '../../services/RequestVideos';
 
 export const getVideoValidator = z.object({
@@ -49,6 +51,12 @@ const AddVideo: React.FC<Props> = () => {
 
   //UPDATE client Logic
   const handleSuccess = () => {
+    Toast({
+      text: 'Video erfolgreich gespeichert',
+      variant: 'success',
+      Icon: <BiCheckCircle />,
+      TTL: 30,
+    });
     navigate('/Admin');
   };
   const handleError = () => {

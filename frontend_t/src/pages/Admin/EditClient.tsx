@@ -11,7 +11,9 @@ import Client, { Video } from '../../services/types';
 import CheckboxList from '../../components/Inputs/CheckboxList';
 import Input from '../../components/Inputs/Input';
 
+import { BiCheckCircle } from 'react-icons/bi';
 import Alert from '../../components/Alert/Alert';
+import Toast from '../../components/Toast';
 import {
   useDeleteClients,
   usePatchClients,
@@ -82,6 +84,12 @@ const EditClient: React.FC<Props> = () => {
   );
   //UPDATE client Logic
   const handleSuccess = () => {
+    Toast({
+      text: 'Aktion erfolgreich',
+      variant: 'success',
+      Icon: <BiCheckCircle />,
+      TTL: 30,
+    });
     navigate('/Admin');
   };
   const handleError = () => {

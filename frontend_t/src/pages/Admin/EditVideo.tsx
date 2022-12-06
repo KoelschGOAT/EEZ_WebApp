@@ -9,8 +9,10 @@ import { Video } from '../../services/types';
 
 import Input from '../../components/Inputs/Input';
 
+import { BiCheckCircle } from 'react-icons/bi';
 import Alert from '../../components/Alert/Alert';
 import Collapse from '../../components/Collapse';
+import Toast from '../../components/Toast';
 import {
   useDeleteVideos,
   usePatchVideos,
@@ -72,6 +74,12 @@ const EditVideo: React.FC<Props> = () => {
   const [progress, setProgress] = useState(0);
   //UPDATE client Logic
   const handleSuccess = () => {
+    Toast({
+      text: 'Aktion erfolgreich durchgeführt',
+      variant: 'success',
+      Icon: <BiCheckCircle />,
+      TTL: 30,
+    });
     navigate('/Admin');
   };
   const handleError = () => {

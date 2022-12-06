@@ -6,7 +6,9 @@ import Client, { Video } from '../../services/types';
 import CheckboxList from '../../components/Inputs/CheckboxList';
 import Input from '../../components/Inputs/Input';
 
+import { BiCheckCircle } from 'react-icons/bi';
 import Alert from '../../components/Alert/Alert';
+import Toast from '../../components/Toast';
 import { usePostClients } from '../../services/RequestClients';
 import { useGetAllVideos } from '../../services/RequestVideos';
 
@@ -72,6 +74,12 @@ const AddClientService = ({ Videos }: Props) => {
 
   //UPDATE client Logic
   const handleSuccess = () => {
+    Toast({
+      text: 'Client erfolgreich hinzugefügt',
+      variant: 'success',
+      Icon: <BiCheckCircle />,
+      TTL: 30,
+    });
     navigate('/Admin');
   };
   const handleError = () => {
@@ -113,7 +121,7 @@ const AddClientService = ({ Videos }: Props) => {
   }
 
   useEffect(() => {
-    if (postClient.error?.response?.data == 'ERR_BAD_REQUEST')
+    if (postClient.error?.code == 'ERR_BAD_REQUEST')
       setInputError({
         open: true,
         message:
@@ -124,7 +132,7 @@ const AddClientService = ({ Videos }: Props) => {
   return (
     <>
       <div className="flex justify-center ">
-        <div className="mt-16 w-1/2 shadow-lg p-5 bg-white rounded">
+        <div className="mt-16 lg:w-1/2 w-[90%] shadow-lg p-5 bg-white rounded">
           <h1 className="prose-xl">Neuen Client erstellen</h1>
           <Alert
             open={inputError.open}

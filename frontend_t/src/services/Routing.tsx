@@ -12,6 +12,8 @@ import AddClient from '../pages/Admin/AddClient';
 import AddVideo from '../pages/Admin/AddVideo';
 
 import React, { Suspense } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/ReactToastify.min.css';
 import Admin from '../pages/Admin/Admin';
 import EditClient from '../pages/Admin/EditClient';
 import EditVideo from '../pages/Admin/EditVideo';
@@ -24,6 +26,7 @@ function Routing() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Navbar2 />
+        <ToastContainer position="top-right" newestOnTop />
         <Routes>
           <Route
             path="/EditClient/:id"
