@@ -1,37 +1,34 @@
 import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { useDeleteVideos } from '../../services/RequestVideos';
 import { Video } from '../../services/types';
 import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
-import {
-  useDeleteVideos,
-
-} from '../../services/RequestVideos';
 type Props = {
   Videos: Video[];
 };
 
 const VideoAdmin = ({ Videos }: Props) => {
   const navigate = useNavigate();
- 
+
   const handleError = () => {
     console.log('Error');
   };
   const deleteVideo = useDeleteVideos({
     config: {
-  
+      onSuccess() {},
       onError: handleError,
     },
   });
   const handleDelete = (
-    event: React.MouseEvent<HTMLButtonElement>,id:string
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: number
   ) => {
     event.preventDefault();
-    
-    deleteVideo.mutate({ videoId: id }) ;
+
+    deleteVideo.mutate({ videoId: id });
   };
- 
-  
+
   return (
     <>
       <div className="flex flex-col items-center gap-3 lg:items-stretch lg:grid lg:grid-cols-3 lg:gap-7 lg:mb-6">
@@ -69,7 +66,10 @@ const VideoAdmin = ({ Videos }: Props) => {
                   <AiOutlineEdit size="2.5em" />
                   <LanguageDisplayer de="Bearbeiten" en="edit" />
                 </button>
-                <button className="btn btn-outline  hover:text-red-400 gap-1" onClick={()=>handleDelete(video.id)}>
+                <button
+                  className="btn btn-outline  hover:text-red-400 gap-1"
+                  onClick={(e) => handleDelete(e, video.id)}
+                >
                   <AiOutlineDelete size="2.5em" />
                 </button>
               </div>
