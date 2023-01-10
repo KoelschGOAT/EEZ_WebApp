@@ -11,7 +11,6 @@ import Navbar2 from '../components/Navbar/Navbar2';
 import AddClient from '../pages/Admin/AddClient';
 import AddVideo from '../pages/Admin/AddVideo';
 
-import React, { Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/ReactToastify.min.css';
 import Admin from '../pages/Admin/Admin';

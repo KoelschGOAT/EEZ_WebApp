@@ -1,11 +1,10 @@
-import React from 'react';
 import preloader from '../../Images/preloader.gif';
 
 type Props = {};
 
 const Enercon_Footer = ({}: Props) => {
   return (
-    <div className="h-32">
+    <div className="h-32 fixed bottom-0  w-full">
       <div className="h-1/3">
         <div className="h-1/2 bg-[#d2e9e0]"></div>
         <div className="h-1/2 bg-[#84b1a1] "></div>
