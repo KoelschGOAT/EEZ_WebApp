@@ -2,10 +2,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Enercon_Footer from '../components/Footer/Enercon_Footer';
 
 import Navbar2 from '../components/Navbar/Navbar2';
 import AddClient from '../pages/Admin/AddClient';
@@ -42,9 +40,9 @@ function Routing() {
           <Route path="/video" element={<Video />}></Route>
           <Route path="*" element={<NotFound path="/" />}></Route>
         </Routes>
-        <Enercon_Footer />
+        {/* <Enercon_Footer /> */}
       </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }

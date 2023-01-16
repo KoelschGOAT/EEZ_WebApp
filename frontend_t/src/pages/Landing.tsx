@@ -1,7 +1,8 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import Card from '../components/Card/Card';
 import Caroussel from '../components/Caroussel';
-import ButtonSwitcher from '../components/Inputs/ButtonSwitcher';
+import LanguageDisplayer from '../utils/Language/Language/LanguageDisplayer';
 
 type Props = {};
 
@@ -12,14 +13,10 @@ const Landing: FC<Props> = ({}) => {
   return (
     <>
       <h1 className="mt-3 mb-3 text-xl text-center font-bold ">
-        Video Übersicht
+        <LanguageDisplayer de="Video Übersicht" en="Video overview" />
       </h1>
-      <ButtonSwitcher
-        state={viewMode}
-        setState1={setState1}
-        setState2={setState2}
-      />
-      <div className="h-3/6">
+
+      <div className="h-3/6 mt-16">
         {viewMode === 1 ? (
           <div className="flex flex-col items-center justify-center">
             <div className="flex ">
@@ -30,6 +27,7 @@ const Landing: FC<Props> = ({}) => {
           <Caroussel />
         )}
       </div>
+      <Outlet />
     </>
   );
 };

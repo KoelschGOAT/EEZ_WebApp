@@ -1,7 +1,5 @@
-import React from 'react';
 import { FcBusinessman } from 'react-icons/fc';
 import { IoMdArrowBack } from 'react-icons/io';
-import { MdAdminPanelSettings } from 'react-icons/md';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import enercon_logo from '../../Images/enercon_logo.png';
 import { useGetCurrentClient } from '../../services/RequestClients';
@@ -16,7 +14,6 @@ const Navbar2 = (props: Props) => {
   const navigate = useNavigate();
 
   const currentClient = useGetCurrentClient();
-  console.log(currentClient.data);
   if (!location.pathname.toLowerCase().includes('/admin'))
     return (
       <div
@@ -71,7 +68,7 @@ const Navbar2 = (props: Props) => {
           </Show>
         </div>
 
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-center flex">
           <ul className="menu menu-horizontal gap-1 p-0">
             {/* Language Switcher */}
             <li tabIndex={0}>

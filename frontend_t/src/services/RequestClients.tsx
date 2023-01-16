@@ -49,7 +49,11 @@ export function useGetCurrentClient() {
         .then((res) => res.data);
     },
     {
-      onError(err) {},
+      onError() {
+        console.log('Error');
+      },
+      //2 Minutes to refresh
+      staleTime: 60 * 2000,
     }
   );
 }
@@ -102,10 +106,12 @@ export function usePatchClients({ config }: configInterface) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries([
-          'all-pcs',
-          'current-pc-videos',
-        ]);
+        queryClient.invalidateQueries({ queryKey: ['all-pcs'] });
+        queryClient.refetchQueries({ queryKey: ['current-pc'] });
+        queryClient.invalidateQueries({
+          queryKey: ['current-pc-videos'],
+        });
+
         //wait for closing to display success
 
         config.onSuccess();

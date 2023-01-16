@@ -1,11 +1,8 @@
 import { UseQueryResult } from '@tanstack/react-query';
-import React, { useState } from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { z } from 'zod';
 import {
-  getVideoValidator,
   useGetAllVideos,
   useGetCurrentClientVideos,
 } from '../../services/RequestVideos';
@@ -40,7 +37,14 @@ const Card = (props: Props) => {
         className="flex flex-col md
     :items-center xs:items-center lg:grid lg:grid-cols-3 lg:gap-6 lg:mb-6"
       > */}
-
+          {data?.length === 0 && (
+            <h2>
+              <LanguageDisplayer
+                en="No Videos for this device"
+                de="Keine Videos für dieses Gerät"
+              />
+            </h2>
+          )}
           {data?.map((video) => (
             <div
               key={video.id}
@@ -53,7 +57,7 @@ const Card = (props: Props) => {
                   }
                 );
               }}
-              className="card  w-[90%] hover:shadow-2xl cursor-pointer lg:w-96 bg-base-100 shadow-xl"
+              className="card  w-[90%] hover:shadow-2xl cursor-pointer lg:w-72 text-md bg-base-100 shadow-xl"
             >
               <figure>
                 <img

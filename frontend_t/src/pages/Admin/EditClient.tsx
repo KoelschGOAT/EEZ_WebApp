@@ -11,6 +11,7 @@ import Client, { Video } from '../../services/types';
 import CheckboxList from '../../components/Inputs/CheckboxList';
 import Input from '../../components/Inputs/Input';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { BiCheckCircle } from 'react-icons/bi';
 import Alert from '../../components/Alert/Alert';
 import Toast from '../../components/Toast';
@@ -59,6 +60,7 @@ type LocationState = {
 };
 const EditClient: React.FC<Props> = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const location: H.Location = useLocation();
 
   const { client, allVideos } = location.state as any;
@@ -90,6 +92,7 @@ const EditClient: React.FC<Props> = () => {
       Icon: <BiCheckCircle />,
       TTL: 30,
     });
+    queryClient.invalidateQueries({ queryKey: ['current-pc'] });
     navigate('/Admin');
   };
   const handleError = () => {

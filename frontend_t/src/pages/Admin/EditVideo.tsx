@@ -60,7 +60,7 @@ const EditVideo: React.FC<Props> = () => {
     open: false,
     message: '',
   });
-
+  const [modalOpen, setModalOpen] = useState(false);
   const [videoString, setVideoString] = useState(video.video ?? '');
   const [screenshot, setScreenshot] = useState(
     video.screenshot ?? ''
@@ -169,11 +169,13 @@ const EditVideo: React.FC<Props> = () => {
 
     setScreenshotFile(fileList[0]);
   };
-
+  console.log(
+    `http://${import.meta.env.VITE_SERVER_ADDRESS}${video.video}`
+  );
   return (
     <>
       <div className="flex justify-center ">
-        <div className="mt-16 w-1/2 shadow-lg p-5 bg-white rounded">
+        <div className="mt-16 lg:w-1/2 shadow-lg p-5 bg-white rounded">
           <h1 className="prose-xl">
             Einstelleungen für{' '}
             <span className="text-secondary">{video.title_de}</span>
@@ -200,23 +202,14 @@ const EditVideo: React.FC<Props> = () => {
               <>
                 <Collapse
                   defaultState={false}
-                  width="self-center w-[90%] lg:w-full max-h-fit  "
+                  width="self-center w-full max-h-fit  "
                   title="Video"
                 >
-                  <video
-                    autoPlay
-                    loop
-                    poster={`http://${
+                  <iframe
+                    src={`http://${
                       import.meta.env.VITE_SERVER_ADDRESS
-                    }${video.screenshot}`}
-                  >
-                    <source
-                      src={`http://${
-                        import.meta.env.VITE_SERVER_ADDRESS
-                      }${video.video}`}
-                      type="video/*"
-                    />
-                  </video>{' '}
+                    }${video.video}`}
+                  ></iframe>{' '}
                   <label
                     htmlFor="videoFile"
                     className="form-label inline-block mb-2 text-primary mt-5"
@@ -245,7 +238,6 @@ const EditVideo: React.FC<Props> = () => {
                   width="self-center w-[90%] lg:w-full max-h-fit "
                   title="Screenshot"
                 >
-                  {/*  <Table mapObj={allClients} /> */}
                   <figure>
                     <img
                       src={`http://${
@@ -331,17 +323,8 @@ const EditVideo: React.FC<Props> = () => {
               </>
             )}
           </form>
-          {/* <AlertDialog
-            title_de={`${client?.pc_name}`}
-            title_en={`${client?.pc_name}`}
-            text_en={`do you really want to delete ${client?.pc_name}? `}
-            text_de={`Willst du ${client?.pc_name} wirklich löschen?`}
-            handleClose={() => handleClose}
-            handleSubmit={() => handleDelete}
-            open={open}
-          ></AlertDialog> */}
         </div>
-      </div>
+      </div>{' '}
     </>
   );
 };

@@ -1,0 +1,11 @@
+FROM node:19.4.0
+
+WORKDIR /frontend_t
+
+COPY . .
+
+RUN npm install
+
+EXPOSE 5173
+
+CMD ["npm", "run","dev"]

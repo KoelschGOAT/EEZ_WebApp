@@ -1,18 +1,13 @@
 import { useState } from 'react';
-import { BiSearch, BiVideo } from 'react-icons/bi';
-import { BsBack, BsBackspace, BsServer } from 'react-icons/bs';
 import { IoMdAdd, IoMdArrowBack } from 'react-icons/io';
-import { MdAdd } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import VideoAdmin from '../../components/Card/VideoAdmin';
-import Searchbar from '../../components/Inputs/Searchbar';
 import preloader from '../../Images/preloader.gif';
 import { useGetAllClients } from '../../services/RequestClients';
 import { useGetAllVideos } from '../../services/RequestVideos';
 import NotFound from '../NotFound';
 import Clients from './Clients';
 import Sidebar2 from './Sidebar2';
-import Stat from './Stat';
 
 type Props = {};
 
@@ -41,14 +36,14 @@ const Admin = (props: Props) => {
           <div className="w-full h-full table-cell justify-center align-top">
             <div className="w-full flex h-20 mt-5 justify-center">
               <div className="w-[85%] shadow-lg rounded flex justify-between items-center px-5 border-white">
-                <Link
+                <NavLink
                   to="/"
                   className="flex flex-row items-center gap-1 divide-x-2  hover:bg-gray-700 p-2 hover:text-gray-300 rounded cursor-pointer"
                 >
                   <IoMdArrowBack size={'2em'} />
 
                   <div>Zurück zur Videoübersicht</div>
-                </Link>
+                </NavLink>
               </div>
             </div>
 
