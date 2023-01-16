@@ -2,7 +2,7 @@ FROM node:19.4.0
 
 WORKDIR /frontend_t
 
-COPY . .
+COPY package*.json ./
 
 RUN npm install
 
