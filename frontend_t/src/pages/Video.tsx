@@ -33,36 +33,53 @@ const Video = () => {
     <>
       <div className="flex  ml-7 my-7 min-h-fit min-w-fit">
         <div className=" flex flex-col lg:flex-row gap-5 ">
-          <video
-            className="w-[90%] lg:w-[60rem] h-auto"
-            autoPlay
-            loop
-            poster={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
-              video.screenshot
-            }`}
-          >
-            <source
-              src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
-                video.video
-              }`}
-              type="video/webm"
-            />
-          </video>
-
-          <div className="w-full">
-            <h1 className="text-5xl  w-fit font-bold">
-              <LanguageDisplayer
-                de={video.title_de}
-                en={video.title_en}
-              />
-            </h1>
-            <p className="py-6 w-[90%] lg:w-[30rem]">
-              <LanguageDisplayer
-                de={video.text_de}
-                en={video.text_en}
-              />
-            </p>
-          </div>
+          {video.video.endsWith('.svg') ? (
+            <>
+              {' '}
+              <div className=" flex justify-center items-center ">
+                <div className="w-[85%] ">
+                  <img
+                    className=""
+                    src={`http://${
+                      import.meta.env.VITE_SERVER_ADDRESS
+                    }${video.video}`}
+                  ></img>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <video
+                className="w-[90%] lg:w-[60rem] h-auto"
+                autoPlay
+                loop
+                poster={`http://${
+                  import.meta.env.VITE_SERVER_ADDRESS
+                }${video.screenshot}`}
+              >
+                <source
+                  src={`http://${
+                    import.meta.env.VITE_SERVER_ADDRESS
+                  }${video.video}`}
+                  type="Video/webm"
+                />
+              </video>
+              <div className="w-full">
+                <h1 className="text-5xl  w-fit font-bold">
+                  <LanguageDisplayer
+                    de={video.title_de}
+                    en={video.title_en}
+                  />
+                </h1>
+                <p className="py-6 w-[90%] lg:w-[30rem]">
+                  <LanguageDisplayer
+                    de={video.text_de}
+                    en={video.text_en}
+                  />
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
