@@ -1,4 +1,3 @@
-import * as H from 'history';
 import React, { useState } from 'react';
 import {
   useLocation,
@@ -12,6 +11,7 @@ import CheckboxList from '../../components/Inputs/CheckboxList';
 import Input from '../../components/Inputs/Input';
 
 import { useQueryClient } from '@tanstack/react-query';
+import { useTitle } from 'ahooks';
 import { BiCheckCircle } from 'react-icons/bi';
 import Alert from '../../components/Alert/Alert';
 import Toast from '../../components/Toast';
@@ -61,7 +61,7 @@ type LocationState = {
 const EditClient: React.FC<Props> = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const location: H.Location = useLocation();
+  const location = useLocation();
 
   const { client, allVideos } = location.state as any;
 
@@ -73,7 +73,7 @@ const EditClient: React.FC<Props> = () => {
     open: false,
     message: '',
   });
-
+  useTitle('Client: ' + client.name);
   const [clientName, setClientName] = useState(client?.pc_name ?? '');
   const [clientIpAddress, setClientIpAddress] = useState(
     client?.ip_address ?? ''

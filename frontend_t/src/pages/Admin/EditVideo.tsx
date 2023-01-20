@@ -10,7 +10,9 @@ import { Video } from '../../services/types';
 
 import Input from '../../components/Inputs/Input';
 
+import { useTitle } from 'ahooks';
 import { BiCheckCircle } from 'react-icons/bi';
+import { BsFillPlayFill } from 'react-icons/bs';
 import Alert from '../../components/Alert/Alert';
 import Collapse from '../../components/Collapse';
 import Toast from '../../components/Toast';
@@ -61,7 +63,7 @@ const EditVideo: React.FC<Props> = () => {
     open: false,
     message: '',
   });
-  const [modalOpen, setModalOpen] = useState(false);
+  useTitle('Video: ' + video.title_de);
   const [videoString, setVideoString] = useState(video.video ?? '');
   const [screenshot, setScreenshot] = useState(
     video.screenshot ?? ''
@@ -201,39 +203,41 @@ const EditVideo: React.FC<Props> = () => {
               </>
             ) : (
               <>
-                <a
-                  href={`http://${
-                    import.meta.env.VITE_SERVER_ADDRESS
-                  }${video.video}`}
-                  className="text-primary"
-                  target="_blank"
+                <Collapse
+                  title="Video"
+                  defaultState={false}
+                  width="self-center w-[90%] lg:w-full max-h-fit "
                 >
-                  Zum Video
-                </a>
-                <div className="form-label inline-block mb-2 text-primary mt-5">
-                  Video ändern?
-                </div>
-                <input
-                  className="form-control  block    w-full    px-3    py-1.5 text-base
-    font-normal
-    text-gray-700
-    bg-white bg-clip-padding
-    border border-solid border-gray-300
-    rounded
-    transition
-    ease-in-out
-    m-0
-    focus:text-gray-700 focus:bg-white focus:border-accent focus:outline-none"
-                  type="file"
-                  id="videoFile"
-                  onChange={changeVideo}
-                  accept="video/*"
-                ></input>
-                <input
-                  type="file"
-                  className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-                />
-
+                  <div
+                    className="text-xl text-primary
+                  "
+                  >
+                    {video.video.substring(
+                      video.video.lastIndexOf('/') + 1
+                    )}
+                  </div>
+                  <a
+                    href={`http://${
+                      import.meta.env.VITE_SERVER_ADDRESS
+                    }${video.video}`}
+                    className=" btn btn-primary mt-5"
+                    target="_blank"
+                  >
+                    <BsFillPlayFill size="2.5em" /> Zum Video
+                  </a>{' '}
+                  <br />
+                  <div className="form-label inline-block mb-2 text-primary mt-5">
+                    Video ändern?
+                  </div>{' '}
+                  <br />
+                  <input
+                    type="file"
+                    className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                    id="videoFile"
+                    onChange={changeVideo}
+                    accept="video/*"
+                  />
+                </Collapse>
                 <Collapse
                   defaultState={false}
                   width="self-center w-[90%] lg:w-full max-h-fit "
@@ -248,27 +252,19 @@ const EditVideo: React.FC<Props> = () => {
                     />
                   </figure>
                   <label
-                    htmlFor="videoFile"
+                    htmlFor="imageFile"
                     className="form-label inline-block mb-2 text-primary mt-5"
                   >
                     Screenshot ändern?
                   </label>
+                  <br />
                   <input
-                    className="form-control  block    w-full    px-3    py-1.5 text-base
-    font-normal
-    text-gray-700
-    bg-white bg-clip-padding
-    border border-solid border-gray-300
-    rounded
-    transition
-    ease-in-out
-    m-0
-    focus:text-gray-700 focus:bg-white focus:border-accent focus:outline-none "
+                    className="file-input file-input-bordered file-input-primary w-full max-w-xs"
                     type="file"
                     id="videoFile"
                     onChange={changeScreenshot}
                     accept="image/*"
-                  ></input>
+                  />
                 </Collapse>
                 <Input
                   label="Deutscher Titel"
@@ -304,7 +300,6 @@ const EditVideo: React.FC<Props> = () => {
                   name="text_en"
                   placeholder="Text EN"
                 ></Input>
-
                 <div className="flex justify-left items-center mt-7 gap-5">
                   <button
                     type="submit"
