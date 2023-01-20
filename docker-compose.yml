@@ -10,10 +10,7 @@ services:
     networks:
       - web_net
   web:
-    build: 
-      context: ./frontend_t
-      args:
-        - VITE_SERVER_ADDRESS: "${attr.unique.network.ip-address}"
+    build: ./frontend_t
     ports:
       - "5173:5173"
     volumes:
