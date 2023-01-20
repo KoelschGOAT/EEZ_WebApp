@@ -24,7 +24,7 @@ const Navbar2 = (props: Props) => {
         <div className="navbar-start">
           <NavLink
             to="/"
-            className=" lg:navbar-start lg:flex hidden "
+            className=" lg:navbar-start lg:flex hidden ml-5"
           >
             <figure>
               {' '}
@@ -89,7 +89,7 @@ const Navbar2 = (props: Props) => {
             </Show>
           </ul>
         </div>
-        <div className="navbar-end hidden gap-3 lg:flex">
+        <div className="navbar-end hidden gap-3 lg:flex mr-5">
           <Show condition={location.pathname !== '/'}>
             <a
               className="btn btn-primary "
