@@ -36,28 +36,21 @@ const Admin = (props: Props) => {
           <div className="w-full h-full table-cell justify-center align-top">
             <div className="w-full flex h-20 mt-5 justify-center">
               <div className="w-[85%] shadow-lg rounded flex justify-between items-center px-5 border-white">
-                <NavLink
-                  to="/"
-                  className="flex flex-row items-center gap-1 divide-x-2  hover:bg-gray-700 p-2 hover:text-gray-300 rounded cursor-pointer"
-                >
-                  <IoMdArrowBack size={'2em'} />
-
-                  <div>Zurück zur Videoübersicht</div>
-                </NavLink>
-              </div>
-            </div>
-
-            <div className="flex justify-center w-full mt-5">
-              <div className="w-[85%] flex justify-between">
-                <h1 className="text-[2.5rem]  font-weigt-700">
-                  {tabs[tab][0]}
-                </h1>
-                <span>
-                  <Link to={tabs[tab][1]} className="btn btn-outline">
-                    <IoMdAdd size="2em" />
-                  </Link>
-                </span>
-              </div>
+                {' '}
+                <div className="flex justify-between w-full">
+                  <h1 className="text-[2.5rem]  font-weigt-700">
+                    {tabs[tab][0]}
+                  </h1>
+                  <span>
+                    <Link
+                      to={tabs[tab][1]}
+                      className="btn btn-outline"
+                    >
+                      <IoMdAdd size="2em" />
+                    </Link>
+                  </span>
+                </div>
+              </div>{' '}
             </div>
 
             <div className="flex mt-10 justify-center w-full ">

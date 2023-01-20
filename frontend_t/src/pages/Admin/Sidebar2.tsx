@@ -5,10 +5,12 @@ import {
 } from 'react-icons/ai';
 import { BiHome } from 'react-icons/bi';
 import { GiWindTurbine } from 'react-icons/gi';
+import { IoMdArrowBack } from 'react-icons/io';
 import { MdDashboard } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import useMediaQuery from '../../components/Hooks/useMediaQuery';
 import ENERCON_logo_einfach from '../../Images/ENERCON_logo_einfach.png';
+import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
 import LanguageSwitcher from '../../utils/Language/Language/LanguageSwitcher';
 interface Props {
   handleClick: (num: number) => void;
@@ -29,7 +31,7 @@ const Sidebar2 = ({ handleClick, tab }: Props) => {
           )}
         </a>
         <div className="w-full px-2">
-          <div className="flex flex-col items-center w-full mt-3 border-t border-gray-700">
+          <div className="flex flex-col  items-center w-full mt-3 border-t border-gray-700">
             <a
               onClick={() => handleClick(1)}
               className={`flex  justify-center items-center px-3 w-full h-12 lg:px-10 mt-2 ${
@@ -59,15 +61,26 @@ const Sidebar2 = ({ handleClick, tab }: Props) => {
               )}
             </a>
           </div>
-          <div className="flex flex-col items-center w-full mt-2 border-t border-gray-700">
-            <a
-              className="relative flex items-center w-full h-12 px-3 mt-2 lg:px-10 rounded hover:bg-gray-700 hover:text-gray-300"
-              href="#"
-            >
-              {' '}
-              <LanguageSwitcher className="flex flex-row gap-2  w-full" />{' '}
-            </a>
-          </div>
+          <div className="flex flex-col items-center w-full mt-2 border-t border-gray-700"></div>
+          <a
+            className="relative flex items-center w-full h-12 px-3 mt-2 lg:px-10 rounded hover:bg-gray-700 hover:text-gray-300"
+            href="#"
+          >
+            {' '}
+            <LanguageSwitcher className="flex flex-row gap-2  w-full" />{' '}
+          </a>
+          <div className="flex flex-col items-center w-full mt-2 border-t border-gray-700"></div>
+          <Link
+            className="relative flex items-center w-full h-12 px-3 mt-2 lg:px-10 rounded hover:bg-gray-700 hover:text-gray-300"
+            to="/"
+          >
+            {' '}
+            <IoMdArrowBack size={'3em'} />
+            <LanguageDisplayer
+              de="Zurück zur Übersicht"
+              en="Back to Home"
+            />
+          </Link>
         </div>
       </aside>
     </div>
