@@ -13,7 +13,7 @@ services:
     build: 
       context: ./frontend_t
       args:
-        - VITE_SERVER_ADDRESS: ${attr.unique.network.ip-address}
+        - VITE_SERVER_ADDRESS: "${attr.unique.network.ip-address}"
     ports:
       - "5173:5173"
     volumes:
