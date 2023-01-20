@@ -5,6 +5,9 @@ WORKDIR /frontend_t
 COPY package*.json ./
 
 RUN npm install
+ARG VITE_SERVER_ADDRESS
+
+ENV VITE_SERVER_ADDRESS $VITE_SERVER_ADDRESS
 
 COPY . . 
 
