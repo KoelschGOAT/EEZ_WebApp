@@ -17,7 +17,7 @@
     "@tanstack/react-query-devtools": "^4.2.3",
     "@tanstack/react-table": "^8.5.13",
     "axios": "^0.27.2",
-    "daisyui": "^2.24.0",
+    "daisyui": "^2.47.0",
     "material-ui-flags": "^1.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

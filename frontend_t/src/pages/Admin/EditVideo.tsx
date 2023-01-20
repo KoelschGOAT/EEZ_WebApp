@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Link,
   useLocation,
   useNavigate,
   useParams,
@@ -200,24 +201,20 @@ const EditVideo: React.FC<Props> = () => {
               </>
             ) : (
               <>
-                <Collapse
-                  defaultState={false}
-                  width="self-center w-full max-h-fit  "
-                  title="Video"
+                <a
+                  href={`http://${
+                    import.meta.env.VITE_SERVER_ADDRESS
+                  }${video.video}`}
+                  className="text-primary"
+                  target="_blank"
                 >
-                  <iframe
-                    src={`http://${
-                      import.meta.env.VITE_SERVER_ADDRESS
-                    }${video.video}`}
-                  ></iframe>{' '}
-                  <label
-                    htmlFor="videoFile"
-                    className="form-label inline-block mb-2 text-primary mt-5"
-                  >
-                    Video ändern?
-                  </label>
-                  <input
-                    className="form-control  block    w-full    px-3    py-1.5 text-base
+                  Zum Video
+                </a>
+                <div className="form-label inline-block mb-2 text-primary mt-5">
+                  Video ändern?
+                </div>
+                <input
+                  className="form-control  block    w-full    px-3    py-1.5 text-base
     font-normal
     text-gray-700
     bg-white bg-clip-padding
@@ -227,12 +224,16 @@ const EditVideo: React.FC<Props> = () => {
     ease-in-out
     m-0
     focus:text-gray-700 focus:bg-white focus:border-accent focus:outline-none"
-                    type="file"
-                    id="videoFile"
-                    onChange={changeVideo}
-                    accept="video/*"
-                  ></input>
-                </Collapse>
+                  type="file"
+                  id="videoFile"
+                  onChange={changeVideo}
+                  accept="video/*"
+                ></input>
+                <input
+                  type="file"
+                  className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                />
+
                 <Collapse
                   defaultState={false}
                   width="self-center w-[90%] lg:w-full max-h-fit "
