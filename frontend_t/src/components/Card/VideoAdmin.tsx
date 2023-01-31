@@ -35,7 +35,7 @@ const VideoAdmin = ({ Videos }: Props) => {
         {Videos.map((video) => (
           <div
             key={video.id}
-            className="card  w-[85%] hover:shadow-2xl cursor-pointer  bg-base-100 shadow-xl"
+            className="card  w-[85%] hover:shadow-2xl   bg-base-100 shadow-xl"
           >
             <figure>
               <img

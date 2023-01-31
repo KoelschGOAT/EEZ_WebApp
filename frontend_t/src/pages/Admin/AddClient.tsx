@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { z } from 'zod';
 import Client, { Video } from '../../services/types';
 
@@ -9,8 +13,12 @@ import Input from '../../components/Inputs/Input';
 import { BiCheckCircle } from 'react-icons/bi';
 import Alert from '../../components/Alert/Alert';
 import Toast from '../../components/Toast';
-import { usePostClients } from '../../services/RequestClients';
+import {
+  useGetClient,
+  usePostClients,
+} from '../../services/RequestClients';
 import { useGetAllVideos } from '../../services/RequestVideos';
+import NewClient from './NewClient';
 
 export const getVideoValidator = z.object({
   id: z.number(),
@@ -46,16 +54,27 @@ type errorMe = {
   data: errorPC | errorIP | undefined;
 };
 export const AddClient = () => {
-  const { data, isLoading } = useGetAllVideos();
-  if (data) return <AddClientService Videos={data} />;
-  if (isLoading)
+  const { id } = useParams<string>();
+
+  const getClient = useGetClient(id);
+
+  const getAllVideos = useGetAllVideos();
+
+  if (getAllVideos.data)
+    return (
+      <NewClient
+        Videos={getAllVideos.data}
+        Client={getClient?.data}
+      />
+    );
+  if (getAllVideos.isLoading || getClient?.isLoading)
     return <progress className="progress w-56"></progress>;
   return (
     <Alert
       variant="error"
       open={true}
       title="Fehler!"
-      text="Fehler beim Laden der Videos"
+      text="Fehler beim Laden"
     />
   );
 };

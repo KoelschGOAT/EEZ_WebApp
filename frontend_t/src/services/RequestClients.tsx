@@ -73,7 +73,8 @@ export function useGetAllClients() {
   );
 }
 export function useGetClient(id: string | undefined) {
-  return useQuery(['all-pcs'], async () => {
+  if (id === undefined) return;
+  return useQuery(['pc-by-id'], async () => {
     const res = await (
       await fetch(
         `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/pc/${id}`

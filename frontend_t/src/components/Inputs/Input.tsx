@@ -44,7 +44,7 @@ const Input = ({
           InputElement === 'textarea'
             ? 'textarea textarea-bordered'
             : null
-        } bg-base-100 placeholder-gray-700 border border-gray-300  text-sm text-gray-800 placeholder-primary rounded-lg focus:border-accent focus:border-blue-500 block w-full p-2.5`}
+        } bg-base-100  border border-gray-300  text-sm text-gray-800 placeholder-primary rounded-lg focus:border-accent  block w-full p-2.5`}
         {...rest}
       />
     </div>

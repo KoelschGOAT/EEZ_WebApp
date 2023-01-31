@@ -6,13 +6,12 @@ import {
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Navbar2 from '../components/Navbar/Navbar2';
-import AddClient from '../pages/Admin/AddClient';
 import AddVideo from '../pages/Admin/AddVideo';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/ReactToastify.min.css';
+import AddClient from '../pages/Admin/AddClient';
 import Admin from '../pages/Admin/Admin';
-import EditClient from '../pages/Admin/EditClient';
 import EditVideo from '../pages/Admin/EditVideo';
 import Landing from '../pages/Landing';
 import NotFound from '../pages/NotFound';
@@ -27,7 +26,7 @@ function Routing() {
         <Routes>
           <Route
             path="/EditClient/:id"
-            element={<EditClient />}
+            element={<AddClient />}
           ></Route>
           <Route
             path="/EditVideo/:id"

@@ -53,12 +53,8 @@ interface ClientInterface {
   is_expo_client: boolean;
   Videos: Video[];
 }
-type Props = {};
-type LocationState = {
-  client: ClientInterface;
-  allVideos: Video[];
-};
-const EditClient: React.FC<Props> = () => {
+
+const EditClient = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const location = useLocation();

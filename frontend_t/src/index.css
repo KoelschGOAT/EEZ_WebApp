@@ -2,6 +2,3 @@
  @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.btn:hover {
-    @apply translate-y-[-2px];
-  }
