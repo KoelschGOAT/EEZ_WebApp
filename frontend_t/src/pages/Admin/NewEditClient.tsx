@@ -43,7 +43,7 @@ interface Props {
 
   Videos: Video[];
 }
-export function NewClient({ Videos, Client }: Props) {
+export function NewEditClient({ Videos, Client }: Props) {
   const navigate = useNavigate();
   const [inputError, setInputError] = useState({
     open: false,
@@ -170,4 +170,4 @@ export function NewClient({ Videos, Client }: Props) {
     </div>
   );
 }
-export default NewClient;
+export default NewEditClient;

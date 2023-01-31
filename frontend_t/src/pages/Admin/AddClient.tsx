@@ -18,7 +18,7 @@ import {
   usePostClients,
 } from '../../services/RequestClients';
 import { useGetAllVideos } from '../../services/RequestVideos';
-import NewClient from './NewClient';
+import { NewEditClient } from './NewEditClient';
 
 export const getVideoValidator = z.object({
   id: z.number(),
@@ -62,7 +62,7 @@ export const AddClient = () => {
 
   if (getAllVideos.data)
     return (
-      <NewClient
+      <NewEditClient
         Videos={getAllVideos.data}
         Client={getClient?.data}
       />
