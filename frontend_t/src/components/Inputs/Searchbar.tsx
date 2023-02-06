@@ -1,5 +1,4 @@
-import React from 'react';
-import { BiSearch } from 'react-icons/bi';
+import React from "react";
 
 type Props = {
   inputQuery?: string;
@@ -9,16 +8,12 @@ type Props = {
   /** callback Function to set the input State */
 };
 
-const Searchbar = ({
-  inputQuery,
-  placeholder,
-  setInputQuery,
-}: Props) => {
+const Searchbar = ({ inputQuery, placeholder, setInputQuery }: Props) => {
   return (
-    <div className="my-4 relative hidden xl:flex items-center bg-transparent text-xs xl:text-base text-gray-900  dark:text-gray-100 w-full border-gray-200 dark:border-gray-700 border rounded-lg">
+    <div className="relative my-4 hidden w-full items-center rounded-lg border border-gray-200 bg-transparent  text-xs text-gray-900 dark:border-gray-700 dark:text-gray-100 xl:flex xl:text-base">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="icon icon-tabler icon-tabler-search ml-2 xl:ml-4 text-gray-900 dark:text-gray-100"
+        className="icon icon-tabler icon-tabler-search ml-2 text-gray-900 dark:text-gray-100 xl:ml-4"
         width="24"
         height="24"
         viewBox="0 0 24 24"
@@ -35,12 +30,12 @@ const Searchbar = ({
       <input
         placeholder="Search for components"
         id="componentSearch"
-        className="w-full focus:outline-none rounded-full px-2 xl:px-4  py-2 xl:py-4 placeholder-gray-900 dark:placeholder-gray-100 dark:bg-transparent"
+        className="w-full rounded-full px-2 py-2 placeholder-gray-900  focus:outline-none dark:bg-transparent dark:placeholder-gray-100 xl:px-4 xl:py-4"
         value=""
       />
       <label
         htmlFor="headerSearch"
-        className="absolute pointer-events-none opacity-0"
+        className="pointer-events-none absolute opacity-0"
       >
         Search
       </label>

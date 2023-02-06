@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useState } from "react";
 
 interface Props {
   title: string;
@@ -19,12 +19,12 @@ const Collapse: React.FC<Props> = ({
     <div
       tabIndex={0}
       className={`${width} collapse ${
-        open ? 'collapse-open' : 'collapse-close'
-      } collapse-arrow border border-base-300 bg-base-100 rounded-box mb-6 overflow-auto max-h-fit`}
+        open ? "collapse-open" : "collapse-close"
+      } collapse-arrow rounded-box mb-6 max-h-fit overflow-auto border border-base-300 bg-base-100`}
     >
       <div
         onClick={handleOpen}
-        className=" cursor-pointer collapse-title text-center text-xl font-medium"
+        className=" collapse-title cursor-pointer text-center text-xl font-medium"
       >
         {title}
       </div>

@@ -1,12 +1,7 @@
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
-import axios from 'axios';
-import { z } from 'zod';
-import fetchData from './RequestClients';
-import { Video } from './types';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { z } from "zod";
+import { Video } from "./types";
 export const getVideoValidator = z.object({
   id: z.number().optional(),
   video: z.string(),
@@ -19,13 +14,11 @@ export const getVideoValidator = z.object({
 });
 export function useGetCurrentClientVideos() {
   return useQuery<Array<Video>>(
-    ['current-pc-videos'],
+    ["current-pc-videos"],
     async () => {
       return await axios
         .get(
-          `http://${
-            import.meta.env.VITE_SERVER_ADDRESS
-          }/api/current-pc-videos`
+          `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/current-pc-videos`
         )
         .then((res) => res.data);
     },
@@ -38,14 +31,10 @@ export function useGetCurrentClientVideos() {
 }
 export function useGetAllVideos() {
   return useQuery<Array<Video>>(
-    ['all-videos'],
+    ["all-videos"],
     async () => {
       return await axios
-        .get(
-          `http://${
-            import.meta.env.VITE_SERVER_ADDRESS
-          }/api/all-videos`
-        )
+        .get(`http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-videos`)
         .then((res) => res.data);
     },
     {
@@ -70,19 +59,15 @@ export function usePatchVideos({ config }: configInterface) {
   return useMutation(
     async ({ videoId, formData, setProgress }: mutationInterface) => {
       await axios.patch(
-        `http://${
-          import.meta.env.VITE_SERVER_ADDRESS
-        }/api/video/${videoId}`,
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/video/${videoId}`,
         formData,
         {
           onUploadProgress: (progressEvent) => {
             const totalLength = progressEvent.lengthComputable
               ? progressEvent.total
-              : progressEvent.target.getResponseHeader(
-                  'content-length'
-                ) ||
+              : progressEvent.target.getResponseHeader("content-length") ||
                 progressEvent.target.getResponseHeader(
-                  'x-decompressed-content-length'
+                  "x-decompressed-content-length"
                 );
 
             if (totalLength !== null) {
@@ -99,16 +84,13 @@ export function usePatchVideos({ config }: configInterface) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries([
-          'all-videos',
-          'current-client-videos',
-        ]);
+        queryClient.invalidateQueries(["all-videos", "current-client-videos"]);
         //wait for closing to display success
         config.onSuccess();
       },
       onError: () => {
         config.onError();
-        console.log('error');
+        console.log("error");
       },
     }
   );
@@ -121,9 +103,7 @@ export function useDeleteVideos({ config }: configInterface) {
   return useMutation(
     async ({ videoId }: deleteInterface) => {
       await axios.delete(
-        `http://${
-          import.meta.env.VITE_SERVER_ADDRESS
-        }/api/video/${videoId}`
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/video/${videoId}`
       );
     },
 
@@ -131,13 +111,13 @@ export function useDeleteVideos({ config }: configInterface) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries(['all-videos']);
+        queryClient.invalidateQueries(["all-videos"]);
         //wait for closing to display success
         config.onSuccess();
       },
       onError: () => {
         config.onError();
-        console.log('error');
+        console.log("error");
       },
     }
   );
@@ -161,19 +141,15 @@ export function usePostVideos({ config }: configInterface) {
   return useMutation(
     async ({ formData, setProgress }: PostClients) => {
       await axios.post(
-        `http://${
-          import.meta.env.VITE_SERVER_ADDRESS
-        }/api/all-videos`,
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-videos`,
         formData,
         {
           onUploadProgress: (progressEvent) => {
             const totalLength = progressEvent.lengthComputable
               ? progressEvent.total
-              : progressEvent.target.getResponseHeader(
-                  'content-length'
-                ) ||
+              : progressEvent.target.getResponseHeader("content-length") ||
                 progressEvent.target.getResponseHeader(
-                  'x-decompressed-content-length'
+                  "x-decompressed-content-length"
                 );
 
             if (totalLength !== null) {
@@ -189,13 +165,13 @@ export function usePostVideos({ config }: configInterface) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries(['all-videos']);
+        queryClient.invalidateQueries(["all-videos"]);
         //wait for closing to display success
         config.onSuccess();
       },
       onError: () => {
         config.onError();
-        console.log('error');
+        console.log("error");
       },
     }
   );

@@ -1,6 +1,6 @@
-import { useLocation } from 'react-router-dom';
-import { z } from 'zod';
-import LanguageDisplayer from '../utils/Language/Language/LanguageDisplayer';
+import { useLocation } from "react-router-dom";
+import { z } from "zod";
+import LanguageDisplayer from "../utils/Language/Language/LanguageDisplayer";
 
 export const videoValidator = z.object({
   video: z.string(),
@@ -31,18 +31,18 @@ const Video = () => {
 
   return (
     <>
-      <div className="flex  ml-7 my-7 min-h-fit min-w-fit">
-        <div className=" flex flex-col lg:flex-row gap-5 ">
-          {video.video.endsWith('.svg') ? (
+      <div className="my-7  ml-7 flex min-h-fit min-w-fit">
+        <div className=" flex flex-col gap-5 lg:flex-row ">
+          {video.video.endsWith(".svg") ? (
             <>
-              {' '}
-              <div className=" flex justify-center items-center ">
+              {" "}
+              <div className=" flex items-center justify-center ">
                 <div className="w-[85%] ">
                   <img
                     className=""
-                    src={`http://${
-                      import.meta.env.VITE_SERVER_ADDRESS
-                    }${video.video}`}
+                    src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
+                      video.video
+                    }`}
                   ></img>
                 </div>
               </div>
@@ -50,32 +50,26 @@ const Video = () => {
           ) : (
             <>
               <video
-                className="w-[90%] lg:w-[60rem] h-auto"
+                className="h-auto w-[90%] lg:w-[60rem]"
                 autoPlay
                 loop
-                poster={`http://${
-                  import.meta.env.VITE_SERVER_ADDRESS
-                }${video.screenshot}`}
+                poster={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
+                  video.screenshot
+                }`}
               >
                 <source
-                  src={`http://${
-                    import.meta.env.VITE_SERVER_ADDRESS
-                  }${video.video}`}
+                  src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
+                    video.video
+                  }`}
                   type="Video/webm"
                 />
               </video>
               <div className="w-full">
-                <h1 className="text-5xl  w-fit font-bold">
-                  <LanguageDisplayer
-                    de={video.title_de}
-                    en={video.title_en}
-                  />
+                <h1 className="w-fit  text-5xl font-bold">
+                  <LanguageDisplayer de={video.title_de} en={video.title_en} />
                 </h1>
-                <p className="py-6 w-[90%] lg:w-[30rem]">
-                  <LanguageDisplayer
-                    de={video.text_de}
-                    en={video.text_en}
-                  />
+                <p className="w-[90%] py-6 lg:w-[30rem]">
+                  <LanguageDisplayer de={video.text_de} en={video.text_en} />
                 </p>
               </div>
             </>

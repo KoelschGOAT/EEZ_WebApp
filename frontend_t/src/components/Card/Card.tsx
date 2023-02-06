@@ -1,14 +1,14 @@
-import { UseQueryResult } from '@tanstack/react-query';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { BsFillPlayFill } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { UseQueryResult } from "@tanstack/react-query";
+import { AiOutlineEdit } from "react-icons/ai";
+import { BsFillPlayFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import {
   useGetAllVideos,
   useGetCurrentClientVideos,
-} from '../../services/RequestVideos';
-import { Video } from '../../services/types';
-import LanguageDisplayer from '../../utils/Language/Language/LanguageDisplayer';
-import Alert from '../Alert/Alert';
+} from "../../services/RequestVideos";
+import { Video } from "../../services/types";
+import LanguageDisplayer from "../../utils/Language/Language/LanguageDisplayer";
+import Alert from "../Alert/Alert";
 
 type Props = { buttonText?: string };
 
@@ -33,7 +33,7 @@ const Card = (props: Props) => {
     return (
       <>
         {data?.length === 0 ? (
-          <div className="w-full flex justify-center">
+          <div className="flex w-full justify-center">
             <h2>
               <Alert
                 open={true}
@@ -48,7 +48,7 @@ const Card = (props: Props) => {
             </h2>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-3 lg:items-stretch lg:grid lg:grid-cols-3 lg:gap-24 lg:mb-6">
+          <div className="flex flex-col items-center gap-3 lg:mb-6 lg:grid lg:grid-cols-3 lg:items-stretch lg:gap-24">
             {/* <div
         className="flex flex-col md
     :items-center xs:items-center lg:grid lg:grid-cols-3 lg:gap-6 lg:mb-6"
@@ -58,22 +58,19 @@ const Card = (props: Props) => {
               <div
                 key={video.id}
                 onClick={() => {
-                  navigate(
-                    buttonText ? `/EditVideo/${video.id}` : '/Video',
-                    {
-                      replace: false,
-                      state: { video: video },
-                    }
-                  );
+                  navigate(buttonText ? `/EditVideo/${video.id}` : "/Video", {
+                    replace: false,
+                    state: { video: video },
+                  });
                 }}
-                className="card  w-[90%] hover:shadow-2xl cursor-pointer lg:w-72 text-md bg-base-100 shadow-xl"
+                className="text-md  card w-[90%] cursor-pointer bg-base-100 shadow-xl hover:shadow-2xl lg:w-72"
               >
                 <figure>
                   <img
-                    className="hover:scale-110  transition duration-500 ease-in-out "
-                    src={`http://${
-                      import.meta.env.VITE_SERVER_ADDRESS
-                    }${video.screenshot}`}
+                    className="transition  duration-500 ease-in-out hover:scale-110 "
+                    src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
+                      video.screenshot
+                    }`}
                     alt={video.title_de}
                   />
                 </figure>
@@ -86,7 +83,7 @@ const Card = (props: Props) => {
                   </h2>
                   {!buttonText ? (
                     <p>
-                      {' '}
+                      {" "}
                       <LanguageDisplayer
                         de={video.text_de}
                         en={video.text_en}
@@ -94,26 +91,24 @@ const Card = (props: Props) => {
                     </p>
                   ) : null}
 
-                  <div className="card-actions justify-end mt-2 ">
-                    <button className="btn btn-primary w-full gap-1">
+                  <div className="card-actions mt-2 justify-end ">
+                    <button className="btn-primary btn w-full gap-1">
                       {buttonText ? (
                         <AiOutlineEdit size="2.5em" />
                       ) : (
                         <BsFillPlayFill size="2.5em" />
-                      )}{' '}
+                      )}{" "}
                       {buttonText ? (
                         buttonText
                       ) : (
                         <LanguageDisplayer
                           de={
-                            video.video.endsWith('.svg')
-                              ? 'Mehr erfahren'
-                              : 'Abspielen'
+                            video.video.endsWith(".svg")
+                              ? "Mehr erfahren"
+                              : "Abspielen"
                           }
                           en={
-                            video.video.endsWith('.svg')
-                              ? 'Learn more'
-                              : 'Play'
+                            video.video.endsWith(".svg") ? "Learn more" : "Play"
                           }
                         />
                       )}

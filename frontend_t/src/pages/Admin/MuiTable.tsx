@@ -1,11 +1,9 @@
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-import { GridColumns } from '@mui/x-data-grid-pro';
-import React, { useState } from 'react';
-import { BiEditAlt } from 'react-icons/bi';
-import { useNavigate } from 'react-router-dom';
-import { z } from 'zod';
-import Client, { Video } from '../../services/types';
+import Box from "@mui/material/Box";
+import { DataGrid } from "@mui/x-data-grid";
+import { GridColumns } from "@mui/x-data-grid-pro";
+import { BiEditAlt } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import Client, { Video } from "../../services/types";
 
 interface Props {
   allClients: Client[];
@@ -23,43 +21,43 @@ export default function MuiTable({ allClients, allVideos }: Props) {
 
   const columns: GridColumns = [
     {
-      field: 'pc_name',
-      headerName: 'Client Name',
+      field: "pc_name",
+      headerName: "Client Name",
       minWidth: 100,
-      align: 'center',
-      headerAlign: 'center',
+      align: "center",
+      headerAlign: "center",
 
       flex: 1,
       disableColumnMenu: true,
     },
     {
-      field: 'ip_address',
-      headerName: 'IP-Adresse',
+      field: "ip_address",
+      headerName: "IP-Adresse",
       flex: 1,
-      align: 'center',
-      headerAlign: 'center',
+      align: "center",
+      headerAlign: "center",
       minWidth: 100,
       disableColumnMenu: true,
     },
     {
       disableColumnMenu: true,
-      field: 'is_expo_client',
-      align: 'center',
-      headerName: 'Ausstellungs Client',
-      type: 'boolean',
-      headerAlign: 'center',
+      field: "is_expo_client",
+      align: "center",
+      headerName: "Ausstellungs Client",
+      type: "boolean",
+      headerAlign: "center",
       flex: 1,
       minWidth: 100,
     },
     {
       disableColumnMenu: true,
-      field: 'client_video_number',
-      headerName: 'Anzahl Videos',
-      headerAlign: 'center',
+      field: "client_video_number",
+      headerName: "Anzahl Videos",
+      headerAlign: "center",
       filterable: false,
 
-      type: 'number',
-      align: 'center',
+      type: "number",
+      align: "center",
       minWidth: 100,
       flex: 1,
       renderCell: (cellValues) => {
@@ -68,15 +66,15 @@ export default function MuiTable({ allClients, allVideos }: Props) {
     },
     {
       disableColumnMenu: true,
-      field: 'Bearbeiten',
-      align: 'center',
+      field: "Bearbeiten",
+      align: "center",
       minWidth: 100,
-      headerAlign: 'center',
+      headerAlign: "center",
       flex: 1,
       renderCell: (cellValues) => {
         return (
           <button
-            className="btn btn-link"
+            className="btn-link btn"
             onClick={(event) => {
               handleClick(cellValues.row);
             }}
@@ -89,7 +87,7 @@ export default function MuiTable({ allClients, allVideos }: Props) {
   ];
 
   return (
-    <Box sx={{ height: 500, width: '100%' }}>
+    <Box sx={{ height: 500, width: "100%" }}>
       <DataGrid
         rows={allClients}
         columns={columns}

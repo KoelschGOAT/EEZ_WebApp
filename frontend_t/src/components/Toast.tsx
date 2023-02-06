@@ -1,6 +1,4 @@
-import React from 'react';
-import { TbPlayerEject } from 'react-icons/tb';
-import { toast, TypeOptions } from 'react-toastify';
+import { toast, TypeOptions } from "react-toastify";
 
 type Props = {
   variant: TypeOptions;

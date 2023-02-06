@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-type  Props={
-  query:string;
-}
-const useMediaQuery = ({query}:Props) => {
+type Props = {
+  query: string;
+};
+const useMediaQuery = ({ query }: Props) => {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
@@ -16,6 +16,6 @@ const useMediaQuery = ({query}:Props) => {
   }, [matches, query]);
 
   return matches;
-}
+};
 
 export default useMediaQuery;

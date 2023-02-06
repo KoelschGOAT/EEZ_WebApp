@@ -1,34 +1,47 @@
-import { FC, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import Card from '../components/Card/Card';
-import Caroussel from '../components/Caroussel';
-import LanguageDisplayer from '../utils/Language/Language/LanguageDisplayer';
+import { FC } from "react";
+import VideoOverviewCard from "../components/VideoOverviewCard";
+import { useGetCurrentClientVideos } from "../services/RequestVideos";
+import LanguageDisplayer from "../utils/Language/Language/LanguageDisplayer";
 
 type Props = {};
 
 const Landing: FC<Props> = ({}) => {
-  const [viewMode, setViewMode] = useState(1);
-  const setState1 = () => setViewMode(1);
-  const setState2 = () => setViewMode(2);
+  const Videos = useGetCurrentClientVideos();
   return (
     <>
-      <h1 className="mt-3 mb-3 text-xl text-center font-bold ">
+      <h1 className="mt-3 mb-3 text-center text-xl font-bold ">
         <LanguageDisplayer de="Video Übersicht" en="Video overview" />
       </h1>
 
-      <div className="h-3/6 mt-16">
-        {viewMode === 1 ? (
+      <div className="mt-16 h-3/6">
+        <Helper />
+        {/*  {viewMode === 1 ? (
           <div className="flex flex-col items-center justify-center">
             <div className="flex ">
               <Card />
-            </div>{' '}
+            </div>{" "}
+
           </div>
         ) : (
           <Caroussel />
-        )}
+        )} */}
       </div>
-      <Outlet />
     </>
   );
 };
 export default Landing;
+export const Helper = () => {
+  const { data, isLoading, isError } = useGetCurrentClientVideos();
+  if (isError) return <div>Fehler</div>;
+  if (data !== undefined)
+    return (
+      <>
+        <div className="mx-5 grid grid-cols-3 gap-5 ">
+          {data.map((video) => (
+            <VideoOverviewCard key={video.id} Video={video} />
+          ))}
+        </div>{" "}
+      </>
+    );
+  return <progress className="progress"></progress>;
+};

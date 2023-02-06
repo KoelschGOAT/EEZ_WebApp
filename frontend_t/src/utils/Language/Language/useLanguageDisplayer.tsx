@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import useLocalStorageState from 'use-local-storage-state';
+import { FC, useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 
 interface Props {
   en?: string;
@@ -7,13 +7,12 @@ interface Props {
 }
 
 const useLanguageDisplayer: FC<Props> = ({ en, de }) => {
-  const [selectedLanguage, setSelectedLanguage] =
-    useState<String>('');
-  const [language] = useLocalStorageState('language');
-  if (language === 'en') {
-    setSelectedLanguage('en');
-  } else if (language === 'de') {
-    setSelectedLanguage('de');
+  const [selectedLanguage, setSelectedLanguage] = useState<String>("");
+  const [language] = useLocalStorageState("language");
+  if (language === "en") {
+    setSelectedLanguage("en");
+  } else if (language === "de") {
+    setSelectedLanguage("de");
   }
   return <></>;
 };

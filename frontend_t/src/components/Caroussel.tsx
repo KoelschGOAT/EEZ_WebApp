@@ -1,15 +1,14 @@
-import React from 'react';
 // Import Swiper React components
-import { A11y, Navigation, Pagination, Scrollbar } from 'swiper';
+import { A11y, Navigation, Pagination, Scrollbar } from "swiper";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import { useGetCurrentClientVideos } from '../services/RequestVideos';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import { useGetCurrentClientVideos } from "../services/RequestVideos";
 type Props = {};
 
 const Caroussel = (props: Props) => {
@@ -26,21 +25,21 @@ const Caroussel = (props: Props) => {
     >
       {data?.map((video) => (
         <SwiperSlide className="h-1/2 ">
-          {' '}
+          {" "}
           <figure className="relativ">
             <img
               draggable="false"
-              className=" h-auto w-full stretch  "
+              className=" stretch h-auto w-full  "
               src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
                 video.screenshot
               }`}
               alt={video.title_de}
             />
-          </figure>{' '}
+          </figure>{" "}
           <div className="w-1/2">
-            {' '}
+            {" "}
             <div className="bg-primary">
-              {' '}
+              {" "}
               <span className="prose-xl">
                 Videoscreenshot für: {video.title_de}
               </span>

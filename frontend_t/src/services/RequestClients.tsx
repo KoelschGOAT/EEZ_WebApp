@@ -1,11 +1,7 @@
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
-import { z } from 'zod';
-import Client from './types';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
+import { z } from "zod";
+import Client from "./types";
 const fetchData = async (url: string) => {
   const response = await axios.get(url);
   return response;
@@ -29,7 +25,7 @@ export const getClientValidator = z.object({
     .string()
     .regex(
       new RegExp(
-        '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+        "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
       )
     ),
   is_expo_client: z.boolean(),
@@ -38,19 +34,15 @@ export const getClientValidator = z.object({
 
 export function useGetCurrentClient() {
   return useQuery<Client>(
-    ['current-pc'],
+    ["current-pc"],
     async () => {
       return await axios
-        .get(
-          `http://${
-            import.meta.env.VITE_SERVER_ADDRESS
-          }/api/current-pc`
-        )
+        .get(`http://${import.meta.env.VITE_SERVER_ADDRESS}/api/current-pc`)
         .then((res) => res.data);
     },
     {
       onError() {
-        console.log('Error');
+        console.log("Error");
       },
       //2 Minutes to refresh
       staleTime: 60 * 2000,
@@ -59,12 +51,10 @@ export function useGetCurrentClient() {
 }
 export function useGetAllClients() {
   return useQuery<Array<Client>>(
-    ['all-pcs'],
+    ["all-pcs"],
     async () => {
       return await axios
-        .get(
-          `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-pcs`
-        )
+        .get(`http://${import.meta.env.VITE_SERVER_ADDRESS}/api/all-pcs`)
         .then((res) => res.data);
     },
     {
@@ -74,11 +64,9 @@ export function useGetAllClients() {
 }
 export function useGetClient(id: string | undefined) {
   if (id === undefined) return;
-  return useQuery(['pc-by-id'], async () => {
+  return useQuery(["pc-by-id"], async () => {
     const res = await (
-      await fetch(
-        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/pc/${id}`
-      )
+      await fetch(`http://${import.meta.env.VITE_SERVER_ADDRESS}/api/pc/${id}`)
     ).json();
     return getClientValidator.parse(res);
   });
@@ -96,9 +84,7 @@ export function usePatchClients({ config }: configInterface) {
   return useMutation(
     async ({ clientId, formData }: mutationInterface) => {
       await axios.patch(
-        `http://${
-          import.meta.env.VITE_SERVER_ADDRESS
-        }/api/pc/${clientId}`,
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/pc/${clientId}`,
         formData
       );
     },
@@ -107,10 +93,10 @@ export function usePatchClients({ config }: configInterface) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ['all-pcs'] });
-        queryClient.refetchQueries({ queryKey: ['current-pc'] });
+        queryClient.invalidateQueries({ queryKey: ["all-pcs"] });
+        queryClient.refetchQueries({ queryKey: ["current-pc"] });
         queryClient.invalidateQueries({
-          queryKey: ['current-pc-videos'],
+          queryKey: ["current-pc-videos"],
         });
 
         //wait for closing to display success
@@ -119,7 +105,7 @@ export function usePatchClients({ config }: configInterface) {
       },
       onError: () => {
         config.onError();
-        console.log('error');
+        console.log("error");
       },
     }
   );
@@ -132,9 +118,7 @@ export function useDeleteClients({ config }: configInterface) {
   return useMutation(
     async ({ clientId }: deleteClient) => {
       await axios.delete(
-        `http://${
-          import.meta.env.VITE_SERVER_ADDRESS
-        }/api/pc/${clientId}`
+        `http://${import.meta.env.VITE_SERVER_ADDRESS}/api/pc/${clientId}`
       );
     },
 
@@ -142,16 +126,13 @@ export function useDeleteClients({ config }: configInterface) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries([
-          'current-pc-videos',
-          'all-pcs',
-        ]);
+        queryClient.invalidateQueries(["current-pc-videos", "all-pcs"]);
         //wait for closing to display success
         config.onSuccess();
       },
       onError: () => {
         config.onError();
-        console.log('error');
+        console.log("error");
       },
     }
   );
@@ -174,7 +155,7 @@ export function usePostClients({ config }: configInterface) {
       onSuccess: () => {
         //notification("PC geändert");
         // Invalidate and refetch
-        queryClient.invalidateQueries(['all-pcs']);
+        queryClient.invalidateQueries(["all-pcs"]);
         //wait for closing to display success
         config.onSuccess();
       },

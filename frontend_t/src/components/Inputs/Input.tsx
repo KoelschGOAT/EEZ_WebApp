@@ -15,19 +15,19 @@ const Input = ({
   label,
   value,
   name,
-  type = 'text',
+  type = "text",
   onChange,
   textarea,
   placeholder,
   disabled,
   ...rest
 }: Props) => {
-  const InputElement = textarea ? 'textarea' : 'input';
+  const InputElement = textarea ? "textarea" : "input";
   return (
-    <div className="relative z-0 w-full mb-8">
+    <div className="relative z-0 mb-8 w-full">
       <label
         htmlFor={name}
-        className="block mb-2 text-sm font-medium text-primary "
+        className="mb-2 block text-sm font-medium text-primary "
       >
         {label}
       </label>
@@ -37,14 +37,10 @@ const Input = ({
         type={type}
         value={value}
         placeholder={placeholder}
-        onChange={({ target: { value } }: InputChangeEvent) =>
-          onChange(value)
-        }
+        onChange={({ target: { value } }: InputChangeEvent) => onChange(value)}
         className={`${
-          InputElement === 'textarea'
-            ? 'textarea textarea-bordered'
-            : null
-        } bg-base-100  border border-gray-300  text-sm text-gray-800 placeholder-primary rounded-lg focus:border-accent  block w-full p-2.5`}
+          InputElement === "textarea" ? "textarea-bordered textarea" : null
+        } block  w-full rounded-lg  border border-gray-300 bg-base-100 p-2.5 text-sm  text-gray-800 placeholder-primary focus:border-accent`}
         {...rest}
       />
     </div>

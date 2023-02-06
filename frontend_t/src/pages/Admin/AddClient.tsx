@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
-import { z } from 'zod';
-import Client, { Video } from '../../services/types';
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { z } from "zod";
+import Client, { Video } from "../../services/types";
 
-import CheckboxList from '../../components/Inputs/CheckboxList';
-import Input from '../../components/Inputs/Input';
+import CheckboxList from "../../components/Inputs/CheckboxList";
+import Input from "../../components/Inputs/Input";
 
-import { BiCheckCircle } from 'react-icons/bi';
-import Alert from '../../components/Alert/Alert';
-import Toast from '../../components/Toast';
-import {
-  useGetClient,
-  usePostClients,
-} from '../../services/RequestClients';
-import { useGetAllVideos } from '../../services/RequestVideos';
-import { NewEditClient } from './NewEditClient';
+import { BiCheckCircle } from "react-icons/bi";
+import Alert from "../../components/Alert/Alert";
+import Toast from "../../components/Toast";
+import { useGetClient, usePostClients } from "../../services/RequestClients";
+import { useGetAllVideos } from "../../services/RequestVideos";
+import { NewEditClient } from "./NewEditClient";
 
 export const getVideoValidator = z.object({
   id: z.number(),
@@ -32,14 +25,14 @@ export const getVideoValidator = z.object({
 });
 export const getClientValidator = z.object({
   id: z.number().optional(),
-  pc_name: z.string().min(4, { message: 'Name zu kurz' }),
+  pc_name: z.string().min(4, { message: "Name zu kurz" }),
   ip_address: z
     .string()
     .regex(
       new RegExp(
-        '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+        "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
       ),
-      { message: 'IP Adresse nicht im richtigem Format' }
+      { message: "IP Adresse nicht im richtigem Format" }
     ),
   is_expo_client: z.boolean(),
   Videos: z.array(getVideoValidator),
@@ -62,10 +55,7 @@ export const AddClient = () => {
 
   if (getAllVideos.data)
     return (
-      <NewEditClient
-        Videos={getAllVideos.data}
-        Client={getClient?.data}
-      />
+      <NewEditClient Videos={getAllVideos.data} Client={getClient?.data} />
     );
   if (getAllVideos.isLoading || getClient?.isLoading)
     return <progress className="progress w-56"></progress>;
@@ -86,23 +76,23 @@ const AddClientService = ({ Videos }: Props) => {
   // Type Casting, then you can get the params passed via router
   const [open, setOpen] = useState(false);
 
-  const [clientName, setClientName] = useState('');
-  const [clientIpAddress, setClientIpAddress] = useState('');
+  const [clientName, setClientName] = useState("");
+  const [clientIpAddress, setClientIpAddress] = useState("");
   const [isExpoClient, setIsExpoClient] = useState(false);
   const [clientVideos, setClientVideos] = useState(Videos);
 
   //UPDATE client Logic
   const handleSuccess = () => {
     Toast({
-      text: 'Client erfolgreich hinzugefügt',
-      variant: 'success',
+      text: "Client erfolgreich hinzugefügt",
+      variant: "success",
       Icon: <BiCheckCircle />,
       TTL: 30,
     });
-    navigate('/Admin');
+    navigate("/Admin");
   };
   const handleError = () => {
-    console.log('Error');
+    console.log("Error");
   };
   const postClient = usePostClients({
     config: {
@@ -112,16 +102,16 @@ const AddClientService = ({ Videos }: Props) => {
   });
   const [inputError, setInputError] = useState({
     open: false,
-    message: '',
+    message: "",
   });
   // send "values" to database
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = {} as Client;
-    formData['pc_name'] = clientName;
-    formData['ip_address'] = clientIpAddress;
-    formData['is_expo_client'] = isExpoClient;
-    formData['Videos'] = clientVideos;
+    formData["pc_name"] = clientName;
+    formData["ip_address"] = clientIpAddress;
+    formData["is_expo_client"] = isExpoClient;
+    formData["Videos"] = clientVideos;
 
     try {
       getClientValidator.parse(formData);
@@ -140,18 +130,17 @@ const AddClientService = ({ Videos }: Props) => {
   }
 
   useEffect(() => {
-    if (postClient.error?.code == 'ERR_BAD_REQUEST')
+    if (postClient.error?.code == "ERR_BAD_REQUEST")
       setInputError({
         open: true,
-        message:
-          'Falsche Eingabe oder Name und IP-Adresse exestieren bereits',
+        message: "Falsche Eingabe oder Name und IP-Adresse exestieren bereits",
       });
   }, [postClient.isError]);
 
   return (
     <>
       <div className="flex justify-center ">
-        <div className="mt-16 lg:w-1/2 w-[90%] shadow-lg p-5 bg-white rounded">
+        <div className="mt-16 w-[90%] rounded bg-white p-5 shadow-lg lg:w-1/2">
           <h1 className="prose-xl">Neuen Client erstellen</h1>
           <Alert
             open={inputError.open}
@@ -173,29 +162,29 @@ const AddClientService = ({ Videos }: Props) => {
               required={true}
               name="ip_address"
             ></Input>
-            <label className="flex  gap-5 cursor-pointer">
+            <label className="flex  cursor-pointer gap-5">
               <span className="label-text">Austellungs Client?</span>
               <input
                 type="checkbox"
                 checked={isExpoClient}
-                className="checkbox checkbox-primary"
+                className="checkbox-primary checkbox"
                 onChange={() => {
                   setIsExpoClient(!isExpoClient);
                 }}
               />
             </label>
             {/*             <List pcVideos={client?.Videos} allVideos={allVideos} />{' '}
-             */}{' '}
+             */}{" "}
             <CheckboxList
               clientVideos={clientVideos}
               setClientVideos={setClientVideos}
               allVideos={Videos}
-            />{' '}
-            <div className="flex justify-left items-center mt-7 gap-5">
+            />{" "}
+            <div className="justify-left mt-7 flex items-center gap-5">
               <button
                 type="submit"
-                className={`btn btn-primary ${
-                  postClient.isLoading ? 'loading' : null
+                className={`btn-primary btn ${
+                  postClient.isLoading ? "loading" : null
                 }`}
               >
                 Client erstellen

@@ -1,19 +1,19 @@
-import { useNavigate } from 'react-router-dom';
-import ErrorNotFound from '../Images/ErrorNotFound.png';
+import { useNavigate } from "react-router-dom";
+import ErrorNotFound from "../Images/ErrorNotFound.png";
 type Props = { title?: string; path: string };
 
 const NotFound = ({
-  title = 'Leider ist ein Fehler aufgetreten',
+  title = "Leider ist ein Fehler aufgetreten",
   path,
 }: Props) => {
   const navigate = useNavigate();
   return (
-    <div className="mt-5 flex flex-col text-center  justify-center items-center ">
-      <div className="w-1/2 alert alert-error shadow-lg">
+    <div className="mt-5 flex flex-col items-center  justify-center text-center ">
+      <div className="alert alert-error w-1/2 shadow-lg">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="stroke-current flex-shrink-0 h-6 w-6"
+            className="h-6 w-6 flex-shrink-0 stroke-current"
             fill="none"
             viewBox="0 0 24 24"
           >
@@ -32,7 +32,7 @@ const NotFound = ({
       </figure>
       <button
         onClick={() => navigate(path, { replace: true })}
-        className=" w-1/2 btn btn-primary"
+        className=" btn-primary btn w-1/2"
       >
         Zurück zum Hauptmenu
       </button>

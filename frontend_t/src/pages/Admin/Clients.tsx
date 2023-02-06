@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Client, { Video } from '../../services/types';
-import MuiTable from './MuiTable';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Client, { Video } from "../../services/types";
+import MuiTable from "./MuiTable";
 
 interface Props {
   allClients: Client[];
@@ -12,7 +12,7 @@ const Clients: React.FC<Props> = ({ allClients, allVideos }) => {
 
   return (
     <>
-      <div className="flex flex-col lg:w-[85%] w-full">
+      <div className="flex w-full flex-col lg:w-[85%]">
         <MuiTable allVideos={allVideos} allClients={allClients} />
       </div>
     </>

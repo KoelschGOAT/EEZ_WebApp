@@ -1,14 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 
-import Checkbox from '@mui/material/Checkbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { z } from 'zod';
-import { getVideoValidator } from '../../services/RequestVideos';
-import Client, { Video } from '../../services/types';
+import Checkbox from "@mui/material/Checkbox";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { Video } from "../../services/types";
 
 export type Props = {
   clientVideos: Video[];
@@ -40,12 +38,12 @@ export default function CheckboxList({
     <>
       <List
         sx={{
-          width: '100%',
+          width: "100%",
           maxWidth: 360,
-          bgcolor: 'background.paper',
-          padding: '0',
+          bgcolor: "background.paper",
+          padding: "0",
 
-          minWidth: '100%',
+          minWidth: "100%",
         }}
       >
         {allVideos.map((video) => {
@@ -68,13 +66,10 @@ export default function CheckboxList({
                       ) !== -1
                     }
                     tabIndex={-1}
-                    inputProps={{ 'aria-labelledby': labelId }}
+                    inputProps={{ "aria-labelledby": labelId }}
                   />
                 </ListItemIcon>
-                <ListItemText
-                  id={labelId}
-                  primary={`${video.title_de}`}
-                />
+                <ListItemText id={labelId} primary={`${video.title_de}`} />
               </ListItemButton>
             </ListItem>
           );

@@ -1,17 +1,13 @@
-import { useFormContext } from 'react-hook-form';
-import { Button, Props } from './Button';
+import { useFormContext } from "react-hook-form";
+import { Button, Props } from "./Button";
 
 export function SubmitButton({ children, ...props }: Props) {
   const { formState } = useFormContext();
   return (
-    <Button
-      type="submit"
-      disabled={formState.isSubmitting}
-      {...props}
-    >
+    <Button type="submit" disabled={formState.isSubmitting} {...props}>
       {formState.isSubmitting && (
         <svg
-          className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
+          className="-ml-1 mr-3 h-5 w-5 animate-spin text-black"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

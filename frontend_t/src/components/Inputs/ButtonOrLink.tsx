@@ -1,8 +1,7 @@
-import { ComponentProps } from 'react';
-import { Link } from 'react-router-dom';
+import { ComponentProps } from "react";
+import { Link } from "react-router-dom";
 
-type ButtonOrLinkProps = ComponentProps<'button'> &
-  ComponentProps<'a'>;
+type ButtonOrLinkProps = ComponentProps<"button"> & ComponentProps<"a">;
 
 export interface Props extends ButtonOrLinkProps {}
 
@@ -13,8 +12,8 @@ export interface Props extends ButtonOrLinkProps {}
  * page-to-page transitions.
  */
 export function ButtonOrLink({ href, ...props }: Props) {
-  const isLink = typeof href !== 'undefined';
-  const ButtonOrLink = isLink ? 'a' : 'button';
+  const isLink = typeof href !== "undefined";
+  const ButtonOrLink = isLink ? "a" : "button";
 
   let content = <ButtonOrLink {...props} />;
 

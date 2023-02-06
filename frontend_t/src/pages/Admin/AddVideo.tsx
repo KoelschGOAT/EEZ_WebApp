@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { z } from 'zod';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
-import Input from '../../components/Inputs/Input';
+import Input from "../../components/Inputs/Input";
 
-import Alert from '../../components/Alert/Alert';
+import Alert from "../../components/Alert/Alert";
 
-import { BiCheckCircle } from 'react-icons/bi';
-import Toast from '../../components/Toast';
-import { usePostVideos } from '../../services/RequestVideos';
+import { BiCheckCircle } from "react-icons/bi";
+import Toast from "../../components/Toast";
+import { usePostVideos } from "../../services/RequestVideos";
 
 export const getVideoValidator = z.object({
-  video: z.instanceof(File, { message: 'Kein Video ausgewählt' }),
+  video: z.instanceof(File, { message: "Kein Video ausgewählt" }),
   screenshot: z.instanceof(File, {
-    message: 'Kein Screenshot ausgewählt',
+    message: "Kein Screenshot ausgewählt",
   }),
   published: z.string().optional(),
-  title_de: z.string().max(200, { message: 'Titel DE zu lang' }),
-  title_en: z.string().max(200, { message: 'Titel EN zu lang' }),
-  text_de: z.string().max(2000, { message: 'Text DE zu lang' }),
-  text_en: z.string().max(2000, { message: 'Text EN zu lang' }),
+  title_de: z.string().max(200, { message: "Titel DE zu lang" }),
+  title_en: z.string().max(200, { message: "Titel EN zu lang" }),
+  text_de: z.string().max(2000, { message: "Text DE zu lang" }),
+  text_en: z.string().max(2000, { message: "Text EN zu lang" }),
 });
 export type Video = {
   video: File;
@@ -38,29 +38,29 @@ const AddVideo: React.FC<Props> = () => {
 
   const [inputError, setInputError] = useState({
     open: false,
-    message: '',
+    message: "",
   });
 
   const [videoFile, setVideoFile] = useState<File>();
   const [screenshotFile, setScreenshotFile] = useState<File>();
-  const [title_de, setTitle_de] = useState('');
-  const [title_en, setTitle_en] = useState('');
-  const [text_de, setText_de] = useState('');
-  const [text_en, setText_en] = useState('');
+  const [title_de, setTitle_de] = useState("");
+  const [title_en, setTitle_en] = useState("");
+  const [text_de, setText_de] = useState("");
+  const [text_en, setText_en] = useState("");
   const [progress, setProgress] = useState(0);
 
   //UPDATE client Logic
   const handleSuccess = () => {
     Toast({
-      text: 'Video erfolgreich gespeichert',
-      variant: 'success',
+      text: "Video erfolgreich gespeichert",
+      variant: "success",
       Icon: <BiCheckCircle />,
       TTL: 30,
     });
-    navigate('/Admin');
+    navigate("/Admin");
   };
   const handleError = () => {
-    console.log('Error');
+    console.log("Error");
   };
   const postVideo = usePostVideos({
     config: {
@@ -75,21 +75,21 @@ const AddVideo: React.FC<Props> = () => {
     const form_data = {} as Video;
     const formData = new FormData();
     if (videoFile && screenshotFile) {
-      formData.append('video', videoFile);
-      formData.append('screenshot', screenshotFile);
-      form_data['video'] = videoFile;
-      form_data['screenshot'] = screenshotFile;
+      formData.append("video", videoFile);
+      formData.append("screenshot", screenshotFile);
+      form_data["video"] = videoFile;
+      form_data["screenshot"] = screenshotFile;
     }
 
-    formData.append('title_de', title_de);
-    formData.append('title_en', title_en);
-    formData.append('text_de', text_de);
-    formData.append('text_en', text_en);
+    formData.append("title_de", title_de);
+    formData.append("title_en", title_en);
+    formData.append("text_de", text_de);
+    formData.append("text_en", text_en);
 
-    form_data['title_de'] = title_de;
-    form_data['title_en'] = title_en;
-    form_data['text_de'] = text_de;
-    form_data['text_en'] = text_en;
+    form_data["title_de"] = title_de;
+    form_data["title_en"] = title_en;
+    form_data["text_de"] = text_de;
+    form_data["text_en"] = text_en;
 
     try {
       getVideoValidator.parse(form_data);
@@ -118,9 +118,7 @@ const AddVideo: React.FC<Props> = () => {
 
     setVideoFile(fileList[0]);
   };
-  const changeScreenshot = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const changeScreenshot = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
 
     if (!fileList) return;
@@ -131,7 +129,7 @@ const AddVideo: React.FC<Props> = () => {
   return (
     <>
       <div className="flex justify-center ">
-        <div className="mt-16 w-1/2 shadow-lg p-5 bg-white rounded">
+        <div className="mt-16 w-1/2 rounded bg-white p-5 shadow-lg">
           <h1 className="prose-xl">Neues Video erstellen</h1>
           <Alert
             open={inputError.open}
@@ -142,7 +140,7 @@ const AddVideo: React.FC<Props> = () => {
             {postVideo.isLoading ? (
               <div
                 className="radial-progress text-primary"
-                style={{ '--value': progress } as React.CSSProperties}
+                style={{ "--value": progress } as React.CSSProperties}
               >
                 {progress}%
               </div>
@@ -150,21 +148,21 @@ const AddVideo: React.FC<Props> = () => {
               <>
                 <label
                   htmlFor="videoFile"
-                  className="form-label inline-block mb-2 text-primary"
+                  className="form-label mb-2 inline-block text-primary"
                 >
                   Video auswählen
                 </label>
                 <input
-                  className="form-control  block    w-full    px-3    py-1.5 text-base mb-5
+                  className="form-control  m-0    mb-5    block    w-full rounded border
+    border-solid
+    border-gray-300
+    bg-white bg-clip-padding
+    px-3 py-1.5 text-base
     font-normal
     text-gray-700
-    bg-white bg-clip-padding
-    border border-solid border-gray-300
-    rounded
     transition
     ease-in-out
-    m-0
-    focus:text-gray-700 focus:bg-white focus:border-accent focus:outline-none"
+    focus:border-accent focus:bg-white focus:text-gray-700 focus:outline-none"
                   type="file"
                   required
                   id="videoFile"
@@ -173,22 +171,22 @@ const AddVideo: React.FC<Props> = () => {
                 ></input>
                 <label
                   htmlFor="videoFile"
-                  className="form-label inline-block mb-2 text-primary"
+                  className="form-label mb-2 inline-block text-primary"
                 >
                   Screenshot auswählen
                 </label>
                 <input
                   required
-                  className="form-control  block    w-full    px-3    py-1.5 text-base mb-5
+                  className="form-control  m-0    mb-5    block    w-full rounded border
+    border-solid
+    border-gray-300
+    bg-white bg-clip-padding
+    px-3 py-1.5 text-base
     font-normal
     text-gray-700
-    bg-white bg-clip-padding
-    border border-solid border-gray-300
-    rounded
     transition
     ease-in-out
-    m-0
-    focus:text-gray-700 focus:bg-white focus:border-accent focus:outline-none"
+    focus:border-accent focus:bg-white focus:text-gray-700 focus:outline-none"
                   type="file"
                   id="videoFile"
                   onChange={changeScreenshot}
@@ -229,8 +227,8 @@ const AddVideo: React.FC<Props> = () => {
                   placeholder="Text EN"
                 ></Input>
 
-                <div className="flex justify-left items-center mt-7 gap-5"></div>
-                <button type="submit" className={`btn btn-primary `}>
+                <div className="justify-left mt-7 flex items-center gap-5"></div>
+                <button type="submit" className={`btn-primary btn `}>
                   Video erstellen
                 </button>
               </>

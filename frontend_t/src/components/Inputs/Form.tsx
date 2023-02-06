@@ -1,5 +1,5 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ComponentProps } from 'react';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ComponentProps } from "react";
 import {
   FieldValues,
   FormProvider,
@@ -8,8 +8,8 @@ import {
   useFormContext,
   UseFormProps,
   UseFormReturn,
-} from 'react-hook-form';
-import { TypeOf, ZodSchema } from 'zod';
+} from "react-hook-form";
+import { TypeOf, ZodSchema } from "zod";
 
 interface UseZodFormProps<T extends ZodSchema<any>>
   extends UseFormProps<TypeOf<T>> {
@@ -42,14 +42,12 @@ export function FieldError({ name }: FieldErrorProps) {
   if (!error) return null;
 
   return (
-    <div className="text-sm text-red-500 font-bold">
-      {error.message as any}
-    </div>
+    <div className="text-sm font-bold text-red-500">{error.message as any}</div>
   );
 }
 
 interface Props<T extends FieldValues = any>
-  extends Omit<ComponentProps<'form'>, 'onSubmit'> {
+  extends Omit<ComponentProps<"form">, "onSubmit"> {
   form: UseFormReturn<T>;
   onSubmit: SubmitHandler<T>;
 }
