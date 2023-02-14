@@ -10,7 +10,7 @@ urlpatterns = [
     path("all-pcs", views.pc_view, name="pc_view"),
     path("video/<int:pk>", views.VideoEditView, name="video"),
     path("pc/<int:pk>", views.PcEditView, name="pc"),
-
+    path("stats",views.client_video_stats,name="stats")
 
 
 ]

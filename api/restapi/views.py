@@ -10,6 +10,14 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.response import Response
 # Create your views here.
 
+@csrf_exempt
+@api_view(["GET"])
+def client_video_stats(request):
+    if request.method == "GET":
+        clients= PC.objects.count()
+        videos = Video.objects.count()
+        return JsonResponse({"clients":clients,"videos":videos},safe=False,status=status.HTTP_200_OK)
+    
 
 @csrf_exempt
 @api_view(["GET", "POST"])
