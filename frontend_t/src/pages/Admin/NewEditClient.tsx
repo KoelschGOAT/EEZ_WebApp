@@ -39,7 +39,7 @@ export const newClientSchema = object({
   is_expo_client: boolean(),
 });
 interface Props {
-  Client: Client | undefined;
+  Client?: Client;
 
   Videos: Video[];
 }
