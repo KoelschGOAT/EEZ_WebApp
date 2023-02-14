@@ -1,3 +1,4 @@
+import { useTitle } from "ahooks";
 import { useLocation } from "react-router-dom";
 import { z } from "zod";
 import LanguageDisplayer from "../utils/Language/Language/LanguageDisplayer";
@@ -26,12 +27,16 @@ type LocationState = {
 };
 const Video = () => {
   const location = useLocation();
+
   const state = location.state; // Type Casting, then you can get the params passed via router
   const { video } = state as LocationState;
-
+  useTitle(video.title_de);
+  console.log(`http://${import.meta.env.VITE_SERVER_ADDRESS}${video.video}`);
+  const videoType = video.video.split(".");
+  console.log(`video/${videoType[1]}`);
   return (
     <>
-      <div className="my-7  ml-7 flex min-h-fit min-w-fit">
+      <div className="my-7  ml-5 flex min-h-fit min-w-fit">
         <div className=" flex flex-col gap-5 lg:flex-row ">
           {video.video.endsWith(".svg") ? (
             <>
@@ -50,7 +55,7 @@ const Video = () => {
           ) : (
             <>
               <video
-                className="h-auto w-[90%] lg:w-[60rem]"
+                className="h-auto w-[90%] lg:w-[72rem]"
                 autoPlay
                 loop
                 poster={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
@@ -61,14 +66,11 @@ const Video = () => {
                   src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
                     video.video
                   }`}
-                  type="Video/webm"
+                  type={`Video/${videoType[1]}`}
                 />
               </video>
               <div className="w-full">
-                <h1 className="w-fit  text-5xl font-bold">
-                  <LanguageDisplayer de={video.title_de} en={video.title_en} />
-                </h1>
-                <p className="w-[90%] py-6 lg:w-[30rem]">
+                <p className=" w-[90%] text-xl">
                   <LanguageDisplayer de={video.text_de} en={video.text_en} />
                 </p>
               </div>

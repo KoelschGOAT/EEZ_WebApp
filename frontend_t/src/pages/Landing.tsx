@@ -1,47 +1,92 @@
+import { useTitle } from "ahooks";
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import VideoOverviewCard from "../components/VideoOverviewCard";
 import { useGetCurrentClientVideos } from "../services/RequestVideos";
-import LanguageDisplayer from "../utils/Language/Language/LanguageDisplayer";
 
 type Props = {};
 
 const Landing: FC<Props> = ({}) => {
+  const title = useTitle("Übersicht");
   const Videos = useGetCurrentClientVideos();
   return (
     <>
-      <h1 className="mt-3 mb-3 text-center text-xl font-bold ">
-        <LanguageDisplayer de="Video Übersicht" en="Video overview" />
-      </h1>
-
-      <div className="mt-16 h-3/6">
-        <Helper />
-        {/*  {viewMode === 1 ? (
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex ">
-              <Card />
-            </div>{" "}
-
-          </div>
-        ) : (
-          <Caroussel />
-        )} */}
-      </div>
+      <Helper />
     </>
   );
 };
 export default Landing;
 export const Helper = () => {
+  const navigate = useNavigate();
   const { data, isLoading, isError } = useGetCurrentClientVideos();
   if (isError) return <div>Fehler</div>;
   if (data !== undefined)
     return (
       <>
-        <div className="mx-5 grid grid-cols-3 gap-5 ">
-          {data.map((video) => (
-            <VideoOverviewCard key={video.id} Video={video} />
-          ))}
+        <div className="flex justify-center">
+          <div className="mt-10 ml-5 grid grid-cols-1 justify-center  gap-10 md:grid-cols-2 lg:grid-cols-3">
+            {data.map((video) => (
+              /*  <div
+                key={video.id}
+                className=" card  w-[90%] bg-base-100 shadow-xl hover:shadow-2xl"
+              >
+                <figure>
+                  <img
+                    className="transition  duration-500 ease-in-out hover:scale-110 "
+                    src={`http://${import.meta.env.VITE_SERVER_ADDRESS}${
+                      video.screenshot
+                    }`}
+                    alt={video.title_de}
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title text-2xl font-bold">
+                    <LanguageDisplayer
+                      de={video.title_de}
+                      en={video.title_en}
+                    />
+                  </h2>
+
+                  <p>
+                    {" "}
+                    <LanguageDisplayer de={video.text_de} en={video.text_en} />
+                  </p>
+
+                  <div className="card-actions mt-2 justify-end ">
+                    <button
+                      onClick={() => {
+                        navigate("/Video", {
+                          replace: false,
+                          state: { video: video },
+                        });
+                      }}
+                      className="btn-primary btn w-full gap-1"
+                    >
+                      <MdPlayCircle size="2em" />
+
+                      <LanguageDisplayer
+                        de={
+                          video.video.endsWith(".svg")
+                            ? "Mehr erfahren"
+                            : "Abspielen"
+                        }
+                        en={
+                          video.video.endsWith(".svg") ? "Learn more" : "Play"
+                        }
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div> */
+              <VideoOverviewCard Video={video} key={video.id} />
+            ))}
+          </div>
         </div>{" "}
       </>
     );
-  return <progress className="progress"></progress>;
+  return (
+    <div className="flex w-full justify-center">
+      <progress className="progress w-1/2"></progress>
+    </div>
+  );
 };

@@ -20,6 +20,7 @@ const Card = (props: Props) => {
     DataType = useGetAllVideos();
   } else DataType = useGetCurrentClientVideos();
   const { data, error } = DataType;
+  console.log(data);
   if (error)
     return (
       <Alert
