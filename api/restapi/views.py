@@ -9,15 +9,17 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from rest_framework.response import Response
 # Create your views here.
+import os
+
 
 @csrf_exempt
 @api_view(["GET"])
 def client_video_stats(request):
     if request.method == "GET":
-        clients= PC.objects.count()
+        clients = PC.objects.count()
         videos = Video.objects.count()
-        return JsonResponse({"clients":clients,"videos":videos},safe=False,status=status.HTTP_200_OK)
-    
+        return JsonResponse({"clients": clients, "videos": videos}, safe=False, status=status.HTTP_200_OK)
+
 
 @csrf_exempt
 @api_view(["GET", "POST"])
@@ -51,7 +53,7 @@ def video_view(request):
             requested_pc = PC.objects.get(ip_address=client_ip_address)
 
         except:
-            return Response({"message":"PC not found"},status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "PC not found"}, status=status.HTTP_404_NOT_FOUND)
         # check if PC is active and receiving all videos wich are linked to the PC, otherwise it returns HTTP_404_NOT_FOUND
 
         query = requested_pc.Videos.all()
@@ -102,9 +104,16 @@ def VideoEditView(request, pk):
         return JsonResponse(serializer.data)
 
     elif request.method == 'PATCH':
+        for i, j in request.FILES.items():
+            print(i, j)
+        if "screenshot" in request.FILES:
 
+            video_entry.screenshot = request.FILES["screenshot"]
+        if "video" in request.FILES:
+            video_entry.video = request.FILES["video"]
         serializer = VideoSerializer(video_entry, data=request.data)
         if serializer.is_valid():
+
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
@@ -162,7 +171,7 @@ def get_current_pc(request):
 
             requested_pc = PC.objects.get(ip_address=client_ip_address)
         except:
-            return JsonResponse({ "error":"pc not found"}, status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({"error": "pc not found"}, status=status.HTTP_404_NOT_FOUND)
 
         print(requested_pc)
         """ query = requested_pc """
